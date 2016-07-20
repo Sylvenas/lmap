@@ -1,0 +1,23 @@
+{
+  "name": "lmap",
+  "version": "1.0.0",
+  "description": "lmap",
+  "main": "index.js",
+  "scripts": {
+    "start":"webpack-dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sylvenas/lmap.git"
+  },
+  "author": "Syl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sylvenas/lmap/issues"
+  },
+  "homepage": "https://github.com/Sylvenas/lmap#readme",
+  "dependencies": {
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1"
+  }
+}
