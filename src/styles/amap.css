@@ -3,7 +3,7 @@ html, body, #map {
             height: 100%;
             margin: 0;
             padding: 0;
-            
+            position: absolute;
 }
 /* toolbar
       地图右上方toolbar
