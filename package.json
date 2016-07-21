@@ -24,10 +24,12 @@
     "classnames": "^2.2.5",
     "css-loader": "^0.23.1",
     "esri-leaflet": "^2.0.1",
+    "is-svg": "^2.0.1",
     "leaflet": "^1.0.0-rc.1",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "style-loader": "^0.13.1",
+    "svgo": "^0.6.6",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
