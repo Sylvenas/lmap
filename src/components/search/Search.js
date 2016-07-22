@@ -8,6 +8,7 @@ class Search extends React.Component {
         this.state = { val: '' }
         this.update = this.update.bind(this);
     }
+    
     update(e) {
         let newVal = this.refs.searchVal.value;
         this.setState({
@@ -15,6 +16,7 @@ class Search extends React.Component {
         })
         this.props.callbackParent(newVal);
     }
+
     render() {
         return (
             <section id="search" className={styles.search}>
