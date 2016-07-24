@@ -18,14 +18,6 @@ class App extends React.Component {
         });
     }
     render() {
-
-        // var h1Style = {
-        //     position: 'absolute',
-        //     left: '500px',
-        //     zIndex: '1000'
-        // };
-
-
         return (
             <div>
                 <Search callbackParent={this.onSearchValChanged}/>
