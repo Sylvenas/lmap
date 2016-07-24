@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Search from '../search/Search';
+import ToolBar from '../toolBar/ToolBar'
 import Map from '../map/Map'
 
 class App extends React.Component {
@@ -18,18 +19,18 @@ class App extends React.Component {
     }
     render() {
 
-        var h1Style = {
-            position: 'absolute',
-            left: '500px',
-            zIndex: '1000'
-        };
+        // var h1Style = {
+        //     position: 'absolute',
+        //     left: '500px',
+        //     zIndex: '1000'
+        // };
 
 
         return (
             <div>
                 <Search callbackParent={this.onSearchValChanged}/>
                 <Map searchVal={this.state.val}/>
-                <h1 style={h1Style}>QQQQ</h1>
+                <ToolBar></ToolBar>
             </div>
         )
     }

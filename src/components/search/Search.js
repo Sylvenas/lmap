@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './_search.css';
-import logo from '../../images/logo.png';
+import logoSrc from '../../images/logo.png';
 
 class Search extends React.Component {
     constructor() {
@@ -21,7 +21,7 @@ class Search extends React.Component {
         return (
             <section id="search" className={styles.search}>
                 <header className={styles.searchbox}>
-                    <img className={styles.logo} src={logo} draggable="false"/>
+                    <img className={styles.logo} src={logoSrc} draggable="false"/>
                     <div className={styles.iptbox}>
                         <input type="text" ref="searchVal" id="searchipt"  placeholder="搜索位置、公交站、地铁站" className={styles.searchipt}/>
                     </div>
