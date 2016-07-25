@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import Search from '../search/Search';
 import ToolBar from '../toolBar/ToolBar'
 import Map from '../map/Map'
+import Emap from '../map/Emap'
 
 class App extends React.Component {
     constructor() {

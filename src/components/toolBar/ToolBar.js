@@ -2,12 +2,13 @@ import React from 'react';
 import styles from './_toolBar.css';
 
 class ToolBar extends React.Component {
-    constructor(){
+    constructor() {
         super();
+        //this.trafficClick = this.trafficClick.bind(this);
     }
-    update(){
-        console.log(11);
-        console.log(map);
+    trafficClick(){
+        console.log(1111);
+        console.log(this);
     }
     render() {
         return (
@@ -15,7 +16,7 @@ class ToolBar extends React.Component {
                 <div id="layerbox" className={styles.layerboxIn}>
                     <div id="toolBar">
                         <ul>
-                            <li id="trafficConditions" onClick={this.update}>
+                            <li id="trafficConditions" onClick={this.trafficClick.bind(this)}>
                                 <div type="traffic">
                                     <span className={styles.traffic}>路况</span>
                                 </div>

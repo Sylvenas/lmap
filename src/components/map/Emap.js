@@ -1,6 +1,4 @@
 import React from 'react';
-import L from 'leaflet';
-import LE from 'esri-leaflet';
 
 class Map extends React.Component {
     constructor() {
