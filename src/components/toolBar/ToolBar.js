@@ -2,13 +2,20 @@ import React from 'react';
 import styles from './_toolBar.css';
 
 class ToolBar extends React.Component {
+    constructor(){
+        super();
+    }
+    update(){
+        console.log(11);
+        console.log(map);
+    }
     render() {
         return (
             <div className={styles.layerbox}>
                 <div id="layerbox" className={styles.layerboxIn}>
                     <div id="toolBar">
                         <ul>
-                            <li id="trafficConditions">
+                            <li id="trafficConditions" onClick={this.update}>
                                 <div type="traffic">
                                     <span className={styles.traffic}>路况</span>
                                 </div>
