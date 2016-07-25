@@ -3,7 +3,7 @@ React components for Leaflet maps.
 # How to use
 First copy the repo into your disk.
 ```bash
-$ git clone git@github.com:Sylvenas/lmap.git
+$ git clone https://github.com/Sylvenas/lmap.git
 ```
 Second
 ```bash

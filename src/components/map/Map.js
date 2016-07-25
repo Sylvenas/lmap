@@ -7,12 +7,12 @@ class Map extends React.Component {
         super();
     }
     componentWillReceiveProps(nextProps) {
-        var searchVal = this.props.searchVal;
-        console.log(nextProps.searchVal);
-        console.log(map)
-        LE.featureLayer({
-            url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Heritage_Trees_Portland/FeatureServer/0'
-        }).addTo(map)
+        // var searchVal = this.props.searchVal;
+        // console.log(nextProps.searchVal);
+        // console.log(map)
+        // LE.featureLayer({
+        //     url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Heritage_Trees_Portland/FeatureServer/0'
+        // }).addTo(map)
     }
     render() {
         return (<div id="map"></div>)

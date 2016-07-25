@@ -1,4 +1,6 @@
 import React from 'react';
+import L from 'leaflet';
+import LE from 'esri-leaflet';
 import styles from './_search.css';
 import logoSrc from '../../images/logo.png';
 
@@ -8,13 +10,16 @@ class Search extends React.Component {
         this.state = { val: '' }
         this.update = this.update.bind(this);
     }
-    
+
     update(e) {
-        let newVal = this.refs.searchVal.value;
-        this.setState({
-            val: newVal
-        })
-        this.props.callbackParent(newVal);
+        // let newVal = this.refs.searchVal.value;
+        // this.setState({
+        //     val: newVal
+        // })
+        // this.props.callbackParent(newVal);
+        LE.featureLayer({
+            url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Heritage_Trees_Portland/FeatureServer/0'
+        }).addTo(map)
     }
 
     render() {
