@@ -5,11 +5,13 @@ First copy the repo into your disk.
 ```bash
 $ git clone https://github.com/Sylvenas/lmap.git
 ```
-Second
+Second install node modules and start the webpack dev
 ```bash
 $ npm install
-```
-Third
-```bash
+
 $ npm start
+```
+Third open the browser
+```bash
+localhost:3232/index.html
 ```
