@@ -5,16 +5,18 @@ class ToolBar extends React.Component {
     constructor() {
         super();
     }
-    trafficClick(){
+    update() {
+        console.log(11);
         console.log(this);
     }
+
     render() {
         return (
             <div className={styles.layerbox}>
                 <div id="layerbox" className={styles.layerboxIn}>
                     <div id="toolBar">
                         <ul>
-                            <li id="trafficConditions" onClick={this.trafficClick.bind(this)}>
+                            <li id="trafficConditions" onClick={()=>this.update()}>
                                 <div type="traffic">
                                     <span className={styles.traffic}>路况</span>
                                 </div>
