@@ -4,10 +4,8 @@ import styles from './_toolBar.css';
 class ToolBar extends React.Component {
     constructor() {
         super();
-        //this.trafficClick = this.trafficClick.bind(this);
     }
     trafficClick(){
-        console.log(1111);
         console.log(this);
     }
     render() {
