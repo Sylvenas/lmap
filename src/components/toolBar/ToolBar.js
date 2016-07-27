@@ -1,29 +1,22 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
+import TrafficConditions from './menu/Traffic'
 import styles from './_toolBar.css';
 
 class ToolBar extends React.Component {
     constructor() {
         super();
     }
-    update() {
-        console.log(11);
-        console.log(this);
-    }
-
     render() {
         return (
             <div className={styles.layerbox}>
                 <div id="layerbox" className={styles.layerboxIn}>
                     <div id="toolBar">
                         <ul>
-                            <li id="trafficConditions" onClick={()=>this.update()}>
-                                <div type="traffic">
-                                    <span className={styles.traffic}>路况</span>
-                                </div>
-                            </li>
+                            <TrafficConditions/>
                             <li id="satelliteMap">
                                 <div type="satellite">
-                                    <span className={styles.traffic}>卫星</span>
+                                    <span className={styles.satellite}>卫星</span>
                                 </div>
                             </li>
                             <li id="subway">
@@ -43,10 +36,13 @@ class ToolBar extends React.Component {
                             </li>
                         </ul>
                     </div>
+                    <div id='presetBox'/>
                 </div>
             </div>
         )
     }
 }
+
+
 
 export default ToolBar

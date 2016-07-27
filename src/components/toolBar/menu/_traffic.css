@@ -1,0 +1,83 @@
+.boxpanel{
+    position: absolute;
+    top: 58px;
+    right: -6px;
+    width: 310px;
+    background: rgb(255,255,255);
+    padding: 12px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 2px 6px 0px, rgba(0, 0, 0, 0.188235) 0px 2px 6px 0px;
+}
+/*panel Header*/
+.panel_header{
+    height: 30px;
+}
+.panel_tab{
+    float: left;
+    height: 28px;
+    line-height: 28px;
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgb(15, 137, 245);
+    border-radius: 2px;
+}
+.panel_tab_li {
+    float: left;
+    color: rgb(15, 137, 245);
+    font-size: 14px;
+    cursor: pointer;
+    padding: 0px 10px;
+}
+.panel_tab_li_active {
+    composes:panel_tab_li;
+    color: rgb(255, 255, 255);
+    background: rgb(15, 137, 245);
+}
+.traffic_tag {
+    float: right;
+    line-height: 30px;
+}
+.smooth_jam{
+    float: left;
+    font-size: 14px;
+}
+.traffic_level {
+    float: left;
+    margin: 11px 6px 0px;
+}
+.traffic_level_li{
+    float: left;
+    width: 25px;
+    height: 6px;
+    margin: 0px 1px
+}
+.traffic_level_1{
+    composes:traffic_level_li;
+    background: rgb(52, 176, 0);
+}
+.traffic_level_2{
+    composes:traffic_level_li;
+    background: rgb(254, 203, 0);
+}
+.traffic_level_3{
+    composes:traffic_level_li;
+    background: rgb(223, 1, 0);
+}
+.traffic_level_4{
+    composes:traffic_level_li;
+    background: rgb(142, 14, 11);
+}
+/*panel Body*/
+.panel_body {
+    margin-top: 10px;
+}
+.time_lbl {
+    color: rgb(153, 153, 153);
+}
+.date{
+    padding: 0px 14px;
+}
