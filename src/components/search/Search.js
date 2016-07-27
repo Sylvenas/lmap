@@ -41,4 +41,16 @@ class Search extends React.Component {
     }
 }
 
+class Box extends React.Component{
+    constructor(){
+        super();
+    }
+    render(){
+        return(
+            <div>
+            </div>
+        )
+    }
+}
+
 export default Search

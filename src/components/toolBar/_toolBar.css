@@ -55,7 +55,7 @@ ol, ul {
 .traffic_active{
     composes:layerItemSpan;
     padding-top: 20px;
-    background-position: 11px -336px;
+    background-position: 11px -45px;
 }
 .traffic:hover{
     opacity: 0.6

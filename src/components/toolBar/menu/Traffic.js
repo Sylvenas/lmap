@@ -6,18 +6,19 @@ import trafficStyles from './_traffic.css'
 class Traffic extends React.Component {
     constructor() {
         super();
-        this.state={
-            active:false
+        this.state = {
+            active: false
         }
     }
     mountTrafficConditions() {
         this.setState({
-            active:!this.state.active
+            active: !this.state.active
         })
-        if(!document.getElementById('detailedRoad')){
-        ReactDOM.render(
-            <TrafficConditions/>, document.getElementById("presetBox")
-        )}else{
+        if (!document.getElementById('detailedRoad')) {
+            ReactDOM.render(
+                <TrafficConditions/>, document.getElementById("presetBox")
+            )
+        } else {
             ReactDOM.unmountComponentAtNode(document.getElementById("presetBox"))
         }
     }
@@ -27,7 +28,7 @@ class Traffic extends React.Component {
             <div>
                 <li id="trafficConditions" onClick={() => this.mountTrafficConditions() }>
                     <div type="traffic">
-                        <span className={this.state.active? styles.traffic_active:styles.traffic}>路况</span>
+                        <span className={this.state.active ? styles.traffic_active : styles.traffic}>路况</span>
                     </div>
                 </li>
             </div>
@@ -86,11 +87,21 @@ class Current extends React.Component {
         super();
     }
     render() {
+        let b = new Date;
+        let c = b.getFullYear();
+        let d = b.getMonth() + 1;
+        d = d < 10 ? "0" + d : d;
+        let e = b.getDate();
+        e = e < 10 ? "0" + e : e;
+        let f = b.getHours();
+        f = f < 10 ? "0" + f : f;
+        let g = b.getMinutes().toString();
+        g = g < 10 ? "0" + g : g;
         return (
             <div className={trafficStyles.panel_body}>
                 <span className={trafficStyles.time_lbl}>更新时间：</span>
-                <span className={trafficStyles.date} id="dateNow">2015/12/2</span>
-                <span className={trafficStyles.date} id="timeNow">14: 20</span>
+                <span className={trafficStyles.date} id="dateNow">{c}/{d}/{e}</span>
+                <span className={trafficStyles.date} id="timeNow">{f}: {g}</span>
             </div>
         )
     }
