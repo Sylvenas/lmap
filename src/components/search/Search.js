@@ -3,26 +3,32 @@ import L from 'leaflet';
 import LE from 'esri-leaflet';
 import styles from './_search.css';
 import logoSrc from '../../images/logo.png';
+import { connect } from 'react-redux';
+import * as action from '../../actions/searchAction';
 
 class Search extends React.Component {
     constructor() {
         super();
-        this.state = { val: '' }
+        //this.state = { val: '' }
         this.update = this.update.bind(this);
     }
 
     update(e) {
-        // let newVal = this.refs.searchVal.value;
+        let newVal = this.refs.searchVal.value;
+        this.props.searchChange(newVal);
         // this.setState({
         //     val: newVal
         // })
         // this.props.callbackParent(newVal);
-        LE.featureLayer({
-            url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Heritage_Trees_Portland/FeatureServer/0'
-        }).addTo(map)
+        // LE.featureLayer({
+        //     url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Heritage_Trees_Portland/FeatureServer/0'
+        // }).addTo(map)
     }
 
     render() {
+        console.log("####");
+        console.log(this.props.propsValue);
+        console.log("####");
         return (
             <section id="search" className={styles.search}>
                 <header className={styles.searchbox}>
@@ -36,21 +42,16 @@ class Search extends React.Component {
                         <span id="searchloading" className={styles.ring}></span>
                     </div>
                 </header>
+                <h1>{this.props.propsValue} QQ</h1>
             </section>
         )
     }
 }
 
-class Box extends React.Component{
-    constructor(){
-        super();
-    }
-    render(){
-        return(
-            <div>
-            </div>
-        )
+function mapStateToProps(state) {
+    return {
+        propsValue: state.search.search_Value
     }
 }
 
-export default Search
+export default connect(mapStateToProps,action)(Search)
