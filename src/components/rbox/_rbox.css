@@ -1,0 +1,66 @@
+.rbox {
+    z-index: 2000;
+    position: absolute;
+    left: 15px;
+    top: 60px;
+    width: 400px;
+    box-shadow: 0 2px 6px rgba(0,0,0,.3);
+}
+/*是否展示指数面板*/
+.rboxSearchPanCtrl{
+    background-color: #fff;
+    padding: 12px 10px 5px;
+    width: 380px;
+    font-size: 14px;
+    box-shadow: 1px 2px 1px rgba(0,0,0,.1);
+    color: #0f89f5;
+    z-index: 10;
+    height: 24px;
+    left: 0;
+    position: absolute;
+    cursor: pointer;
+    text-align: center;
+    overflow: hidden;
+}
+.rboxSearchPanCtrl_none{
+    composes:rboxSearchPanCtrl;
+    display: none;
+}
+.rboxSearchPanCtrl_display{
+    composes:rboxSearchPanCtrl;
+    display: display;
+}
+/*默认搜索结果或者指数面板*/
+.rboxPanels{
+    background: #fff;
+    position: relative;
+    width: 100%;
+    height: 600px;
+    overflow: hidden;
+}
+.rboxPanCtrl {
+    z-index: -10;
+    width: 100%;
+    position: absolute;
+    height: 24px;
+    cursor: pointer;
+    left: 0;
+    overflow: hidden;
+    text-align: center;
+    background: url(../../images/panctrl.png) center center no-repeat;
+    bottom: -20px;
+}
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    /* font-size: inherit; */
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translate(0,0);
+    padding: 5px 40px;
+    opacity: 0.7;
+}
+.faChevronUp:before {
+    content: "\f077";
+}

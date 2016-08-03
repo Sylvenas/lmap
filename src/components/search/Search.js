@@ -42,7 +42,6 @@ class Search extends React.Component {
                         <span id="searchloading" className={styles.ring}></span>
                     </div>
                 </header>
-                <h1>{this.props.propsValue} QQ</h1>
             </section>
         )
     }

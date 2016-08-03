@@ -1,7 +1,7 @@
 import {SEARCH_CHANGE} from '../constants/ActionTypes';
 
 const initState = {
-    search_Value: 'ahhahah'
+    search_Value: ''
 };
 
 export default function refreshRbox(state=initState,action) {
