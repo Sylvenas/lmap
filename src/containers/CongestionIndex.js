@@ -6,7 +6,7 @@ import Rbox from '../components/rbox/Rbox';
 import Map from '../components/map/Map';
 import Emap from '../components/map/Emap';
 
-class App extends React.Component {
+class CongestionIndex extends React.Component {
     render() {
         return (
             <div>
@@ -19,4 +19,4 @@ class App extends React.Component {
     }
 }
 
-export default App
+export default CongestionIndex

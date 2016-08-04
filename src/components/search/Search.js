@@ -2,9 +2,10 @@ import React from 'react';
 import L from 'leaflet';
 import LE from 'esri-leaflet';
 import styles from './_search.css';
-import logoSrc from '../../images/logo.png';
+import logoSrc from '../../images/logo_new.png';
 import { connect } from 'react-redux';
 import * as action from '../../actions/searchAction';
+//import { browserHistory } from 'react-router';
 
 class Search extends React.Component {
     constructor() {
@@ -16,6 +17,7 @@ class Search extends React.Component {
     update(e) {
         let newVal = this.refs.searchVal.value;
         this.props.searchChange(newVal);
+        //browserHistory.push('/TG');
         // this.setState({
         //     val: newVal
         // })
