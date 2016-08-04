@@ -13,5 +13,5 @@ $ npm start
 ```
 Third open the browser
 ```bash
-localhost:3232/index.html
+localhost:3232
 ```
