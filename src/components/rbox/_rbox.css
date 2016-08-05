@@ -33,11 +33,18 @@
     display: display;
 }
 /*默认搜索结果或者指数面板*/
+.navBody_display{
+    transition:width 1s;
+    height: 600px;
+}
+.navBody_none{
+    height: 0px;
+}
 .rboxPanels{
     background: #fff;
     position: relative;
     width: 100%;
-    height: 600px;
+    height: 100%;
     overflow: hidden;
 }
 .rboxPanCtrl {
