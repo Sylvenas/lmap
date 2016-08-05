@@ -4,6 +4,7 @@
     left: 15px;
     top: 60px;
     width: 400px;
+    opacity: .9;
     box-shadow: 0 2px 6px rgba(0,0,0,.3);
 }
 /*是否展示指数面板*/
@@ -63,4 +64,45 @@
 }
 .faChevronUp:before {
     content: "\f077";
+}
+/*左侧导航栏*/
+.nav{
+    position: absolute;
+    width: 55px;
+    background-color: #f4f5f6;
+    overflow: hidden;
+    height: 100%;
+    z-index: 9999;
+}
+.navLi {
+    position: relative;
+    box-sizing: border-box;
+    width: 55px;
+    height: 55px;
+    padding-top: 7px;
+    text-align: center;
+    cursor: pointer;
+}
+.craLi {
+    composes:navLi;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+    border-bottom: 1px #e5e5e5 solid;
+}
+.craLi:hover{
+    background-color: #fff;
+    color: #1b8cfb;
+}
+.navTxt {
+    font-size: 13px;
+    line-height:45px;   
+    position: relative;
+}
+.resultPanel{
+    margin-left: 55px;
+    padding: 10px 15px 30px;
+    box-sizing: border-box;
+    height: 100%;
 }

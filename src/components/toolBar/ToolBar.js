@@ -9,7 +9,7 @@ class ToolBar extends React.Component {
     }
     render() {
         return (
-            <div className={styles.layerbox}>
+            <div id='toolBar' className={styles.layerbox}>
                 <div id="layerbox" className={styles.layerboxIn}>
                     <div id="toolBar">
                         <ul>

@@ -19,11 +19,13 @@ class Map extends React.Component {
     }
     componentDidMount() {
         var map = L.map("map", {
-            center: [45.526, -122.667],
-            zoom: 13,
+            center: [28.40, 121.33],
+            zoom: 14,
             zoomControl: false
         });
-        LE.basemapLayer("Topographic").addTo(map);
+        L.esri.tiledMapLayer({
+            url: "http://cache1.arcgisonline.cn/ArcGIS/rest/services/ChinaOnlineStreetColor/MapServer"
+        }).addTo(map);
         window.map = map;
     }
 }
