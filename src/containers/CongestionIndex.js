@@ -10,10 +10,10 @@ class CongestionIndex extends React.Component {
     render() {
         return (
             <div>
+                <Map/>
                 <Search/>
                 <ToolBar/>
                 <Rbox/>
-                <Map/>
             </div>
         )
     }

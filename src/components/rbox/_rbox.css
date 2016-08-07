@@ -34,10 +34,11 @@
 }
 /*默认搜索结果或者指数面板*/
 .navBody_display{
-    transition:width 1s;
+    transition:height 1s;
     height: 600px;
 }
 .navBody_none{
+    transition:height 1s;
     height: 0px;
 }
 .rboxPanels{

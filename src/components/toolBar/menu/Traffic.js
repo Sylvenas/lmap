@@ -7,7 +7,7 @@ class Traffic extends React.Component {
     constructor() {
         super();
         this.state = {
-            active: false
+            active: true
         }
     }
     mountTrafficConditions() {
@@ -33,6 +33,11 @@ class Traffic extends React.Component {
                 </li>
             </div>
         )
+    }
+    componentDidMount(){
+        ReactDOM.render(
+                <TrafficConditions/>, document.getElementById("presetBox")
+            )
     }
 }
 

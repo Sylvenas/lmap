@@ -1,56 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>processBar</title>
-    <link rel="stylesheet" href="../../public/css/bootstrap-theme.min.css" />
-    <link rel="stylesheet" href="../../public/css/bootstrap.min.css" />
-    <script src="../../public/js/react-0.14.0.js"></script>
-    <script src="../../public/js/react-dom-0.14.0.js"></script>
-    <script src="../../public/js/jquery.js"></script>
-    <script src="../../public/js/browser.min.js"></script>
-    <script src="../../public/js/signals.js"></script>
-    <script src="../../public/js/bootstrap.min.js"></script>
+    <meta charset=utf-8 />
+    <title>Styling lines</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <!-- Load Leaflet from CDN-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.2/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/leaflet/1.0.0-rc.2/leaflet-src.js"></script>
+
+    <!-- Load Esri Leaflet from CDN -->
+    <script src="https://cdn.jsdelivr.net/leaflet.esri/2.0.2/esri-leaflet.js"></script>
+
     <style>
-        #exm {
-            margin: 20px auto;
-            height: 100px;
-            border: 1px solid #000;
+        body {
+            margin: 0;
+            padding: 0;
         }
         
-        .progress-bar {
-            width: 60%;
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
         }
     </style>
 </head>
 
 <body>
-    <div id="exm"></div>
-    <div id="exm2"></div>
-    <script type="text/babel">
-    var EventEmitter = {
-    _events: {},
-    dispatch: function (event, data) {
-        if (!this._events[event]) { // 没有监听事件
-          return;
-        }
-        for (var i = 0; i < this._events[event].length; i++) {
-            this._events[event][i](data);
-        }
-    },
-    subscribe: function (event, callback) {
-      // 创建一个新事件数组
-      if (!this._events[event]) {
-        this._events[event] = [];
-      }
-      this._events[event].push(callback);
-    }
-};
 
-otherObject.subscribe('namechanged', function(data) { alert(data.name); });
-this.dispatch('namechanged', { name: 'John' });
-      </script>
+    <style>
+        #info-pane {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 400;
+            padding: 6px 8px;
+            font: 14px/16px Arial, Helvetica, sans-serif;
+            background: white;
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+    </style>
+
+    <div id="map"></div>
+    <div id="info-pane" class="leaflet-bar">Hover to inspect</div>
+
+    <script type='text/javascript'>
+  var map = L.map('map').setView([45.5275, -122.6717], 14);
+
+  L.esri.basemapLayer('Streets').addTo(map);
+
+  var bikePaths = L.esri.featureLayer({
+    url: 'https://services.arcgis.com/uCXeTVveQzP4IIcx/ArcGIS/rest/services/Bike_Routes/FeatureServer/0',
+    style: function (feature) {
+      var c,o = 0.75;
+      switch (feature.properties.BIKEMODE) {
+        case 'Low traffic through street':
+          c = '#007D7D';
+          break;
+        case 'Bike boulevard':
+          c = '#00FF3C';
+          break;
+        case 'Caution area':
+          c = '#FF0000';
+          break;
+        case 'Local multi-use path':
+          c = '#00BEFF';
+          break;
+        case 'Regional multi-use path':
+          c = '#b1a9d0';
+          break;
+        case 'Moderate traffic through street':
+          c = '#FFEB00';
+          break;
+        case 'Planned multi-use path':
+          c = '#000000';
+          break;
+        case 'Bike lane':
+          c = '#328000';
+          o = '0.70';
+          break;
+        case 'High traffic through street':
+          c = '#FFA500';
+          break;
+        case 'Planned bike lane':
+          c = '#000000';
+          o = '1.0';
+          break;
+        default:
+          c = '#C0C0C0';
+      }
+      return {color: c, opacity: o, weight: 5};
+    }
+  }).addTo(map);
+
+  bikePaths.on('mouseout', function(e){
+    document.getElementById('info-pane').innerHTML = 'Hover to Inspect';
+  });
+
+  bikePaths.on('mouseover', function(e){
+    document.getElementById('info-pane').innerHTML = e.layer.feature.properties.BIKEMODE;
+  });
+</script>
+
 </body>
 
 </html>
