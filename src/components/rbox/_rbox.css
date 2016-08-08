@@ -110,8 +110,31 @@
     position: relative;
 }
 .resultPanel{
+    overflow-y: scroll;
     margin-left: 55px;
     padding: 10px 15px 30px;
     box-sizing: border-box;
     height: 100%;
 }
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
+.resultPanel::-webkit-scrollbar  
+{  
+    width: 6px;  
+    height: 60px;  
+    background-color: white;  
+}  
+  
+/*定义滚动条轨道 内阴影+圆角*/  
+.resultPanel::-webkit-scrollbar-track  
+{  
+    border-radius: 10px;  
+    background-color:white;  
+}  
+  
+/*定义滑块 内阴影+圆角*/  
+.resultPanel::-webkit-scrollbar-thumb  
+{  
+    border-radius: 10px;  
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);  
+    background-color: #555;  
+}  

@@ -15,22 +15,23 @@ class Search extends React.Component {
     }
 
     update(e) {
-        let newVal = this.refs.searchVal.value;
-        this.props.searchChange(newVal);
+        let keyword  = this.refs.searchVal.value;
+        //this.props.pushList(newVal);
         //browserHistory.push('/TG');
-        // this.setState({
-        //     val: newVal
-        // })
-        // this.props.callbackParent(newVal);
-        // LE.featureLayer({
-        //     url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Heritage_Trees_Portland/FeatureServer/0'
-        // }).addTo(map)
+
+        window.$.ajax({
+            url: 'http://www.tngou.net/api/search',
+            data: { keyword , name: 'topword' },
+            dataType: 'jsonp',
+            success: (data) => {
+                if (data.status){
+                    this.props.pushList(data.tngou)
+                }
+            }
+        })
     }
 
     render() {
-        console.log("####");
-        console.log(this.props.propsValue);
-        console.log("####");
         return (
             <section id="search" className={styles.search}>
                 <header className={styles.searchbox}>
@@ -50,9 +51,7 @@ class Search extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return {
-        propsValue: state.search.search_Value
-    }
+    return {}
 }
 
-export default connect(mapStateToProps,action)(Search)
+export default connect(mapStateToProps, action)(Search)

@@ -1,8 +1,10 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import * as action from '../../actions/searchAction';
 import styles from './_rbox.css';
 import * as CI from '../../scripts/CongestionIndex';
+import SearchResults from './menu/SearchResults';
 
 class Rbox extends React.Component {
     constructor() {
@@ -16,13 +18,16 @@ class Rbox extends React.Component {
             contraction: !this.state.contraction
         })
     }
+    renderList() {
+        return this.props.searchResults.map(item => {
+            item.key = item.title
+            return React.createElement(SearchResults, item);
+        })
+    }
     render() {
         let searchAvtive = (this.props.searchValue === "");
-        console.log(searchAvtive);
-        console.log(this.state.contraction);
         return (
             <div id="rbox" className={styles.rbox}>
-                {/*<div className={searchAvtive ? styles.rboxSearchPanCtrl_none : styles.rboxSearchPanCtrl_display}>展开指数面板</div>*/}
                 <div id="navBody" className={this.state.contraction ? styles.navBody_none : styles.navBody_display}>
                     <section id="rboxPanels" className={styles.rboxPanels}>
                         <ul id='nav' className={styles.nav}>
@@ -36,8 +41,8 @@ class Rbox extends React.Component {
                                 <span className={styles.navTxt}>区域</span>
                             </li>
                         </ul>
-                        <div className={styles.resultPanel}>
-                            <h1>hello world</h1>
+                        <div id='resultPanel' className={styles.resultPanel}>
+                            {this.renderList() }
                         </div>
                     </section>
                 </div>
@@ -51,7 +56,7 @@ class Rbox extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        searchValue: state.search.search_Value
+        searchResults: state.search.list
     }
 }
 

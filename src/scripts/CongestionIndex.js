@@ -17,7 +17,7 @@ export function addGracLayer(layerName) {
     }
 
 }
-function crossLayer() {
+const crossLayer = () => {
     map.eachLayer((layer) => {
         if (layer.options.id != 'crossLayer' && layer.options.id != 'streetLayer')
             map.removeLayer(layer);
@@ -36,7 +36,7 @@ function crossLayer() {
     // })
     map.addLayer(crossLayer);
 }
-function roadLayer() {
+const roadLayer = () => {
     map.eachLayer((layer) => {
         if (layer.options.id != 'roadLayer' && layer.options.id != 'streetLayer')
             map.removeLayer(layer);
