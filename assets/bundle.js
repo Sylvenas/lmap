@@ -56,48 +56,50 @@
 
 	var _reactRouter = __webpack_require__(3);
 
-	var _redux = __webpack_require__(67);
+	var _reactRedux = __webpack_require__(67);
 
-	var _reactRedux = __webpack_require__(81);
-
-	var _Root = __webpack_require__(88);
+	var _Root = __webpack_require__(95);
 
 	var _Root2 = _interopRequireDefault(_Root);
 
-	var _CongestionIndex = __webpack_require__(89);
+	var _CongestionIndex = __webpack_require__(96);
 
 	var _CongestionIndex2 = _interopRequireDefault(_CongestionIndex);
 
-	var _TrafficGuidance = __webpack_require__(116);
+	var _TrafficGuidance = __webpack_require__(124);
 
 	var _TrafficGuidance2 = _interopRequireDefault(_TrafficGuidance);
 
-	var _index = __webpack_require__(117);
+	var _index = __webpack_require__(125);
 
 	var _index2 = _interopRequireDefault(_index);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var store = (0, _redux.createStore)(_index2.default);
-
-	// ReactDOM.render(
-	//     <Provider store={store}>
-	//         <Router history={browserHistory}>
-	//             <Route path="/" component={Root}>
-	//                 <IndexRedirect to="/CI" />
-	//                 <Route path='/CI' component={CongestionIndex}/>
-	//                 <Route path='/TG' component={TrafficGuidance}/>
-	//             </Route>
-	//         </Router>
-	//     </Provider>,
-	//     document.getElementById('root')
-	// )
+	var store = (0, _index2.default)();
 
 	_reactDom2.default.render(_react2.default.createElement(
 	    _reactRedux.Provider,
 	    { store: store },
-	    _react2.default.createElement(_CongestionIndex2.default, null)
+	    _react2.default.createElement(
+	        _reactRouter.Router,
+	        { history: _reactRouter.hashHistory },
+	        _react2.default.createElement(
+	            _reactRouter.Route,
+	            { path: '/', component: _Root2.default },
+	            _react2.default.createElement(_reactRouter.IndexRedirect, { to: '/CI' }),
+	            _react2.default.createElement(_reactRouter.Route, { path: '/CI', component: _CongestionIndex2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: '/TG', component: _TrafficGuidance2.default })
+	        )
+	    )
 	), document.getElementById('root'));
+
+	// ReactDOM.render(
+	//     <Provider store={store}>
+	//         <CongestionIndex/>
+	//     </Provider>,
+	//     document.getElementById('root')
+	// )
 
 /***/ },
 /* 1 */
@@ -482,6 +484,7 @@
 /***/ function(module, exports) {
 
 	// shim for using process in browser
+
 	var process = module.exports = {};
 
 	// cached from whatever global is present so that test runners that stub it
@@ -493,35 +496,21 @@
 	var cachedClearTimeout;
 
 	(function () {
-	    try {
-	        cachedSetTimeout = setTimeout;
-	    } catch (e) {
-	        cachedSetTimeout = function () {
-	            throw new Error('setTimeout is not defined');
-	        }
+	  try {
+	    cachedSetTimeout = setTimeout;
+	  } catch (e) {
+	    cachedSetTimeout = function () {
+	      throw new Error('setTimeout is not defined');
 	    }
-	    try {
-	        cachedClearTimeout = clearTimeout;
-	    } catch (e) {
-	        cachedClearTimeout = function () {
-	            throw new Error('clearTimeout is not defined');
-	        }
+	  }
+	  try {
+	    cachedClearTimeout = clearTimeout;
+	  } catch (e) {
+	    cachedClearTimeout = function () {
+	      throw new Error('clearTimeout is not defined');
 	    }
+	  }
 	} ())
-	function runTimeout(fun) {
-	    if (cachedSetTimeout === setTimeout) {
-	        return setTimeout(fun, 0);
-	    } else {
-	        return cachedSetTimeout.call(null, fun, 0);
-	    }
-	}
-	function runClearTimeout(marker) {
-	    if (cachedClearTimeout === clearTimeout) {
-	        clearTimeout(marker);
-	    } else {
-	        cachedClearTimeout.call(null, marker);
-	    }
-	}
 	var queue = [];
 	var draining = false;
 	var currentQueue;
@@ -546,7 +535,7 @@
 	    if (draining) {
 	        return;
 	    }
-	    var timeout = runTimeout(cleanUpNextTick);
+	    var timeout = cachedSetTimeout(cleanUpNextTick);
 	    draining = true;
 
 	    var len = queue.length;
@@ -563,7 +552,7 @@
 	    }
 	    currentQueue = null;
 	    draining = false;
-	    runClearTimeout(timeout);
+	    cachedClearTimeout(timeout);
 	}
 
 	process.nextTick = function (fun) {
@@ -575,7 +564,7 @@
 	    }
 	    queue.push(new Item(fun, args));
 	    if (queue.length === 1 && !draining) {
-	        runTimeout(drainQueue);
+	        cachedSetTimeout(drainQueue, 0);
 	    }
 	};
 
@@ -5871,877 +5860,16 @@
 /* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-	exports.__esModule = true;
-	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
-
-	var _createStore = __webpack_require__(68);
-
-	var _createStore2 = _interopRequireDefault(_createStore);
-
-	var _combineReducers = __webpack_require__(76);
-
-	var _combineReducers2 = _interopRequireDefault(_combineReducers);
-
-	var _bindActionCreators = __webpack_require__(78);
-
-	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
-
-	var _applyMiddleware = __webpack_require__(79);
-
-	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
-
-	var _compose = __webpack_require__(80);
-
-	var _compose2 = _interopRequireDefault(_compose);
-
-	var _warning = __webpack_require__(77);
-
-	var _warning2 = _interopRequireDefault(_warning);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	/*
-	* This is a dummy function to check if the function name has been altered by minification.
-	* If the function has been minified and NODE_ENV !== 'production', warn the user.
-	*/
-	function isCrushed() {}
-
-	if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
-	  (0, _warning2["default"])('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
-	}
-
-	exports.createStore = _createStore2["default"];
-	exports.combineReducers = _combineReducers2["default"];
-	exports.bindActionCreators = _bindActionCreators2["default"];
-	exports.applyMiddleware = _applyMiddleware2["default"];
-	exports.compose = _compose2["default"];
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
-
-/***/ },
-/* 68 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.ActionTypes = undefined;
-	exports["default"] = createStore;
-
-	var _isPlainObject = __webpack_require__(69);
-
-	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
-
-	var _symbolObservable = __webpack_require__(74);
-
-	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	/**
-	 * These are private action types reserved by Redux.
-	 * For any unknown actions, you must return the current state.
-	 * If the current state is undefined, you must return the initial state.
-	 * Do not reference these action types directly in your code.
-	 */
-	var ActionTypes = exports.ActionTypes = {
-	  INIT: '@@redux/INIT'
-	};
-
-	/**
-	 * Creates a Redux store that holds the state tree.
-	 * The only way to change the data in the store is to call `dispatch()` on it.
-	 *
-	 * There should only be a single store in your app. To specify how different
-	 * parts of the state tree respond to actions, you may combine several reducers
-	 * into a single reducer function by using `combineReducers`.
-	 *
-	 * @param {Function} reducer A function that returns the next state tree, given
-	 * the current state tree and the action to handle.
-	 *
-	 * @param {any} [initialState] The initial state. You may optionally specify it
-	 * to hydrate the state from the server in universal apps, or to restore a
-	 * previously serialized user session.
-	 * If you use `combineReducers` to produce the root reducer function, this must be
-	 * an object with the same shape as `combineReducers` keys.
-	 *
-	 * @param {Function} enhancer The store enhancer. You may optionally specify it
-	 * to enhance the store with third-party capabilities such as middleware,
-	 * time travel, persistence, etc. The only store enhancer that ships with Redux
-	 * is `applyMiddleware()`.
-	 *
-	 * @returns {Store} A Redux store that lets you read the state, dispatch actions
-	 * and subscribe to changes.
-	 */
-	function createStore(reducer, initialState, enhancer) {
-	  var _ref2;
-
-	  if (typeof initialState === 'function' && typeof enhancer === 'undefined') {
-	    enhancer = initialState;
-	    initialState = undefined;
-	  }
-
-	  if (typeof enhancer !== 'undefined') {
-	    if (typeof enhancer !== 'function') {
-	      throw new Error('Expected the enhancer to be a function.');
-	    }
-
-	    return enhancer(createStore)(reducer, initialState);
-	  }
-
-	  if (typeof reducer !== 'function') {
-	    throw new Error('Expected the reducer to be a function.');
-	  }
-
-	  var currentReducer = reducer;
-	  var currentState = initialState;
-	  var currentListeners = [];
-	  var nextListeners = currentListeners;
-	  var isDispatching = false;
-
-	  function ensureCanMutateNextListeners() {
-	    if (nextListeners === currentListeners) {
-	      nextListeners = currentListeners.slice();
-	    }
-	  }
-
-	  /**
-	   * Reads the state tree managed by the store.
-	   *
-	   * @returns {any} The current state tree of your application.
-	   */
-	  function getState() {
-	    return currentState;
-	  }
-
-	  /**
-	   * Adds a change listener. It will be called any time an action is dispatched,
-	   * and some part of the state tree may potentially have changed. You may then
-	   * call `getState()` to read the current state tree inside the callback.
-	   *
-	   * You may call `dispatch()` from a change listener, with the following
-	   * caveats:
-	   *
-	   * 1. The subscriptions are snapshotted just before every `dispatch()` call.
-	   * If you subscribe or unsubscribe while the listeners are being invoked, this
-	   * will not have any effect on the `dispatch()` that is currently in progress.
-	   * However, the next `dispatch()` call, whether nested or not, will use a more
-	   * recent snapshot of the subscription list.
-	   *
-	   * 2. The listener should not expect to see all state changes, as the state
-	   * might have been updated multiple times during a nested `dispatch()` before
-	   * the listener is called. It is, however, guaranteed that all subscribers
-	   * registered before the `dispatch()` started will be called with the latest
-	   * state by the time it exits.
-	   *
-	   * @param {Function} listener A callback to be invoked on every dispatch.
-	   * @returns {Function} A function to remove this change listener.
-	   */
-	  function subscribe(listener) {
-	    if (typeof listener !== 'function') {
-	      throw new Error('Expected listener to be a function.');
-	    }
-
-	    var isSubscribed = true;
-
-	    ensureCanMutateNextListeners();
-	    nextListeners.push(listener);
-
-	    return function unsubscribe() {
-	      if (!isSubscribed) {
-	        return;
-	      }
-
-	      isSubscribed = false;
-
-	      ensureCanMutateNextListeners();
-	      var index = nextListeners.indexOf(listener);
-	      nextListeners.splice(index, 1);
-	    };
-	  }
-
-	  /**
-	   * Dispatches an action. It is the only way to trigger a state change.
-	   *
-	   * The `reducer` function, used to create the store, will be called with the
-	   * current state tree and the given `action`. Its return value will
-	   * be considered the **next** state of the tree, and the change listeners
-	   * will be notified.
-	   *
-	   * The base implementation only supports plain object actions. If you want to
-	   * dispatch a Promise, an Observable, a thunk, or something else, you need to
-	   * wrap your store creating function into the corresponding middleware. For
-	   * example, see the documentation for the `redux-thunk` package. Even the
-	   * middleware will eventually dispatch plain object actions using this method.
-	   *
-	   * @param {Object} action A plain object representing “what changed”. It is
-	   * a good idea to keep actions serializable so you can record and replay user
-	   * sessions, or use the time travelling `redux-devtools`. An action must have
-	   * a `type` property which may not be `undefined`. It is a good idea to use
-	   * string constants for action types.
-	   *
-	   * @returns {Object} For convenience, the same action object you dispatched.
-	   *
-	   * Note that, if you use a custom middleware, it may wrap `dispatch()` to
-	   * return something else (for example, a Promise you can await).
-	   */
-	  function dispatch(action) {
-	    if (!(0, _isPlainObject2["default"])(action)) {
-	      throw new Error('Actions must be plain objects. ' + 'Use custom middleware for async actions.');
-	    }
-
-	    if (typeof action.type === 'undefined') {
-	      throw new Error('Actions may not have an undefined "type" property. ' + 'Have you misspelled a constant?');
-	    }
-
-	    if (isDispatching) {
-	      throw new Error('Reducers may not dispatch actions.');
-	    }
-
-	    try {
-	      isDispatching = true;
-	      currentState = currentReducer(currentState, action);
-	    } finally {
-	      isDispatching = false;
-	    }
-
-	    var listeners = currentListeners = nextListeners;
-	    for (var i = 0; i < listeners.length; i++) {
-	      listeners[i]();
-	    }
-
-	    return action;
-	  }
-
-	  /**
-	   * Replaces the reducer currently used by the store to calculate the state.
-	   *
-	   * You might need this if your app implements code splitting and you want to
-	   * load some of the reducers dynamically. You might also need this if you
-	   * implement a hot reloading mechanism for Redux.
-	   *
-	   * @param {Function} nextReducer The reducer for the store to use instead.
-	   * @returns {void}
-	   */
-	  function replaceReducer(nextReducer) {
-	    if (typeof nextReducer !== 'function') {
-	      throw new Error('Expected the nextReducer to be a function.');
-	    }
-
-	    currentReducer = nextReducer;
-	    dispatch({ type: ActionTypes.INIT });
-	  }
-
-	  /**
-	   * Interoperability point for observable/reactive libraries.
-	   * @returns {observable} A minimal observable of state changes.
-	   * For more information, see the observable proposal:
-	   * https://github.com/zenparsing/es-observable
-	   */
-	  function observable() {
-	    var _ref;
-
-	    var outerSubscribe = subscribe;
-	    return _ref = {
-	      /**
-	       * The minimal observable subscription method.
-	       * @param {Object} observer Any object that can be used as an observer.
-	       * The observer object should have a `next` method.
-	       * @returns {subscription} An object with an `unsubscribe` method that can
-	       * be used to unsubscribe the observable from the store, and prevent further
-	       * emission of values from the observable.
-	       */
-
-	      subscribe: function subscribe(observer) {
-	        if (typeof observer !== 'object') {
-	          throw new TypeError('Expected the observer to be an object.');
-	        }
-
-	        function observeState() {
-	          if (observer.next) {
-	            observer.next(getState());
-	          }
-	        }
-
-	        observeState();
-	        var unsubscribe = outerSubscribe(observeState);
-	        return { unsubscribe: unsubscribe };
-	      }
-	    }, _ref[_symbolObservable2["default"]] = function () {
-	      return this;
-	    }, _ref;
-	  }
-
-	  // When a store is created, an "INIT" action is dispatched so that every
-	  // reducer returns their initial state. This effectively populates
-	  // the initial state tree.
-	  dispatch({ type: ActionTypes.INIT });
-
-	  return _ref2 = {
-	    dispatch: dispatch,
-	    subscribe: subscribe,
-	    getState: getState,
-	    replaceReducer: replaceReducer
-	  }, _ref2[_symbolObservable2["default"]] = observable, _ref2;
-	}
-
-/***/ },
-/* 69 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var getPrototype = __webpack_require__(70),
-	    isHostObject = __webpack_require__(72),
-	    isObjectLike = __webpack_require__(73);
-
-	/** `Object#toString` result references. */
-	var objectTag = '[object Object]';
-
-	/** Used for built-in method references. */
-	var objectProto = Object.prototype;
-
-	/** Used to resolve the decompiled source of functions. */
-	var funcToString = Function.prototype.toString;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/** Used to infer the `Object` constructor. */
-	var objectCtorString = funcToString.call(Object);
-
-	/**
-	 * Used to resolve the
-	 * [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
-	 * of values.
-	 */
-	var objectToString = objectProto.toString;
-
-	/**
-	 * Checks if `value` is a plain object, that is, an object created by the
-	 * `Object` constructor or one with a `[[Prototype]]` of `null`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.8.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a plain object,
-	 *  else `false`.
-	 * @example
-	 *
-	 * function Foo() {
-	 *   this.a = 1;
-	 * }
-	 *
-	 * _.isPlainObject(new Foo);
-	 * // => false
-	 *
-	 * _.isPlainObject([1, 2, 3]);
-	 * // => false
-	 *
-	 * _.isPlainObject({ 'x': 0, 'y': 0 });
-	 * // => true
-	 *
-	 * _.isPlainObject(Object.create(null));
-	 * // => true
-	 */
-	function isPlainObject(value) {
-	  if (!isObjectLike(value) ||
-	      objectToString.call(value) != objectTag || isHostObject(value)) {
-	    return false;
-	  }
-	  var proto = getPrototype(value);
-	  if (proto === null) {
-	    return true;
-	  }
-	  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
-	  return (typeof Ctor == 'function' &&
-	    Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString);
-	}
-
-	module.exports = isPlainObject;
-
-
-/***/ },
-/* 70 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var overArg = __webpack_require__(71);
-
-	/* Built-in method references for those with the same name as other `lodash` methods. */
-	var nativeGetPrototype = Object.getPrototypeOf;
-
-	/**
-	 * Gets the `[[Prototype]]` of `value`.
-	 *
-	 * @private
-	 * @param {*} value The value to query.
-	 * @returns {null|Object} Returns the `[[Prototype]]`.
-	 */
-	var getPrototype = overArg(nativeGetPrototype, Object);
-
-	module.exports = getPrototype;
-
-
-/***/ },
-/* 71 */
-/***/ function(module, exports) {
-
-	/**
-	 * Creates a function that invokes `func` with its first argument transformed.
-	 *
-	 * @private
-	 * @param {Function} func The function to wrap.
-	 * @param {Function} transform The argument transform.
-	 * @returns {Function} Returns the new function.
-	 */
-	function overArg(func, transform) {
-	  return function(arg) {
-	    return func(transform(arg));
-	  };
-	}
-
-	module.exports = overArg;
-
-
-/***/ },
-/* 72 */
-/***/ function(module, exports) {
-
-	/**
-	 * Checks if `value` is a host object in IE < 9.
-	 *
-	 * @private
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
-	 */
-	function isHostObject(value) {
-	  // Many host objects are `Object` objects that can coerce to strings
-	  // despite having improperly defined `toString` methods.
-	  var result = false;
-	  if (value != null && typeof value.toString != 'function') {
-	    try {
-	      result = !!(value + '');
-	    } catch (e) {}
-	  }
-	  return result;
-	}
-
-	module.exports = isHostObject;
-
-
-/***/ },
-/* 73 */
-/***/ function(module, exports) {
-
-	/**
-	 * Checks if `value` is object-like. A value is object-like if it's not `null`
-	 * and has a `typeof` result of "object".
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 4.0.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
-	 * @example
-	 *
-	 * _.isObjectLike({});
-	 * // => true
-	 *
-	 * _.isObjectLike([1, 2, 3]);
-	 * // => true
-	 *
-	 * _.isObjectLike(_.noop);
-	 * // => false
-	 *
-	 * _.isObjectLike(null);
-	 * // => false
-	 */
-	function isObjectLike(value) {
-	  return !!value && typeof value == 'object';
-	}
-
-	module.exports = isObjectLike;
-
-
-/***/ },
-/* 74 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {/* global window */
-	'use strict';
-
-	module.exports = __webpack_require__(75)(global || window || this);
-
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 75 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	module.exports = function symbolObservablePonyfill(root) {
-		var result;
-		var Symbol = root.Symbol;
-
-		if (typeof Symbol === 'function') {
-			if (Symbol.observable) {
-				result = Symbol.observable;
-			} else {
-				result = Symbol('observable');
-				Symbol.observable = result;
-			}
-		} else {
-			result = '@@observable';
-		}
-
-		return result;
-	};
-
-
-/***/ },
-/* 76 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-
-	exports.__esModule = true;
-	exports["default"] = combineReducers;
-
-	var _createStore = __webpack_require__(68);
-
-	var _isPlainObject = __webpack_require__(69);
-
-	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
-
-	var _warning = __webpack_require__(77);
-
-	var _warning2 = _interopRequireDefault(_warning);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	function getUndefinedStateErrorMessage(key, action) {
-	  var actionType = action && action.type;
-	  var actionName = actionType && '"' + actionType.toString() + '"' || 'an action';
-
-	  return 'Given action ' + actionName + ', reducer "' + key + '" returned undefined. ' + 'To ignore an action, you must explicitly return the previous state.';
-	}
-
-	function getUnexpectedStateShapeWarningMessage(inputState, reducers, action) {
-	  var reducerKeys = Object.keys(reducers);
-	  var argumentName = action && action.type === _createStore.ActionTypes.INIT ? 'initialState argument passed to createStore' : 'previous state received by the reducer';
-
-	  if (reducerKeys.length === 0) {
-	    return 'Store does not have a valid reducer. Make sure the argument passed ' + 'to combineReducers is an object whose values are reducers.';
-	  }
-
-	  if (!(0, _isPlainObject2["default"])(inputState)) {
-	    return 'The ' + argumentName + ' has unexpected type of "' + {}.toString.call(inputState).match(/\s([a-z|A-Z]+)/)[1] + '". Expected argument to be an object with the following ' + ('keys: "' + reducerKeys.join('", "') + '"');
-	  }
-
-	  var unexpectedKeys = Object.keys(inputState).filter(function (key) {
-	    return !reducers.hasOwnProperty(key);
-	  });
-
-	  if (unexpectedKeys.length > 0) {
-	    return 'Unexpected ' + (unexpectedKeys.length > 1 ? 'keys' : 'key') + ' ' + ('"' + unexpectedKeys.join('", "') + '" found in ' + argumentName + '. ') + 'Expected to find one of the known reducer keys instead: ' + ('"' + reducerKeys.join('", "') + '". Unexpected keys will be ignored.');
-	  }
-	}
-
-	function assertReducerSanity(reducers) {
-	  Object.keys(reducers).forEach(function (key) {
-	    var reducer = reducers[key];
-	    var initialState = reducer(undefined, { type: _createStore.ActionTypes.INIT });
-
-	    if (typeof initialState === 'undefined') {
-	      throw new Error('Reducer "' + key + '" returned undefined during initialization. ' + 'If the state passed to the reducer is undefined, you must ' + 'explicitly return the initial state. The initial state may ' + 'not be undefined.');
-	    }
-
-	    var type = '@@redux/PROBE_UNKNOWN_ACTION_' + Math.random().toString(36).substring(7).split('').join('.');
-	    if (typeof reducer(undefined, { type: type }) === 'undefined') {
-	      throw new Error('Reducer "' + key + '" returned undefined when probed with a random type. ' + ('Don\'t try to handle ' + _createStore.ActionTypes.INIT + ' or other actions in "redux/*" ') + 'namespace. They are considered private. Instead, you must return the ' + 'current state for any unknown actions, unless it is undefined, ' + 'in which case you must return the initial state, regardless of the ' + 'action type. The initial state may not be undefined.');
-	    }
-	  });
-	}
-
-	/**
-	 * Turns an object whose values are different reducer functions, into a single
-	 * reducer function. It will call every child reducer, and gather their results
-	 * into a single state object, whose keys correspond to the keys of the passed
-	 * reducer functions.
-	 *
-	 * @param {Object} reducers An object whose values correspond to different
-	 * reducer functions that need to be combined into one. One handy way to obtain
-	 * it is to use ES6 `import * as reducers` syntax. The reducers may never return
-	 * undefined for any action. Instead, they should return their initial state
-	 * if the state passed to them was undefined, and the current state for any
-	 * unrecognized action.
-	 *
-	 * @returns {Function} A reducer function that invokes every reducer inside the
-	 * passed object, and builds a state object with the same shape.
-	 */
-	function combineReducers(reducers) {
-	  var reducerKeys = Object.keys(reducers);
-	  var finalReducers = {};
-	  for (var i = 0; i < reducerKeys.length; i++) {
-	    var key = reducerKeys[i];
-	    if (typeof reducers[key] === 'function') {
-	      finalReducers[key] = reducers[key];
-	    }
-	  }
-	  var finalReducerKeys = Object.keys(finalReducers);
-
-	  var sanityError;
-	  try {
-	    assertReducerSanity(finalReducers);
-	  } catch (e) {
-	    sanityError = e;
-	  }
-
-	  return function combination() {
-	    var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
-	    var action = arguments[1];
-
-	    if (sanityError) {
-	      throw sanityError;
-	    }
-
-	    if (process.env.NODE_ENV !== 'production') {
-	      var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action);
-	      if (warningMessage) {
-	        (0, _warning2["default"])(warningMessage);
-	      }
-	    }
-
-	    var hasChanged = false;
-	    var nextState = {};
-	    for (var i = 0; i < finalReducerKeys.length; i++) {
-	      var key = finalReducerKeys[i];
-	      var reducer = finalReducers[key];
-	      var previousStateForKey = state[key];
-	      var nextStateForKey = reducer(previousStateForKey, action);
-	      if (typeof nextStateForKey === 'undefined') {
-	        var errorMessage = getUndefinedStateErrorMessage(key, action);
-	        throw new Error(errorMessage);
-	      }
-	      nextState[key] = nextStateForKey;
-	      hasChanged = hasChanged || nextStateForKey !== previousStateForKey;
-	    }
-	    return hasChanged ? nextState : state;
-	  };
-	}
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
-
-/***/ },
-/* 77 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports["default"] = warning;
-	/**
-	 * Prints a warning in the console if it exists.
-	 *
-	 * @param {String} message The warning message.
-	 * @returns {void}
-	 */
-	function warning(message) {
-	  /* eslint-disable no-console */
-	  if (typeof console !== 'undefined' && typeof console.error === 'function') {
-	    console.error(message);
-	  }
-	  /* eslint-enable no-console */
-	  try {
-	    // This error was thrown as a convenience so that if you enable
-	    // "break on all exceptions" in your console,
-	    // it would pause the execution at this line.
-	    throw new Error(message);
-	    /* eslint-disable no-empty */
-	  } catch (e) {}
-	  /* eslint-enable no-empty */
-	}
-
-/***/ },
-/* 78 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports["default"] = bindActionCreators;
-	function bindActionCreator(actionCreator, dispatch) {
-	  return function () {
-	    return dispatch(actionCreator.apply(undefined, arguments));
-	  };
-	}
-
-	/**
-	 * Turns an object whose values are action creators, into an object with the
-	 * same keys, but with every function wrapped into a `dispatch` call so they
-	 * may be invoked directly. This is just a convenience method, as you can call
-	 * `store.dispatch(MyActionCreators.doSomething())` yourself just fine.
-	 *
-	 * For convenience, you can also pass a single function as the first argument,
-	 * and get a function in return.
-	 *
-	 * @param {Function|Object} actionCreators An object whose values are action
-	 * creator functions. One handy way to obtain it is to use ES6 `import * as`
-	 * syntax. You may also pass a single function.
-	 *
-	 * @param {Function} dispatch The `dispatch` function available on your Redux
-	 * store.
-	 *
-	 * @returns {Function|Object} The object mimicking the original object, but with
-	 * every action creator wrapped into the `dispatch` call. If you passed a
-	 * function as `actionCreators`, the return value will also be a single
-	 * function.
-	 */
-	function bindActionCreators(actionCreators, dispatch) {
-	  if (typeof actionCreators === 'function') {
-	    return bindActionCreator(actionCreators, dispatch);
-	  }
-
-	  if (typeof actionCreators !== 'object' || actionCreators === null) {
-	    throw new Error('bindActionCreators expected an object or a function, instead received ' + (actionCreators === null ? 'null' : typeof actionCreators) + '. ' + 'Did you write "import ActionCreators from" instead of "import * as ActionCreators from"?');
-	  }
-
-	  var keys = Object.keys(actionCreators);
-	  var boundActionCreators = {};
-	  for (var i = 0; i < keys.length; i++) {
-	    var key = keys[i];
-	    var actionCreator = actionCreators[key];
-	    if (typeof actionCreator === 'function') {
-	      boundActionCreators[key] = bindActionCreator(actionCreator, dispatch);
-	    }
-	  }
-	  return boundActionCreators;
-	}
-
-/***/ },
-/* 79 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	exports["default"] = applyMiddleware;
-
-	var _compose = __webpack_require__(80);
-
-	var _compose2 = _interopRequireDefault(_compose);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-	/**
-	 * Creates a store enhancer that applies middleware to the dispatch method
-	 * of the Redux store. This is handy for a variety of tasks, such as expressing
-	 * asynchronous actions in a concise manner, or logging every action payload.
-	 *
-	 * See `redux-thunk` package as an example of the Redux middleware.
-	 *
-	 * Because middleware is potentially asynchronous, this should be the first
-	 * store enhancer in the composition chain.
-	 *
-	 * Note that each middleware will be given the `dispatch` and `getState` functions
-	 * as named arguments.
-	 *
-	 * @param {...Function} middlewares The middleware chain to be applied.
-	 * @returns {Function} A store enhancer applying the middleware.
-	 */
-	function applyMiddleware() {
-	  for (var _len = arguments.length, middlewares = Array(_len), _key = 0; _key < _len; _key++) {
-	    middlewares[_key] = arguments[_key];
-	  }
-
-	  return function (createStore) {
-	    return function (reducer, initialState, enhancer) {
-	      var store = createStore(reducer, initialState, enhancer);
-	      var _dispatch = store.dispatch;
-	      var chain = [];
-
-	      var middlewareAPI = {
-	        getState: store.getState,
-	        dispatch: function dispatch(action) {
-	          return _dispatch(action);
-	        }
-	      };
-	      chain = middlewares.map(function (middleware) {
-	        return middleware(middlewareAPI);
-	      });
-	      _dispatch = _compose2["default"].apply(undefined, chain)(store.dispatch);
-
-	      return _extends({}, store, {
-	        dispatch: _dispatch
-	      });
-	    };
-	  };
-	}
-
-/***/ },
-/* 80 */
-/***/ function(module, exports) {
-
-	"use strict";
-
-	exports.__esModule = true;
-	exports["default"] = compose;
-	/**
-	 * Composes single-argument functions from right to left. The rightmost
-	 * function can take multiple arguments as it provides the signature for
-	 * the resulting composite function.
-	 *
-	 * @param {...Function} funcs The functions to compose.
-	 * @returns {Function} A function obtained by composing the argument functions
-	 * from right to left. For example, compose(f, g, h) is identical to doing
-	 * (...args) => f(g(h(...args))).
-	 */
-
-	function compose() {
-	  for (var _len = arguments.length, funcs = Array(_len), _key = 0; _key < _len; _key++) {
-	    funcs[_key] = arguments[_key];
-	  }
-
-	  if (funcs.length === 0) {
-	    return function (arg) {
-	      return arg;
-	    };
-	  } else {
-	    var _ret = function () {
-	      var last = funcs[funcs.length - 1];
-	      var rest = funcs.slice(0, -1);
-	      return {
-	        v: function v() {
-	          return rest.reduceRight(function (composed, f) {
-	            return f(composed);
-	          }, last.apply(undefined, arguments));
-	        }
-	      };
-	    }();
-
-	    if (typeof _ret === "object") return _ret.v;
-	  }
-	}
-
-/***/ },
-/* 81 */
-/***/ function(module, exports, __webpack_require__) {
-
 	'use strict';
 
 	exports.__esModule = true;
 	exports.connect = exports.Provider = undefined;
 
-	var _Provider = __webpack_require__(82);
+	var _Provider = __webpack_require__(68);
 
 	var _Provider2 = _interopRequireDefault(_Provider);
 
-	var _connect = __webpack_require__(85);
+	var _connect = __webpack_require__(71);
 
 	var _connect2 = _interopRequireDefault(_connect);
 
@@ -6751,7 +5879,7 @@
 	exports.connect = _connect2["default"];
 
 /***/ },
-/* 82 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -6761,11 +5889,11 @@
 
 	var _react = __webpack_require__(1);
 
-	var _storeShape = __webpack_require__(83);
+	var _storeShape = __webpack_require__(69);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _warning = __webpack_require__(84);
+	var _warning = __webpack_require__(70);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
@@ -6835,7 +5963,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ },
-/* 83 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -6851,7 +5979,7 @@
 	});
 
 /***/ },
-/* 84 */
+/* 70 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -6880,7 +6008,7 @@
 	}
 
 /***/ },
-/* 85 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -6892,31 +6020,31 @@
 
 	var _react = __webpack_require__(1);
 
-	var _storeShape = __webpack_require__(83);
+	var _storeShape = __webpack_require__(69);
 
 	var _storeShape2 = _interopRequireDefault(_storeShape);
 
-	var _shallowEqual = __webpack_require__(86);
+	var _shallowEqual = __webpack_require__(72);
 
 	var _shallowEqual2 = _interopRequireDefault(_shallowEqual);
 
-	var _wrapActionCreators = __webpack_require__(87);
+	var _wrapActionCreators = __webpack_require__(73);
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
-	var _warning = __webpack_require__(84);
+	var _warning = __webpack_require__(70);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _isPlainObject = __webpack_require__(69);
+	var _isPlainObject = __webpack_require__(88);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _hoistNonReactStatics = __webpack_require__(47);
+	var _hoistNonReactStatics = __webpack_require__(93);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-	var _invariant = __webpack_require__(12);
+	var _invariant = __webpack_require__(94);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -7279,7 +6407,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ },
-/* 86 */
+/* 72 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7310,7 +6438,7 @@
 	}
 
 /***/ },
-/* 87 */
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7318,7 +6446,7 @@
 	exports.__esModule = true;
 	exports["default"] = wrapActionCreators;
 
-	var _redux = __webpack_require__(67);
+	var _redux = __webpack_require__(74);
 
 	function wrapActionCreators(actionCreators) {
 	  return function (dispatch) {
@@ -7327,7 +6455,1161 @@
 	}
 
 /***/ },
+/* 74 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	exports.__esModule = true;
+	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
+
+	var _createStore = __webpack_require__(75);
+
+	var _createStore2 = _interopRequireDefault(_createStore);
+
+	var _combineReducers = __webpack_require__(83);
+
+	var _combineReducers2 = _interopRequireDefault(_combineReducers);
+
+	var _bindActionCreators = __webpack_require__(85);
+
+	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
+
+	var _applyMiddleware = __webpack_require__(86);
+
+	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
+
+	var _compose = __webpack_require__(87);
+
+	var _compose2 = _interopRequireDefault(_compose);
+
+	var _warning = __webpack_require__(84);
+
+	var _warning2 = _interopRequireDefault(_warning);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	/*
+	* This is a dummy function to check if the function name has been altered by minification.
+	* If the function has been minified and NODE_ENV !== 'production', warn the user.
+	*/
+	function isCrushed() {}
+
+	if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
+	  (0, _warning2["default"])('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
+	}
+
+	exports.createStore = _createStore2["default"];
+	exports.combineReducers = _combineReducers2["default"];
+	exports.bindActionCreators = _bindActionCreators2["default"];
+	exports.applyMiddleware = _applyMiddleware2["default"];
+	exports.compose = _compose2["default"];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+
+/***/ },
+/* 75 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.ActionTypes = undefined;
+	exports["default"] = createStore;
+
+	var _isPlainObject = __webpack_require__(76);
+
+	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
+
+	var _symbolObservable = __webpack_require__(81);
+
+	var _symbolObservable2 = _interopRequireDefault(_symbolObservable);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	/**
+	 * These are private action types reserved by Redux.
+	 * For any unknown actions, you must return the current state.
+	 * If the current state is undefined, you must return the initial state.
+	 * Do not reference these action types directly in your code.
+	 */
+	var ActionTypes = exports.ActionTypes = {
+	  INIT: '@@redux/INIT'
+	};
+
+	/**
+	 * Creates a Redux store that holds the state tree.
+	 * The only way to change the data in the store is to call `dispatch()` on it.
+	 *
+	 * There should only be a single store in your app. To specify how different
+	 * parts of the state tree respond to actions, you may combine several reducers
+	 * into a single reducer function by using `combineReducers`.
+	 *
+	 * @param {Function} reducer A function that returns the next state tree, given
+	 * the current state tree and the action to handle.
+	 *
+	 * @param {any} [initialState] The initial state. You may optionally specify it
+	 * to hydrate the state from the server in universal apps, or to restore a
+	 * previously serialized user session.
+	 * If you use `combineReducers` to produce the root reducer function, this must be
+	 * an object with the same shape as `combineReducers` keys.
+	 *
+	 * @param {Function} enhancer The store enhancer. You may optionally specify it
+	 * to enhance the store with third-party capabilities such as middleware,
+	 * time travel, persistence, etc. The only store enhancer that ships with Redux
+	 * is `applyMiddleware()`.
+	 *
+	 * @returns {Store} A Redux store that lets you read the state, dispatch actions
+	 * and subscribe to changes.
+	 */
+	function createStore(reducer, initialState, enhancer) {
+	  var _ref2;
+
+	  if (typeof initialState === 'function' && typeof enhancer === 'undefined') {
+	    enhancer = initialState;
+	    initialState = undefined;
+	  }
+
+	  if (typeof enhancer !== 'undefined') {
+	    if (typeof enhancer !== 'function') {
+	      throw new Error('Expected the enhancer to be a function.');
+	    }
+
+	    return enhancer(createStore)(reducer, initialState);
+	  }
+
+	  if (typeof reducer !== 'function') {
+	    throw new Error('Expected the reducer to be a function.');
+	  }
+
+	  var currentReducer = reducer;
+	  var currentState = initialState;
+	  var currentListeners = [];
+	  var nextListeners = currentListeners;
+	  var isDispatching = false;
+
+	  function ensureCanMutateNextListeners() {
+	    if (nextListeners === currentListeners) {
+	      nextListeners = currentListeners.slice();
+	    }
+	  }
+
+	  /**
+	   * Reads the state tree managed by the store.
+	   *
+	   * @returns {any} The current state tree of your application.
+	   */
+	  function getState() {
+	    return currentState;
+	  }
+
+	  /**
+	   * Adds a change listener. It will be called any time an action is dispatched,
+	   * and some part of the state tree may potentially have changed. You may then
+	   * call `getState()` to read the current state tree inside the callback.
+	   *
+	   * You may call `dispatch()` from a change listener, with the following
+	   * caveats:
+	   *
+	   * 1. The subscriptions are snapshotted just before every `dispatch()` call.
+	   * If you subscribe or unsubscribe while the listeners are being invoked, this
+	   * will not have any effect on the `dispatch()` that is currently in progress.
+	   * However, the next `dispatch()` call, whether nested or not, will use a more
+	   * recent snapshot of the subscription list.
+	   *
+	   * 2. The listener should not expect to see all state changes, as the state
+	   * might have been updated multiple times during a nested `dispatch()` before
+	   * the listener is called. It is, however, guaranteed that all subscribers
+	   * registered before the `dispatch()` started will be called with the latest
+	   * state by the time it exits.
+	   *
+	   * @param {Function} listener A callback to be invoked on every dispatch.
+	   * @returns {Function} A function to remove this change listener.
+	   */
+	  function subscribe(listener) {
+	    if (typeof listener !== 'function') {
+	      throw new Error('Expected listener to be a function.');
+	    }
+
+	    var isSubscribed = true;
+
+	    ensureCanMutateNextListeners();
+	    nextListeners.push(listener);
+
+	    return function unsubscribe() {
+	      if (!isSubscribed) {
+	        return;
+	      }
+
+	      isSubscribed = false;
+
+	      ensureCanMutateNextListeners();
+	      var index = nextListeners.indexOf(listener);
+	      nextListeners.splice(index, 1);
+	    };
+	  }
+
+	  /**
+	   * Dispatches an action. It is the only way to trigger a state change.
+	   *
+	   * The `reducer` function, used to create the store, will be called with the
+	   * current state tree and the given `action`. Its return value will
+	   * be considered the **next** state of the tree, and the change listeners
+	   * will be notified.
+	   *
+	   * The base implementation only supports plain object actions. If you want to
+	   * dispatch a Promise, an Observable, a thunk, or something else, you need to
+	   * wrap your store creating function into the corresponding middleware. For
+	   * example, see the documentation for the `redux-thunk` package. Even the
+	   * middleware will eventually dispatch plain object actions using this method.
+	   *
+	   * @param {Object} action A plain object representing “what changed”. It is
+	   * a good idea to keep actions serializable so you can record and replay user
+	   * sessions, or use the time travelling `redux-devtools`. An action must have
+	   * a `type` property which may not be `undefined`. It is a good idea to use
+	   * string constants for action types.
+	   *
+	   * @returns {Object} For convenience, the same action object you dispatched.
+	   *
+	   * Note that, if you use a custom middleware, it may wrap `dispatch()` to
+	   * return something else (for example, a Promise you can await).
+	   */
+	  function dispatch(action) {
+	    if (!(0, _isPlainObject2["default"])(action)) {
+	      throw new Error('Actions must be plain objects. ' + 'Use custom middleware for async actions.');
+	    }
+
+	    if (typeof action.type === 'undefined') {
+	      throw new Error('Actions may not have an undefined "type" property. ' + 'Have you misspelled a constant?');
+	    }
+
+	    if (isDispatching) {
+	      throw new Error('Reducers may not dispatch actions.');
+	    }
+
+	    try {
+	      isDispatching = true;
+	      currentState = currentReducer(currentState, action);
+	    } finally {
+	      isDispatching = false;
+	    }
+
+	    var listeners = currentListeners = nextListeners;
+	    for (var i = 0; i < listeners.length; i++) {
+	      listeners[i]();
+	    }
+
+	    return action;
+	  }
+
+	  /**
+	   * Replaces the reducer currently used by the store to calculate the state.
+	   *
+	   * You might need this if your app implements code splitting and you want to
+	   * load some of the reducers dynamically. You might also need this if you
+	   * implement a hot reloading mechanism for Redux.
+	   *
+	   * @param {Function} nextReducer The reducer for the store to use instead.
+	   * @returns {void}
+	   */
+	  function replaceReducer(nextReducer) {
+	    if (typeof nextReducer !== 'function') {
+	      throw new Error('Expected the nextReducer to be a function.');
+	    }
+
+	    currentReducer = nextReducer;
+	    dispatch({ type: ActionTypes.INIT });
+	  }
+
+	  /**
+	   * Interoperability point for observable/reactive libraries.
+	   * @returns {observable} A minimal observable of state changes.
+	   * For more information, see the observable proposal:
+	   * https://github.com/zenparsing/es-observable
+	   */
+	  function observable() {
+	    var _ref;
+
+	    var outerSubscribe = subscribe;
+	    return _ref = {
+	      /**
+	       * The minimal observable subscription method.
+	       * @param {Object} observer Any object that can be used as an observer.
+	       * The observer object should have a `next` method.
+	       * @returns {subscription} An object with an `unsubscribe` method that can
+	       * be used to unsubscribe the observable from the store, and prevent further
+	       * emission of values from the observable.
+	       */
+
+	      subscribe: function subscribe(observer) {
+	        if (typeof observer !== 'object') {
+	          throw new TypeError('Expected the observer to be an object.');
+	        }
+
+	        function observeState() {
+	          if (observer.next) {
+	            observer.next(getState());
+	          }
+	        }
+
+	        observeState();
+	        var unsubscribe = outerSubscribe(observeState);
+	        return { unsubscribe: unsubscribe };
+	      }
+	    }, _ref[_symbolObservable2["default"]] = function () {
+	      return this;
+	    }, _ref;
+	  }
+
+	  // When a store is created, an "INIT" action is dispatched so that every
+	  // reducer returns their initial state. This effectively populates
+	  // the initial state tree.
+	  dispatch({ type: ActionTypes.INIT });
+
+	  return _ref2 = {
+	    dispatch: dispatch,
+	    subscribe: subscribe,
+	    getState: getState,
+	    replaceReducer: replaceReducer
+	  }, _ref2[_symbolObservable2["default"]] = observable, _ref2;
+	}
+
+/***/ },
+/* 76 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getPrototype = __webpack_require__(77),
+	    isHostObject = __webpack_require__(79),
+	    isObjectLike = __webpack_require__(80);
+
+	/** `Object#toString` result references. */
+	var objectTag = '[object Object]';
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to resolve the decompiled source of functions. */
+	var funcToString = Function.prototype.toString;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/** Used to infer the `Object` constructor. */
+	var objectCtorString = funcToString.call(Object);
+
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objectToString = objectProto.toString;
+
+	/**
+	 * Checks if `value` is a plain object, that is, an object created by the
+	 * `Object` constructor or one with a `[[Prototype]]` of `null`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.8.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a plain object,
+	 *  else `false`.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 * }
+	 *
+	 * _.isPlainObject(new Foo);
+	 * // => false
+	 *
+	 * _.isPlainObject([1, 2, 3]);
+	 * // => false
+	 *
+	 * _.isPlainObject({ 'x': 0, 'y': 0 });
+	 * // => true
+	 *
+	 * _.isPlainObject(Object.create(null));
+	 * // => true
+	 */
+	function isPlainObject(value) {
+	  if (!isObjectLike(value) ||
+	      objectToString.call(value) != objectTag || isHostObject(value)) {
+	    return false;
+	  }
+	  var proto = getPrototype(value);
+	  if (proto === null) {
+	    return true;
+	  }
+	  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+	  return (typeof Ctor == 'function' &&
+	    Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString);
+	}
+
+	module.exports = isPlainObject;
+
+
+/***/ },
+/* 77 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var overArg = __webpack_require__(78);
+
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeGetPrototype = Object.getPrototypeOf;
+
+	/**
+	 * Gets the `[[Prototype]]` of `value`.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {null|Object} Returns the `[[Prototype]]`.
+	 */
+	var getPrototype = overArg(nativeGetPrototype, Object);
+
+	module.exports = getPrototype;
+
+
+/***/ },
+/* 78 */
+/***/ function(module, exports) {
+
+	/**
+	 * Creates a function that invokes `func` with its first argument transformed.
+	 *
+	 * @private
+	 * @param {Function} func The function to wrap.
+	 * @param {Function} transform The argument transform.
+	 * @returns {Function} Returns the new function.
+	 */
+	function overArg(func, transform) {
+	  return function(arg) {
+	    return func(transform(arg));
+	  };
+	}
+
+	module.exports = overArg;
+
+
+/***/ },
+/* 79 */
+/***/ function(module, exports) {
+
+	/**
+	 * Checks if `value` is a host object in IE < 9.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
+	 */
+	function isHostObject(value) {
+	  // Many host objects are `Object` objects that can coerce to strings
+	  // despite having improperly defined `toString` methods.
+	  var result = false;
+	  if (value != null && typeof value.toString != 'function') {
+	    try {
+	      result = !!(value + '');
+	    } catch (e) {}
+	  }
+	  return result;
+	}
+
+	module.exports = isHostObject;
+
+
+/***/ },
+/* 80 */
+/***/ function(module, exports) {
+
+	/**
+	 * Checks if `value` is object-like. A value is object-like if it's not `null`
+	 * and has a `typeof` result of "object".
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 * @example
+	 *
+	 * _.isObjectLike({});
+	 * // => true
+	 *
+	 * _.isObjectLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObjectLike(_.noop);
+	 * // => false
+	 *
+	 * _.isObjectLike(null);
+	 * // => false
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+
+	module.exports = isObjectLike;
+
+
+/***/ },
+/* 81 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {/* global window */
+	'use strict';
+
+	module.exports = __webpack_require__(82)(global || window || this);
+
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 82 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	module.exports = function symbolObservablePonyfill(root) {
+		var result;
+		var Symbol = root.Symbol;
+
+		if (typeof Symbol === 'function') {
+			if (Symbol.observable) {
+				result = Symbol.observable;
+			} else {
+				result = Symbol('observable');
+				Symbol.observable = result;
+			}
+		} else {
+			result = '@@observable';
+		}
+
+		return result;
+	};
+
+
+/***/ },
+/* 83 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+
+	exports.__esModule = true;
+	exports["default"] = combineReducers;
+
+	var _createStore = __webpack_require__(75);
+
+	var _isPlainObject = __webpack_require__(76);
+
+	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
+
+	var _warning = __webpack_require__(84);
+
+	var _warning2 = _interopRequireDefault(_warning);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	function getUndefinedStateErrorMessage(key, action) {
+	  var actionType = action && action.type;
+	  var actionName = actionType && '"' + actionType.toString() + '"' || 'an action';
+
+	  return 'Given action ' + actionName + ', reducer "' + key + '" returned undefined. ' + 'To ignore an action, you must explicitly return the previous state.';
+	}
+
+	function getUnexpectedStateShapeWarningMessage(inputState, reducers, action) {
+	  var reducerKeys = Object.keys(reducers);
+	  var argumentName = action && action.type === _createStore.ActionTypes.INIT ? 'initialState argument passed to createStore' : 'previous state received by the reducer';
+
+	  if (reducerKeys.length === 0) {
+	    return 'Store does not have a valid reducer. Make sure the argument passed ' + 'to combineReducers is an object whose values are reducers.';
+	  }
+
+	  if (!(0, _isPlainObject2["default"])(inputState)) {
+	    return 'The ' + argumentName + ' has unexpected type of "' + {}.toString.call(inputState).match(/\s([a-z|A-Z]+)/)[1] + '". Expected argument to be an object with the following ' + ('keys: "' + reducerKeys.join('", "') + '"');
+	  }
+
+	  var unexpectedKeys = Object.keys(inputState).filter(function (key) {
+	    return !reducers.hasOwnProperty(key);
+	  });
+
+	  if (unexpectedKeys.length > 0) {
+	    return 'Unexpected ' + (unexpectedKeys.length > 1 ? 'keys' : 'key') + ' ' + ('"' + unexpectedKeys.join('", "') + '" found in ' + argumentName + '. ') + 'Expected to find one of the known reducer keys instead: ' + ('"' + reducerKeys.join('", "') + '". Unexpected keys will be ignored.');
+	  }
+	}
+
+	function assertReducerSanity(reducers) {
+	  Object.keys(reducers).forEach(function (key) {
+	    var reducer = reducers[key];
+	    var initialState = reducer(undefined, { type: _createStore.ActionTypes.INIT });
+
+	    if (typeof initialState === 'undefined') {
+	      throw new Error('Reducer "' + key + '" returned undefined during initialization. ' + 'If the state passed to the reducer is undefined, you must ' + 'explicitly return the initial state. The initial state may ' + 'not be undefined.');
+	    }
+
+	    var type = '@@redux/PROBE_UNKNOWN_ACTION_' + Math.random().toString(36).substring(7).split('').join('.');
+	    if (typeof reducer(undefined, { type: type }) === 'undefined') {
+	      throw new Error('Reducer "' + key + '" returned undefined when probed with a random type. ' + ('Don\'t try to handle ' + _createStore.ActionTypes.INIT + ' or other actions in "redux/*" ') + 'namespace. They are considered private. Instead, you must return the ' + 'current state for any unknown actions, unless it is undefined, ' + 'in which case you must return the initial state, regardless of the ' + 'action type. The initial state may not be undefined.');
+	    }
+	  });
+	}
+
+	/**
+	 * Turns an object whose values are different reducer functions, into a single
+	 * reducer function. It will call every child reducer, and gather their results
+	 * into a single state object, whose keys correspond to the keys of the passed
+	 * reducer functions.
+	 *
+	 * @param {Object} reducers An object whose values correspond to different
+	 * reducer functions that need to be combined into one. One handy way to obtain
+	 * it is to use ES6 `import * as reducers` syntax. The reducers may never return
+	 * undefined for any action. Instead, they should return their initial state
+	 * if the state passed to them was undefined, and the current state for any
+	 * unrecognized action.
+	 *
+	 * @returns {Function} A reducer function that invokes every reducer inside the
+	 * passed object, and builds a state object with the same shape.
+	 */
+	function combineReducers(reducers) {
+	  var reducerKeys = Object.keys(reducers);
+	  var finalReducers = {};
+	  for (var i = 0; i < reducerKeys.length; i++) {
+	    var key = reducerKeys[i];
+	    if (typeof reducers[key] === 'function') {
+	      finalReducers[key] = reducers[key];
+	    }
+	  }
+	  var finalReducerKeys = Object.keys(finalReducers);
+
+	  var sanityError;
+	  try {
+	    assertReducerSanity(finalReducers);
+	  } catch (e) {
+	    sanityError = e;
+	  }
+
+	  return function combination() {
+	    var state = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+	    var action = arguments[1];
+
+	    if (sanityError) {
+	      throw sanityError;
+	    }
+
+	    if (process.env.NODE_ENV !== 'production') {
+	      var warningMessage = getUnexpectedStateShapeWarningMessage(state, finalReducers, action);
+	      if (warningMessage) {
+	        (0, _warning2["default"])(warningMessage);
+	      }
+	    }
+
+	    var hasChanged = false;
+	    var nextState = {};
+	    for (var i = 0; i < finalReducerKeys.length; i++) {
+	      var key = finalReducerKeys[i];
+	      var reducer = finalReducers[key];
+	      var previousStateForKey = state[key];
+	      var nextStateForKey = reducer(previousStateForKey, action);
+	      if (typeof nextStateForKey === 'undefined') {
+	        var errorMessage = getUndefinedStateErrorMessage(key, action);
+	        throw new Error(errorMessage);
+	      }
+	      nextState[key] = nextStateForKey;
+	      hasChanged = hasChanged || nextStateForKey !== previousStateForKey;
+	    }
+	    return hasChanged ? nextState : state;
+	  };
+	}
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+
+/***/ },
+/* 84 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports["default"] = warning;
+	/**
+	 * Prints a warning in the console if it exists.
+	 *
+	 * @param {String} message The warning message.
+	 * @returns {void}
+	 */
+	function warning(message) {
+	  /* eslint-disable no-console */
+	  if (typeof console !== 'undefined' && typeof console.error === 'function') {
+	    console.error(message);
+	  }
+	  /* eslint-enable no-console */
+	  try {
+	    // This error was thrown as a convenience so that if you enable
+	    // "break on all exceptions" in your console,
+	    // it would pause the execution at this line.
+	    throw new Error(message);
+	    /* eslint-disable no-empty */
+	  } catch (e) {}
+	  /* eslint-enable no-empty */
+	}
+
+/***/ },
+/* 85 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports["default"] = bindActionCreators;
+	function bindActionCreator(actionCreator, dispatch) {
+	  return function () {
+	    return dispatch(actionCreator.apply(undefined, arguments));
+	  };
+	}
+
+	/**
+	 * Turns an object whose values are action creators, into an object with the
+	 * same keys, but with every function wrapped into a `dispatch` call so they
+	 * may be invoked directly. This is just a convenience method, as you can call
+	 * `store.dispatch(MyActionCreators.doSomething())` yourself just fine.
+	 *
+	 * For convenience, you can also pass a single function as the first argument,
+	 * and get a function in return.
+	 *
+	 * @param {Function|Object} actionCreators An object whose values are action
+	 * creator functions. One handy way to obtain it is to use ES6 `import * as`
+	 * syntax. You may also pass a single function.
+	 *
+	 * @param {Function} dispatch The `dispatch` function available on your Redux
+	 * store.
+	 *
+	 * @returns {Function|Object} The object mimicking the original object, but with
+	 * every action creator wrapped into the `dispatch` call. If you passed a
+	 * function as `actionCreators`, the return value will also be a single
+	 * function.
+	 */
+	function bindActionCreators(actionCreators, dispatch) {
+	  if (typeof actionCreators === 'function') {
+	    return bindActionCreator(actionCreators, dispatch);
+	  }
+
+	  if (typeof actionCreators !== 'object' || actionCreators === null) {
+	    throw new Error('bindActionCreators expected an object or a function, instead received ' + (actionCreators === null ? 'null' : typeof actionCreators) + '. ' + 'Did you write "import ActionCreators from" instead of "import * as ActionCreators from"?');
+	  }
+
+	  var keys = Object.keys(actionCreators);
+	  var boundActionCreators = {};
+	  for (var i = 0; i < keys.length; i++) {
+	    var key = keys[i];
+	    var actionCreator = actionCreators[key];
+	    if (typeof actionCreator === 'function') {
+	      boundActionCreators[key] = bindActionCreator(actionCreator, dispatch);
+	    }
+	  }
+	  return boundActionCreators;
+	}
+
+/***/ },
+/* 86 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	exports["default"] = applyMiddleware;
+
+	var _compose = __webpack_require__(87);
+
+	var _compose2 = _interopRequireDefault(_compose);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	/**
+	 * Creates a store enhancer that applies middleware to the dispatch method
+	 * of the Redux store. This is handy for a variety of tasks, such as expressing
+	 * asynchronous actions in a concise manner, or logging every action payload.
+	 *
+	 * See `redux-thunk` package as an example of the Redux middleware.
+	 *
+	 * Because middleware is potentially asynchronous, this should be the first
+	 * store enhancer in the composition chain.
+	 *
+	 * Note that each middleware will be given the `dispatch` and `getState` functions
+	 * as named arguments.
+	 *
+	 * @param {...Function} middlewares The middleware chain to be applied.
+	 * @returns {Function} A store enhancer applying the middleware.
+	 */
+	function applyMiddleware() {
+	  for (var _len = arguments.length, middlewares = Array(_len), _key = 0; _key < _len; _key++) {
+	    middlewares[_key] = arguments[_key];
+	  }
+
+	  return function (createStore) {
+	    return function (reducer, initialState, enhancer) {
+	      var store = createStore(reducer, initialState, enhancer);
+	      var _dispatch = store.dispatch;
+	      var chain = [];
+
+	      var middlewareAPI = {
+	        getState: store.getState,
+	        dispatch: function dispatch(action) {
+	          return _dispatch(action);
+	        }
+	      };
+	      chain = middlewares.map(function (middleware) {
+	        return middleware(middlewareAPI);
+	      });
+	      _dispatch = _compose2["default"].apply(undefined, chain)(store.dispatch);
+
+	      return _extends({}, store, {
+	        dispatch: _dispatch
+	      });
+	    };
+	  };
+	}
+
+/***/ },
+/* 87 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	exports.__esModule = true;
+	exports["default"] = compose;
+	/**
+	 * Composes single-argument functions from right to left. The rightmost
+	 * function can take multiple arguments as it provides the signature for
+	 * the resulting composite function.
+	 *
+	 * @param {...Function} funcs The functions to compose.
+	 * @returns {Function} A function obtained by composing the argument functions
+	 * from right to left. For example, compose(f, g, h) is identical to doing
+	 * (...args) => f(g(h(...args))).
+	 */
+
+	function compose() {
+	  for (var _len = arguments.length, funcs = Array(_len), _key = 0; _key < _len; _key++) {
+	    funcs[_key] = arguments[_key];
+	  }
+
+	  if (funcs.length === 0) {
+	    return function (arg) {
+	      return arg;
+	    };
+	  } else {
+	    var _ret = function () {
+	      var last = funcs[funcs.length - 1];
+	      var rest = funcs.slice(0, -1);
+	      return {
+	        v: function v() {
+	          return rest.reduceRight(function (composed, f) {
+	            return f(composed);
+	          }, last.apply(undefined, arguments));
+	        }
+	      };
+	    }();
+
+	    if (typeof _ret === "object") return _ret.v;
+	  }
+	}
+
+/***/ },
 /* 88 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var getPrototype = __webpack_require__(89),
+	    isHostObject = __webpack_require__(91),
+	    isObjectLike = __webpack_require__(92);
+
+	/** `Object#toString` result references. */
+	var objectTag = '[object Object]';
+
+	/** Used for built-in method references. */
+	var objectProto = Object.prototype;
+
+	/** Used to resolve the decompiled source of functions. */
+	var funcToString = Function.prototype.toString;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/** Used to infer the `Object` constructor. */
+	var objectCtorString = funcToString.call(Object);
+
+	/**
+	 * Used to resolve the
+	 * [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
+	 * of values.
+	 */
+	var objectToString = objectProto.toString;
+
+	/**
+	 * Checks if `value` is a plain object, that is, an object created by the
+	 * `Object` constructor or one with a `[[Prototype]]` of `null`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.8.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a plain object,
+	 *  else `false`.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 * }
+	 *
+	 * _.isPlainObject(new Foo);
+	 * // => false
+	 *
+	 * _.isPlainObject([1, 2, 3]);
+	 * // => false
+	 *
+	 * _.isPlainObject({ 'x': 0, 'y': 0 });
+	 * // => true
+	 *
+	 * _.isPlainObject(Object.create(null));
+	 * // => true
+	 */
+	function isPlainObject(value) {
+	  if (!isObjectLike(value) ||
+	      objectToString.call(value) != objectTag || isHostObject(value)) {
+	    return false;
+	  }
+	  var proto = getPrototype(value);
+	  if (proto === null) {
+	    return true;
+	  }
+	  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+	  return (typeof Ctor == 'function' &&
+	    Ctor instanceof Ctor && funcToString.call(Ctor) == objectCtorString);
+	}
+
+	module.exports = isPlainObject;
+
+
+/***/ },
+/* 89 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var overArg = __webpack_require__(90);
+
+	/* Built-in method references for those with the same name as other `lodash` methods. */
+	var nativeGetPrototype = Object.getPrototypeOf;
+
+	/**
+	 * Gets the `[[Prototype]]` of `value`.
+	 *
+	 * @private
+	 * @param {*} value The value to query.
+	 * @returns {null|Object} Returns the `[[Prototype]]`.
+	 */
+	var getPrototype = overArg(nativeGetPrototype, Object);
+
+	module.exports = getPrototype;
+
+
+/***/ },
+/* 90 */
+/***/ function(module, exports) {
+
+	/**
+	 * Creates a function that invokes `func` with its first argument transformed.
+	 *
+	 * @private
+	 * @param {Function} func The function to wrap.
+	 * @param {Function} transform The argument transform.
+	 * @returns {Function} Returns the new function.
+	 */
+	function overArg(func, transform) {
+	  return function(arg) {
+	    return func(transform(arg));
+	  };
+	}
+
+	module.exports = overArg;
+
+
+/***/ },
+/* 91 */
+/***/ function(module, exports) {
+
+	/**
+	 * Checks if `value` is a host object in IE < 9.
+	 *
+	 * @private
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a host object, else `false`.
+	 */
+	function isHostObject(value) {
+	  // Many host objects are `Object` objects that can coerce to strings
+	  // despite having improperly defined `toString` methods.
+	  var result = false;
+	  if (value != null && typeof value.toString != 'function') {
+	    try {
+	      result = !!(value + '');
+	    } catch (e) {}
+	  }
+	  return result;
+	}
+
+	module.exports = isHostObject;
+
+
+/***/ },
+/* 92 */
+/***/ function(module, exports) {
+
+	/**
+	 * Checks if `value` is object-like. A value is object-like if it's not `null`
+	 * and has a `typeof` result of "object".
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 4.0.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
+	 * @example
+	 *
+	 * _.isObjectLike({});
+	 * // => true
+	 *
+	 * _.isObjectLike([1, 2, 3]);
+	 * // => true
+	 *
+	 * _.isObjectLike(_.noop);
+	 * // => false
+	 *
+	 * _.isObjectLike(null);
+	 * // => false
+	 */
+	function isObjectLike(value) {
+	  return !!value && typeof value == 'object';
+	}
+
+	module.exports = isObjectLike;
+
+
+/***/ },
+/* 93 */
+/***/ function(module, exports) {
+
+	/**
+	 * Copyright 2015, Yahoo! Inc.
+	 * Copyrights licensed under the New BSD License. See the accompanying LICENSE file for terms.
+	 */
+	'use strict';
+
+	var REACT_STATICS = {
+	    childContextTypes: true,
+	    contextTypes: true,
+	    defaultProps: true,
+	    displayName: true,
+	    getDefaultProps: true,
+	    mixins: true,
+	    propTypes: true,
+	    type: true
+	};
+
+	var KNOWN_STATICS = {
+	    name: true,
+	    length: true,
+	    prototype: true,
+	    caller: true,
+	    arguments: true,
+	    arity: true
+	};
+
+	var isGetOwnPropertySymbolsAvailable = typeof Object.getOwnPropertySymbols === 'function';
+
+	module.exports = function hoistNonReactStatics(targetComponent, sourceComponent, customStatics) {
+	    if (typeof sourceComponent !== 'string') { // don't hoist over string (html) components
+	        var keys = Object.getOwnPropertyNames(sourceComponent);
+
+	        /* istanbul ignore else */
+	        if (isGetOwnPropertySymbolsAvailable) {
+	            keys = keys.concat(Object.getOwnPropertySymbols(sourceComponent));
+	        }
+
+	        for (var i = 0; i < keys.length; ++i) {
+	            if (!REACT_STATICS[keys[i]] && !KNOWN_STATICS[keys[i]] && (!customStatics || !customStatics[keys[i]])) {
+	                try {
+	                    targetComponent[keys[i]] = sourceComponent[keys[i]];
+	                } catch (error) {
+
+	                }
+	            }
+	        }
+	    }
+
+	    return targetComponent;
+	};
+
+
+/***/ },
+/* 94 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-2015, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 */
+
+	'use strict';
+
+	/**
+	 * Use invariant() to assert state which your program assumes to be true.
+	 *
+	 * Provide sprintf-style format (only %s is supported) and arguments
+	 * to provide information about what broke and what you were
+	 * expecting.
+	 *
+	 * The invariant message will be stripped in production, but the invariant
+	 * will remain to ensure logic does not differ in production.
+	 */
+
+	var invariant = function(condition, format, a, b, c, d, e, f) {
+	  if (process.env.NODE_ENV !== 'production') {
+	    if (format === undefined) {
+	      throw new Error('invariant requires an error message argument');
+	    }
+	  }
+
+	  if (!condition) {
+	    var error;
+	    if (format === undefined) {
+	      error = new Error(
+	        'Minified exception occurred; use the non-minified dev environment ' +
+	        'for the full error message and additional helpful warnings.'
+	      );
+	    } else {
+	      var args = [a, b, c, d, e, f];
+	      var argIndex = 0;
+	      error = new Error(
+	        format.replace(/%s/g, function() { return args[argIndex++]; })
+	      );
+	      error.name = 'Invariant Violation';
+	    }
+
+	    error.framesToPop = 1; // we don't care about invariant's own frame
+	    throw error;
+	  }
+	};
+
+	module.exports = invariant;
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
+
+/***/ },
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7376,7 +7658,7 @@
 	exports.default = Root;
 
 /***/ },
-/* 89 */
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7395,23 +7677,23 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _Search = __webpack_require__(90);
+	var _Search = __webpack_require__(97);
 
 	var _Search2 = _interopRequireDefault(_Search);
 
-	var _ToolBar = __webpack_require__(100);
+	var _ToolBar = __webpack_require__(107);
 
 	var _ToolBar2 = _interopRequireDefault(_ToolBar);
 
-	var _Rbox = __webpack_require__(108);
+	var _Rbox = __webpack_require__(115);
 
 	var _Rbox2 = _interopRequireDefault(_Rbox);
 
-	var _Map = __webpack_require__(114);
+	var _Map = __webpack_require__(122);
 
 	var _Map2 = _interopRequireDefault(_Map);
 
-	var _Emap = __webpack_require__(115);
+	var _Emap = __webpack_require__(123);
 
 	var _Emap2 = _interopRequireDefault(_Emap);
 
@@ -7452,7 +7734,7 @@
 	exports.default = CongestionIndex;
 
 /***/ },
-/* 90 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -7467,25 +7749,25 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _leaflet = __webpack_require__(91);
+	var _leaflet = __webpack_require__(98);
 
 	var _leaflet2 = _interopRequireDefault(_leaflet);
 
-	var _esriLeaflet = __webpack_require__(92);
+	var _esriLeaflet = __webpack_require__(99);
 
 	var _esriLeaflet2 = _interopRequireDefault(_esriLeaflet);
 
-	var _search = __webpack_require__(93);
+	var _search = __webpack_require__(100);
 
 	var _search2 = _interopRequireDefault(_search);
 
-	var _logo = __webpack_require__(97);
+	var _logo = __webpack_require__(104);
 
 	var _logo2 = _interopRequireDefault(_logo);
 
-	var _reactRedux = __webpack_require__(81);
+	var _reactRedux = __webpack_require__(67);
 
-	var _searchAction = __webpack_require__(98);
+	var _searchAction = __webpack_require__(105);
 
 	var action = _interopRequireWildcard(_searchAction);
 
@@ -7517,22 +7799,9 @@
 	    _createClass(Search, [{
 	        key: 'update',
 	        value: function update(e) {
-	            var _this2 = this;
-
 	            var keyword = this.refs.searchVal.value;
-	            //this.props.pushList(newVal);
+	            this.props.fetchList(keyword);
 	            //browserHistory.push('/TG');
-
-	            window.$.ajax({
-	                url: 'http://www.tngou.net/api/search',
-	                data: { keyword: keyword, name: 'topword' },
-	                dataType: 'jsonp',
-	                success: function success(data) {
-	                    if (data.status) {
-	                        _this2.props.pushList(data.tngou);
-	                    }
-	                }
-	            });
 	        }
 	    }, {
 	        key: 'render',
@@ -7571,28 +7840,28 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, action)(Search);
 
 /***/ },
-/* 91 */
+/* 98 */
 /***/ function(module, exports) {
 
 	module.exports = L;
 
 /***/ },
-/* 92 */
+/* 99 */
 /***/ function(module, exports) {
 
 	module.exports = L.esri;
 
 /***/ },
-/* 93 */
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(94);
+	var content = __webpack_require__(101);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(96)(content, {});
+	var update = __webpack_require__(103)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -7609,10 +7878,10 @@
 	}
 
 /***/ },
-/* 94 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(95)();
+	exports = module.exports = __webpack_require__(102)();
 	// imports
 
 
@@ -7639,7 +7908,7 @@
 	};
 
 /***/ },
-/* 95 */
+/* 102 */
 /***/ function(module, exports) {
 
 	/*
@@ -7695,7 +7964,7 @@
 
 
 /***/ },
-/* 96 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -7947,30 +8216,49 @@
 
 
 /***/ },
-/* 97 */
+/* 104 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/png;base64,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"
 
 /***/ },
-/* 98 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	exports.pushList = exports.SEARCH_CRA_LIST = undefined;
+	exports.fetchList = exports.PAGE_SIZE = exports.SET_KEYWORD = exports.RECEIVE_CRA_LIST = undefined;
 
-	var _util = __webpack_require__(99);
+	var _util = __webpack_require__(106);
 
-	var SEARCH_CRA_LIST = exports.SEARCH_CRA_LIST = 'SEARCH_CRA_LIST';
+	var RECEIVE_CRA_LIST = exports.RECEIVE_CRA_LIST = 'RECEIVE_CRA_LIST';
+	var SET_KEYWORD = exports.SET_KEYWORD = 'SET_KEYWORD';
+	var PAGE_SIZE = exports.PAGE_SIZE = 10;
 
-	var pushList = exports.pushList = (0, _util.cac)(SEARCH_CRA_LIST, 'list');
+	var receiveList = (0, _util.cac)(RECEIVE_CRA_LIST, 'data', 'page');
+	var setKeyord = (0, _util.cac)(SET_KEYWORD, 'value');
+
+	var fetchList = exports.fetchList = function fetchList(keyword) {
+	    var page = arguments.length <= 1 || arguments[1] === undefined ? 1 : arguments[1];
+
+	    return function (dispatch, getState) {
+	        if (!keyword) keyword = getState().search.keyword;else dispatch(setKeyord(keyword));
+	        window.$.ajax({
+	            url: 'http://www.tngou.net/api/search',
+	            data: { keyword: keyword, name: 'topword', page: page, rows: PAGE_SIZE },
+	            dataType: 'jsonp',
+	            success: function success(data) {
+	                if (data.status) dispatch(receiveList(data, page));
+	            }
+	        });
+	    };
+	};
 
 /***/ },
-/* 99 */
+/* 106 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8014,7 +8302,7 @@
 	}
 
 /***/ },
-/* 100 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8033,11 +8321,11 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _Traffic = __webpack_require__(101);
+	var _Traffic = __webpack_require__(108);
 
 	var _Traffic2 = _interopRequireDefault(_Traffic);
 
-	var _toolBar = __webpack_require__(102);
+	var _toolBar = __webpack_require__(109);
 
 	var _toolBar2 = _interopRequireDefault(_toolBar);
 
@@ -8140,7 +8428,7 @@
 	exports.default = ToolBar;
 
 /***/ },
-/* 101 */
+/* 108 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8159,11 +8447,11 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _toolBar = __webpack_require__(102);
+	var _toolBar = __webpack_require__(109);
 
 	var _toolBar2 = _interopRequireDefault(_toolBar);
 
-	var _traffic = __webpack_require__(106);
+	var _traffic = __webpack_require__(113);
 
 	var _traffic2 = _interopRequireDefault(_traffic);
 
@@ -8414,16 +8702,16 @@
 	exports.default = Traffic;
 
 /***/ },
-/* 102 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(103);
+	var content = __webpack_require__(110);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(96)(content, {});
+	var update = __webpack_require__(103)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -8440,15 +8728,15 @@
 	}
 
 /***/ },
-/* 103 */
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(95)();
+	exports = module.exports = __webpack_require__(102)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "/*外层*/\r\n._32CNRQLxBqZJFp3-oQtPW1 {\r\n    background: #fff;\r\n    height: 36px;\r\n    width: 225px;\r\n    position: relative;\r\n    font-family: 'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif;\r\n    font-size: 12px;\r\n}  \r\n.Sz_rZx9M9LZ-CzHzh31cS {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    -o-user-select: none;\r\n    user-select: none;\r\n    box-shadow: 0 2px 6px rgba(0,0,0,.3);\r\n}     \r\n._2ENMuusFmXerEnjeHqFOCf {\r\n    position: absolute;\r\n    top: 15px;\r\n    left: calc(100% - 330px);\r\n    z-index: 1999;\r\n    background: #fff;\r\n    border-radius: 2px;\r\n    padding: 5px 6px;\r\n    cursor: move;\r\n}\r\nli {\r\n    display: list-item;\r\n    text-align: -webkit-match-parent;\r\n}\r\nol, ul {\r\n    list-style: none;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n/*layer_item*/\r\n.XqchKSuct7gJvVASxQCxB {\r\n    float: left;\r\n    height: 36px;\r\n    cursor: pointer;\r\n    display: inline-block;\r\n    height: 16px;\r\n    padding: 20px 10px 0;\r\n    border-right: 1px #e5e5e5 solid;\r\n    background: url(" + __webpack_require__(104) + ") no-repeat;\r\n}\r\n\r\n._3bPkOmLZQOJ6nLlzDSY8nY{\r\n    padding-top: 20px;\r\n    background-position: 11px 4px;\r\n}\r\n._2NAD5fUHGgkghRTyIg1qdH{\r\n    padding-top: 20px;\r\n    background-position: 11px -45px;\r\n}\r\n._3bPkOmLZQOJ6nLlzDSY8nY:hover{\r\n    opacity: 0.6\r\n}\r\n._2VjpcVg5Pcav28w683KJti{\r\n    background-position: 11px -336px;\r\n}\r\n._2VjpcVg5Pcav28w683KJti:hover{\r\n    opacity: 0.6\r\n}\r\n._3gpLic-vR-YlSCDMKawvmb{\r\n    background-position: 11px -142px;\r\n}\r\n._3gpLic-vR-YlSCDMKawvmb:hover{\r\n    opacity: 0.6\r\n}\r\n/*tool_item*/\r\n._3YZfpW3dcNRoATq4ovAR0h {\r\n    float: left;\r\n    cursor: pointer;\r\n    display: inline-block;\r\n    height: 16px;\r\n    padding: 20px 10px 0;\r\n    border-right: 1px #e5e5e5 solid;\r\n    background: url(" + __webpack_require__(105) + ") no-repeat;\r\n}\r\n._1SBSe4HaU5kTvyRMRo3Aa3{\r\n    background-position: 11px 2px;\r\n}\r\n._1SBSe4HaU5kTvyRMRo3Aa3:hover{\r\n    opacity: 0.6\r\n}\r\n._3VAB4dBvLz8kQUt0_kWuUW{\r\n    border: 0;\r\n    background-position: 11px -255px;\r\n}\r\n._3VAB4dBvLz8kQUt0_kWuUW:hover{\r\n    opacity: 0.6\r\n}", ""]);
+	exports.push([module.id, "/*外层*/\r\n._32CNRQLxBqZJFp3-oQtPW1 {\r\n    background: #fff;\r\n    height: 36px;\r\n    width: 225px;\r\n    position: relative;\r\n    font-family: 'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif;\r\n    font-size: 12px;\r\n}  \r\n.Sz_rZx9M9LZ-CzHzh31cS {\r\n    -webkit-user-select: none;\r\n    -moz-user-select: none;\r\n    -ms-user-select: none;\r\n    -o-user-select: none;\r\n    user-select: none;\r\n    box-shadow: 0 2px 6px rgba(0,0,0,.3);\r\n}     \r\n._2ENMuusFmXerEnjeHqFOCf {\r\n    position: absolute;\r\n    top: 15px;\r\n    left: calc(100% - 330px);\r\n    z-index: 1999;\r\n    background: #fff;\r\n    border-radius: 2px;\r\n    padding: 5px 6px;\r\n    cursor: move;\r\n}\r\nli {\r\n    display: list-item;\r\n    text-align: -webkit-match-parent;\r\n}\r\nol, ul {\r\n    list-style: none;\r\n    margin: 0;\r\n    padding: 0;\r\n}\r\n/*layer_item*/\r\n.XqchKSuct7gJvVASxQCxB {\r\n    float: left;\r\n    height: 36px;\r\n    cursor: pointer;\r\n    display: inline-block;\r\n    height: 16px;\r\n    padding: 20px 10px 0;\r\n    border-right: 1px #e5e5e5 solid;\r\n    background: url(" + __webpack_require__(111) + ") no-repeat;\r\n}\r\n\r\n._3bPkOmLZQOJ6nLlzDSY8nY{\r\n    padding-top: 20px;\r\n    background-position: 11px 4px;\r\n}\r\n._2NAD5fUHGgkghRTyIg1qdH{\r\n    padding-top: 20px;\r\n    background-position: 11px -45px;\r\n}\r\n._3bPkOmLZQOJ6nLlzDSY8nY:hover{\r\n    opacity: 0.6\r\n}\r\n._2VjpcVg5Pcav28w683KJti{\r\n    background-position: 11px -336px;\r\n}\r\n._2VjpcVg5Pcav28w683KJti:hover{\r\n    opacity: 0.6\r\n}\r\n._3gpLic-vR-YlSCDMKawvmb{\r\n    background-position: 11px -142px;\r\n}\r\n._3gpLic-vR-YlSCDMKawvmb:hover{\r\n    opacity: 0.6\r\n}\r\n/*tool_item*/\r\n._3YZfpW3dcNRoATq4ovAR0h {\r\n    float: left;\r\n    cursor: pointer;\r\n    display: inline-block;\r\n    height: 16px;\r\n    padding: 20px 10px 0;\r\n    border-right: 1px #e5e5e5 solid;\r\n    background: url(" + __webpack_require__(112) + ") no-repeat;\r\n}\r\n._1SBSe4HaU5kTvyRMRo3Aa3{\r\n    background-position: 11px 2px;\r\n}\r\n._1SBSe4HaU5kTvyRMRo3Aa3:hover{\r\n    opacity: 0.6\r\n}\r\n._3VAB4dBvLz8kQUt0_kWuUW{\r\n    border: 0;\r\n    background-position: 11px -255px;\r\n}\r\n._3VAB4dBvLz8kQUt0_kWuUW:hover{\r\n    opacity: 0.6\r\n}", ""]);
 
 	// exports
 	exports.locals = {
@@ -8466,28 +8754,28 @@
 	};
 
 /***/ },
-/* 104 */
+/* 111 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAJYCAYAAABmeRYOAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjMxQjBDRkIwNjVBQjExRTVBNDE4RUUzMDExNzZFODI3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjMxQjBDRkIxNjVBQjExRTVBNDE4RUUzMDExNzZFODI3Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MzFCMENGQUU2NUFCMTFFNUE0MThFRTMwMTE3NkU4MjciIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MzFCMENGQUY2NUFCMTFFNUE0MThFRTMwMTE3NkU4MjciLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6d82xLAAAK4UlEQVR42uydDWwUxxXH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"
 
 /***/ },
-/* 105 */
+/* 112 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAGQCAYAAACqKpBKAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBXaW5kb3dzIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjk1OTJDQTdGNjVBRDExRTU5RDZCODZFMjQ1ODQwMEU1IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjk1OTJDQTgwNjVBRDExRTU5RDZCODZFMjQ1ODQwMEU1Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6OTU5MkNBN0Q2NUFEMTFFNTlENkI4NkUyNDU4NDAwRTUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6OTU5MkNBN0U2NUFEMTFFNTlENkI4NkUyNDU4NDAwRTUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6lc9CgAAAFgUlEQVR42uydUWhcRRSGZzehoFSUgOCD+OSTUFEKhkpCJcHSpWJpaEEUg4JLQQSLwdJiSGloSWhRFEUoq0SUFqSiIJUEQ4LBQqAgBgVB8EnwNVgMCgtlPT/3TDMZ78zO3LY2NP+Bn+zNvfPtmbkz9+Hfs7O1TqdjEM1m0yTEE6KLol9FI6I192Sr1br+um7SA9BLosOi30Szou2hi+sZ0G9FS6I50auin2PwemamD4ne1v9H4fXETD8WfS7aI9opesyDX8wB20wnRS+JDoquip4SrTjXzem129zGvV0yPSF6TzSvx2h8wbnuWdFHomdE7W4Z20w/ER0T7dDuYhiGSqD7Rcs+pDeQ6WEd0yt6/KDCX0mB+hnbTDGl3hDdq93uF11LzbQMPKsZ2QazCv89F+qD0e29+vqINnyrCtQHH9Ib9aEej4mOltz95ZSl6oLxQGl4cB96JfXB4k83H14JGprHFv6w6FwVKKJmn8c3O+rmFgXBBBNMMMEEE0wwwQQTTDDBBBN8p4M3+G73nfk7pQ28TXiZ8IZeNo5D+OfRuytnDCi8uTE9xhtsu9GhABSu4aLoK9GoKWyeUni9QqaPiCZM4R4G4fWMTD8zhZE6LDpgCgPVhc/kgG2mp0XPK3BV9KQOiVE4DNaB4KwIZDotekdBlxT0tXPdPrNuo3XN2GaKrsOZhXW+oo1fE/Xoda7h90O3jG2mR3Rcl/X4cYXvcaDnyqBlGdtM5zXTPtEXpvDl/3Cui0LLwF+a4pOC50TfiBZE94t+yYGWgZf1zmMMx03xicH7udAy8Kh2f0bhx81GXz4JWgbGAwUfTsFC/1Tha7nQ0HQDHO73doUfUGgjFRqbxxaOeFehKzmPQfrHBBNMMMEEE0wwwQQTTDDBBBNM8GYDB51Cpx55tymssp16DJcFziHKMDfUHOdkjErT82a9frNfX5/Xc/kZa6Yvih41hVFqAwYpDL/vRJdVWRmfMkXR7aq+hsdzUs+t6rlTVTLeoZkhXjeFb/yPcx7nZm50VnxgCkfbLwbtqQJG9a4tC4ZjOOedf9pkeJtujOuY9pWc69Nz41XASzq1fjJFGfYDqoP6vwuhGdHt5iGmdVyxQGyBOGz0F+wCqQq2mS/pdEPs59Ntqz6PS2IuB0xjmmCCCSaYYIIJJphgggkmmGCCCd5s4A1GSLPZRDmluxtBTf92AscIlLbCUI1ujDGkF9UciIkcD3uJRIdiMaPHi7f95tUqMGq3NeMqllaHY3xLx3hBFV/SFWIoZ4HsTcy04/V0IZYxHNfZhIdQu+TN2jFwI/HONwJveNPGOOgp0z8mmGCCCSaYYIIJJphgggkmmGCCtwzYN6Z9VwQb/p4ItEUJ64T7j1arVUvJOAY1em4ydyhQZzyf0GPUxq6lgpEFNmbAdggDESj8OdR6N8oy7410HxsLTIkGI2M8YgJ13r0l4+Z2czCScX+kLRfInQR2lyjm8PeRtj+a4msHNqZi081+ZQAf9aBY/FAEPKaLaEQXC74UcTwEtvBjuvouR8B4cxSSw+lO3kTnLhPx353YZyps+/Ofx6IXUybynRAa0wQTTDDBBBNMMMEEE0wwwQQTTPBmA5cVNmNbA7s5A4yQkJX7puisvt4lOtNqtQZLwabwJ2EgwWSCdXMyAsZvkmG31jltMxrM2BTmEqDRnwn04NjbAk7WfLcxHkqE2sC1A91u3oRZ9966RY/XbiI2FJORMfXjHi6QLQKGX9nxFIq/vOumYmD4v6cTk3J/EHHaON5xaCiw9tsZvW6bknJhH7xLHyiNxMyR6bC22R1bedidGVttL6quRaBnnTeH841fDb3+aQ79Y4IJJphgggkmmGCCCSaYYIIJJphgggkmmOD/A/yvAAMA6r9M9MrB204AAAAASUVORK5CYII="
 
 /***/ },
-/* 106 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(107);
+	var content = __webpack_require__(114);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(96)(content, {});
+	var update = __webpack_require__(103)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -8504,10 +8792,10 @@
 	}
 
 /***/ },
-/* 107 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(95)();
+	exports = module.exports = __webpack_require__(102)();
 	// imports
 
 
@@ -8535,7 +8823,7 @@
 	};
 
 /***/ },
-/* 108 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8554,23 +8842,27 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	var _reactRedux = __webpack_require__(81);
+	var _reactRedux = __webpack_require__(67);
 
-	var _searchAction = __webpack_require__(98);
+	var _searchAction = __webpack_require__(105);
 
 	var action = _interopRequireWildcard(_searchAction);
 
-	var _rbox = __webpack_require__(109);
+	var _rbox = __webpack_require__(116);
 
 	var _rbox2 = _interopRequireDefault(_rbox);
 
-	var _CongestionIndex = __webpack_require__(112);
+	var _CongestionIndex = __webpack_require__(119);
 
 	var CI = _interopRequireWildcard(_CongestionIndex);
 
-	var _SearchResults = __webpack_require__(113);
+	var _SearchResults = __webpack_require__(120);
 
 	var _SearchResults2 = _interopRequireDefault(_SearchResults);
+
+	var _Pager = __webpack_require__(121);
+
+	var _Pager2 = _interopRequireDefault(_Pager);
 
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
@@ -8606,7 +8898,7 @@
 	    }, {
 	        key: 'renderList',
 	        value: function renderList() {
-	            return this.props.searchResults.map(function (item) {
+	            return this.props.list.map(function (item) {
 	                item.key = item.title;
 	                return _react2.default.createElement(_SearchResults2.default, item);
 	            });
@@ -8615,6 +8907,11 @@
 	        key: 'render',
 	        value: function render() {
 	            var _this2 = this;
+
+	            var _props = this.props;
+	            var page = _props.page;
+	            var totalPage = _props.totalPage;
+	            var dispatch = _props.dispatch;
 
 	            var searchAvtive = this.props.searchValue === "";
 	            return _react2.default.createElement(
@@ -8666,7 +8963,10 @@
 	                        _react2.default.createElement(
 	                            'div',
 	                            { id: 'resultPanel', className: _rbox2.default.resultPanel },
-	                            this.renderList()
+	                            this.renderList(),
+	                            _react2.default.createElement(_Pager2.default, { page: page, totalPage: totalPage, onChangePage: function onChangePage(i) {
+	                                    return _this2.props.fetchList(null, i);
+	                                } })
 	                        )
 	                    )
 	                ),
@@ -8685,24 +8985,22 @@
 	}(_react2.default.Component);
 
 	function mapStateToProps(state) {
-	    return {
-	        searchResults: state.search.list
-	    };
+	    return Object.assign({}, state.search);
 	}
 
 	exports.default = (0, _reactRedux.connect)(mapStateToProps, action)(Rbox);
 
 /***/ },
-/* 109 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(110);
+	var content = __webpack_require__(117);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(96)(content, {});
+	var update = __webpack_require__(103)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -8719,15 +9017,15 @@
 	}
 
 /***/ },
-/* 110 */
+/* 117 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(95)();
+	exports = module.exports = __webpack_require__(102)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "._2llNwVAGqDnhF4R1h3Zbm0 {\r\n    z-index: 2000;\r\n    position: absolute;\r\n    left: 15px;\r\n    top: 60px;\r\n    width: 400px;\r\n    opacity: .9;\r\n    box-shadow: 0 2px 6px rgba(0,0,0,.3);\r\n    -webkit-user-select: none;\r\n}\r\n/*是否展示指数面板*/\r\n.sFUUVXbHaLALSm4q7vCq-{\r\n    background-color: #fff;\r\n    padding: 12px 10px 5px;\r\n    width: 380px;\r\n    font-size: 14px;\r\n    box-shadow: 1px 2px 1px rgba(0,0,0,.1);\r\n    color: #0f89f5;\r\n    z-index: 10;\r\n    height: 24px;\r\n    left: 0;\r\n    position: absolute;\r\n    cursor: pointer;\r\n    text-align: center;\r\n    overflow: hidden;\r\n}\r\n._33d8lw-jW4ai9FG64eZ9ww{\r\n    display: none;\r\n}\r\n.IPeljpTu3qd4XLKM1pLzg{\r\n    display: display;\r\n}\r\n/*默认搜索结果或者指数面板*/\r\n._1R_Edmj22xLahYtwnxPeN0{\r\n    transition:height 1s;\r\n    height: 600px;\r\n}\r\n._2W-ZMEGCJKS84iLfLfVom0{\r\n    transition:height 1s;\r\n    height: 0px;\r\n}\r\n._3o_YCjzp4mJXJgrCZNRvnH{\r\n    background: #fff;\r\n    position: relative;\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: hidden;\r\n}\r\n._1gvDLBF1Z5F0zGrYEZvlGi {\r\n    z-index: -10;\r\n    width: 100%;\r\n    position: absolute;\r\n    height: 24px;\r\n    cursor: pointer;\r\n    left: 0;\r\n    overflow: hidden;\r\n    text-align: center;\r\n    background: url(" + __webpack_require__(111) + ") center center no-repeat;\r\n    bottom: -20px;\r\n}\r\n.sd4QPqnJs3x-nNxJwTPlR {\r\n    display: inline-block;\r\n    font: normal normal normal 14px/1 FontAwesome;\r\n    /* font-size: inherit; */\r\n    text-rendering: auto;\r\n    -webkit-font-smoothing: antialiased;\r\n    -moz-osx-font-smoothing: grayscale;\r\n    transform: translate(0,0);\r\n    padding: 5px 40px;\r\n    opacity: 0.7;\r\n}\r\n._3D8FssioAMIXT4EmtHhofX:before {\r\n    content: \"\\F077\";\r\n}\r\n/*左侧导航栏*/\r\n._3JBIUlb5GasfGhTK5GMe9Y{\r\n    position: absolute;\r\n    width: 55px;\r\n    background-color: #f4f5f6;\r\n    overflow: hidden;\r\n    height: 100%;\r\n    z-index: 9999;\r\n}\r\n._3lvCjyESKb74vmNE1uFE5S {\r\n    position: relative;\r\n    box-sizing: border-box;\r\n    width: 55px;\r\n    height: 55px;\r\n    padding-top: 7px;\r\n    text-align: center;\r\n    cursor: pointer;\r\n}\r\n._1wSq2-NcWDmN0AZ03ocdG4 {\r\n    -webkit-transition: all .2s;\r\n    -moz-transition: all .2s;\r\n    -o-transition: all .2s;\r\n    transition: all .2s;\r\n    border-bottom: 1px #e5e5e5 solid;\r\n}\r\n._1wSq2-NcWDmN0AZ03ocdG4:hover{\r\n    background-color: #fff;\r\n    color: #1b8cfb;\r\n}\r\n._1ofkmpDkq-90qIuuGxSEPK {\r\n    font-size: 13px;\r\n    line-height:45px;   \r\n    position: relative;\r\n}\r\n.tc4cTEpC8yn8zHWBwGt9L{\r\n    overflow-y: scroll;\r\n    margin-left: 55px;\r\n    padding: 10px 15px 30px;\r\n    box-sizing: border-box;\r\n    height: 100%;\r\n}\r\n/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  \r\n.tc4cTEpC8yn8zHWBwGt9L::-webkit-scrollbar  \r\n{  \r\n    width: 6px;  \r\n    height: 60px;  \r\n    background-color: white;  \r\n}  \r\n  \r\n/*定义滚动条轨道 内阴影+圆角*/  \r\n.tc4cTEpC8yn8zHWBwGt9L::-webkit-scrollbar-track  \r\n{  \r\n    border-radius: 10px;  \r\n    background-color:white;  \r\n}  \r\n  \r\n/*定义滑块 内阴影+圆角*/  \r\n.tc4cTEpC8yn8zHWBwGt9L::-webkit-scrollbar-thumb  \r\n{  \r\n    border-radius: 10px;  \r\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);  \r\n    background-color: #555;  \r\n}  ", ""]);
+	exports.push([module.id, "._2llNwVAGqDnhF4R1h3Zbm0 {\r\n    z-index: 2000;\r\n    position: absolute;\r\n    left: 15px;\r\n    top: 60px;\r\n    width: 400px;\r\n    opacity: .9;\r\n    box-shadow: 0 2px 6px rgba(0,0,0,.3);\r\n    -webkit-user-select: none;\r\n}\r\n/*是否展示指数面板*/\r\n.sFUUVXbHaLALSm4q7vCq-{\r\n    background-color: #fff;\r\n    padding: 12px 10px 5px;\r\n    width: 380px;\r\n    font-size: 14px;\r\n    box-shadow: 1px 2px 1px rgba(0,0,0,.1);\r\n    color: #0f89f5;\r\n    z-index: 10;\r\n    height: 24px;\r\n    left: 0;\r\n    position: absolute;\r\n    cursor: pointer;\r\n    text-align: center;\r\n    overflow: hidden;\r\n}\r\n._33d8lw-jW4ai9FG64eZ9ww{\r\n    display: none;\r\n}\r\n.IPeljpTu3qd4XLKM1pLzg{\r\n    display: display;\r\n}\r\n/*默认搜索结果或者指数面板*/\r\n._1R_Edmj22xLahYtwnxPeN0{\r\n    transition:height 1s;\r\n    height: 600px;\r\n}\r\n._2W-ZMEGCJKS84iLfLfVom0{\r\n    transition:height 1s;\r\n    height: 0px;\r\n}\r\n._3o_YCjzp4mJXJgrCZNRvnH{\r\n    background: #fff;\r\n    position: relative;\r\n    width: 100%;\r\n    height: 100%;\r\n    overflow: hidden;\r\n}\r\n._1gvDLBF1Z5F0zGrYEZvlGi {\r\n    z-index: -10;\r\n    width: 100%;\r\n    position: absolute;\r\n    height: 24px;\r\n    cursor: pointer;\r\n    left: 0;\r\n    overflow: hidden;\r\n    text-align: center;\r\n    background: url(" + __webpack_require__(118) + ") center center no-repeat;\r\n    bottom: -20px;\r\n}\r\n.sd4QPqnJs3x-nNxJwTPlR {\r\n    display: inline-block;\r\n    font: normal normal normal 14px/1 FontAwesome;\r\n    /* font-size: inherit; */\r\n    text-rendering: auto;\r\n    -webkit-font-smoothing: antialiased;\r\n    -moz-osx-font-smoothing: grayscale;\r\n    transform: translate(0,0);\r\n    padding: 5px 40px;\r\n    opacity: 0.7;\r\n}\r\n._3D8FssioAMIXT4EmtHhofX:before {\r\n    content: \"\\F077\";\r\n}\r\n/*左侧导航栏*/\r\n._3JBIUlb5GasfGhTK5GMe9Y{\r\n    position: absolute;\r\n    width: 55px;\r\n    background-color: #f4f5f6;\r\n    overflow: hidden;\r\n    height: 100%;\r\n    z-index: 9999;\r\n}\r\n._3lvCjyESKb74vmNE1uFE5S {\r\n    position: relative;\r\n    box-sizing: border-box;\r\n    width: 55px;\r\n    height: 55px;\r\n    padding-top: 7px;\r\n    text-align: center;\r\n    cursor: pointer;\r\n}\r\n._1wSq2-NcWDmN0AZ03ocdG4 {\r\n    -webkit-transition: all .2s;\r\n    -moz-transition: all .2s;\r\n    -o-transition: all .2s;\r\n    transition: all .2s;\r\n    border-bottom: 1px #e5e5e5 solid;\r\n}\r\n._1wSq2-NcWDmN0AZ03ocdG4:hover{\r\n    background-color: #fff;\r\n    color: #1b8cfb;\r\n}\r\n._1ofkmpDkq-90qIuuGxSEPK {\r\n    font-size: 13px;\r\n    line-height:45px;   \r\n    position: relative;\r\n}\r\n.tc4cTEpC8yn8zHWBwGt9L{\r\n    overflow-y: scroll;\r\n    margin-left: 55px;\r\n    padding: 10px 15px 30px;\r\n    box-sizing: border-box;\r\n    height: 100%;\r\n}\r\n/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  \r\n.tc4cTEpC8yn8zHWBwGt9L::-webkit-scrollbar  \r\n{  \r\n    width: 6px;  \r\n    height: 60px;  \r\n    background-color: white;  \r\n}  \r\n  \r\n/*定义滚动条轨道 内阴影+圆角*/  \r\n.tc4cTEpC8yn8zHWBwGt9L::-webkit-scrollbar-track  \r\n{  \r\n    border-radius: 10px;  \r\n    background-color:white;  \r\n}  \r\n  \r\n/*定义滑块 内阴影+圆角*/  \r\n.tc4cTEpC8yn8zHWBwGt9L::-webkit-scrollbar-thumb  \r\n{  \r\n    border-radius: 10px;  \r\n    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);  \r\n    background-color: #555;  \r\n}  ", ""]);
 
 	// exports
 	exports.locals = {
@@ -8749,13 +9047,13 @@
 	};
 
 /***/ },
-/* 111 */
+/* 118 */
 /***/ function(module, exports) {
 
 	module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJoAAAAYCAYAAAACh+TEAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDIxIDc5LjE1NTc3MiwgMjAxNC8wMS8xMy0xOTo0NDowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTQgKE1hY2ludG9zaCkiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Q0MzRjYxQTAwNkQ1MTFFNThGMThFNEI2QzUxMThFOTgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6Q0MzRjYxQTEwNkQ1MTFFNThGMThFNEI2QzUxMThFOTgiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDQzNGNjE5RTA2RDUxMUU1OEYxOEU0QjZDNTExOEU5OCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDQzNGNjE5RjA2RDUxMUU1OEYxOEU0QjZDNTExOEU5OCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pq7MktYAAASOSURBVHja7JtdSCNXFMdnJhOT0K6iy2pYsJQESgUt+yAIWVHEPlSwsH5CCi6C3S64Zv0AH3zrk2+xVKglgn1oqdQWrSlWiljI1lrYDxBlX2RXuotojFW7cRMziclM78i9erydbM2Yuln3/uEwdwaTSeb88p9zzx157kh8ki0TUypStLYigIoOjhoz+JiSQUXGCjU+3Bc1oFJDwPEiABl4zK0UjZBxwNfwtKMRwEQwFjTgE5IAyHR+AaNhorcy2E/gIMDJInw3v9/fYrFYbgiC8Ba7tkx6FY/HH4XD4a8LCwu/4ZLcLg0ojH19fRcdDsfb+fn5try8PDuCz2Y2m9/NysqyssvIRBSLxQKSJC0jqFZ2dnYeBwKBp3Nzc0/cbve2yhuOA3eDtz142zQQ6MBxY3t7u7W5ufmq3W7/ICcn5z12qV8/BYPBh8vLyzMTExN/DA0NraND++BWCSMOxgqvUaNBdxPAmESWGmNjY5VVVVW3kdPls8t//hWNRrdmZ2e/dDqdPnVXNTQcsB6TqfFhDUe3Lvgk7Q4D3ooQttLS0tzh4eEbyOGu8TxvYOk4h7MARUmsrKz83NbWNrKwsLCDIYtiJ4sDuOjJwrGWh+GEswvaEg/scn19XfJ4PPdzc3MfFBUVqTXcRZaa86NQKPTnyMjIp01NTd6NjY2/0aEwij0UEoaNsEA7GeyhHTrXSQVrOR7UcKq7mQsKCi6Mj49/VFxcfB3NWk0sTa+uZFmOLS4ufldfX//t9vZ2CB2KYLhiGCxiPhwN1H/Bw+kEjkweVODMavT09Ng7Ozt7kctdYSl79YRmjw8HBgY+GxwcfIwBi2DAosC5uN3dXSU7OztlaDidwMFGLnE3E9Ibk5OT18rKym6KovgmS1/mK5FIhOfn57+qq6vz7u/v71EuRmaQigoYeU0qoAmnqRPRSWVQu8Xwh9tDM5RgTU3N9729va1bW1t3WRozW4FA4F5HR8cntbW1PyDInqFDz9USDefzoOhXcw0h03sb1CV0YkI23R45rN1QWKampj50OBy3kLtdYGnNHCGodn0+n6ehoeEXXORDF0touRjUWTkaBA66m4x/BRKepTxHv5QfXS7X9c3NzXmW3szQ2trandbW1o8RZD+h3SB2sTDOWzwdLpZ2R6Mop5e1jrmb1+utKS8vdxmNxhyW7pfiYs9mZma+cDqdv4JiH9Zi8otcTK+jpR00DeDgcpba9jA3NjZe7u/v77FarRUs9Wcnv9//e3d39+fT09N+DBeZUcYwYCk5WEaAdgJ3M4+OjlZWV1e7LBbLZYbB/6dIJOJHLuZpaWm5gwHb446WkVJysYwETQM42Hc7WMay2WzZbre7oqSk5H30d++YTKZLPM8LDI9TtAMURZYk6S+Un0dLS0u+rq6u31ZXV0PcUUdft4tlNGhJ3A0CB7fwAUsmHZyBIP0vsjZJOvu6XUwvaOJZfXv8hRQMHLkQpP9m5I4/IcIgO73ImiN5jCcOugJpm02eiaOl4dxajyfx6Wq7MFf716PW9DP/rwVo9Gdg//CSfti4lwkX1D8CDACJHSP5j0HvTwAAAABJRU5ErkJggg=="
 
 /***/ },
-/* 112 */
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8765,11 +9063,11 @@
 	});
 	exports.addGracLayer = addGracLayer;
 
-	var _leaflet = __webpack_require__(91);
+	var _leaflet = __webpack_require__(98);
 
 	var _leaflet2 = _interopRequireDefault(_leaflet);
 
-	var _esriLeaflet = __webpack_require__(92);
+	var _esriLeaflet = __webpack_require__(99);
 
 	var _esriLeaflet2 = _interopRequireDefault(_esriLeaflet);
 
@@ -8867,7 +9165,7 @@
 	};
 
 /***/ },
-/* 113 */
+/* 120 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8902,7 +9200,6 @@
 	    _createClass(SearchResults, [{
 	        key: 'render',
 	        value: function render() {
-	            var date = new Date(this.props.time);
 	            return _react2.default.createElement(
 	                'div',
 	                null,
@@ -8910,18 +9207,6 @@
 	                    'h2',
 	                    null,
 	                    this.props.title
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { style: { padding: '16px 0', color: '#888' } },
-	                    date.toLocaleDateString(),
-	                    ' ',
-	                    date.toLocaleTimeString()
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { style: { textAlign: 'center' } },
-	                    _react2.default.createElement('img', { src: this.props.img, style: { maxWidth: '100%' } })
 	                ),
 	                _react2.default.createElement(
 	                    'p',
@@ -8938,7 +9223,7 @@
 	exports.default = SearchResults;
 
 /***/ },
-/* 114 */
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -8953,11 +9238,94 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _leaflet = __webpack_require__(91);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Pager = function (_React$Component) {
+	    _inherits(Pager, _React$Component);
+
+	    function Pager() {
+	        _classCallCheck(this, Pager);
+
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(Pager).apply(this, arguments));
+	    }
+
+	    _createClass(Pager, [{
+	        key: 'renderNumbers',
+	        value: function renderNumbers() {
+	            var _props = this.props;
+	            var page = _props.page;
+	            var totalPage = _props.totalPage;
+	            var onChangePage = _props.onChangePage;
+
+	            return Array.from({ length: totalPage }, function (x, i) {
+	                ++i;
+	                var style = {
+	                    display: 'inline-block',
+	                    border: 'solid 1px #ddd',
+	                    padding: '5px',
+	                    margin: '2px',
+	                    color: page == i ? 'red' : '#999'
+	                };
+	                return _react2.default.createElement(
+	                    'b',
+	                    { style: style, onClick: function onClick() {
+	                            onChangePage(i);
+	                        } },
+	                    i
+	                );
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                ' ',
+	                this.renderNumbers(),
+	                ' '
+	            );
+	        }
+	    }]);
+
+	    return Pager;
+	}(_react2.default.Component);
+
+	Pager.propTypes = {
+	    page: _react2.default.PropTypes.number.isRequired,
+	    totalPage: _react2.default.PropTypes.number.isRequired,
+	    onChangePage: _react2.default.PropTypes.func.isRequired
+	};
+
+	exports.default = Pager;
+
+/***/ },
+/* 122 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _leaflet = __webpack_require__(98);
 
 	var _leaflet2 = _interopRequireDefault(_leaflet);
 
-	var _esriLeaflet = __webpack_require__(92);
+	var _esriLeaflet = __webpack_require__(99);
 
 	var _esriLeaflet2 = _interopRequireDefault(_esriLeaflet);
 
@@ -9015,7 +9383,7 @@
 	exports.default = Map;
 
 /***/ },
-/* 115 */
+/* 123 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9086,7 +9454,7 @@
 	exports.default = Map;
 
 /***/ },
-/* 116 */
+/* 124 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9135,7 +9503,66 @@
 	exports.default = TrafficGuidance;
 
 /***/ },
-/* 117 */
+/* 125 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _redux = __webpack_require__(74);
+
+	var _reduxThunk = __webpack_require__(126);
+
+	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+
+	var _index = __webpack_require__(127);
+
+	var _index2 = _interopRequireDefault(_index);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// 加入了redux-thunk,初始化store
+	var initStore = function initStore(initialState) {
+	    var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_reduxThunk2.default)(_redux.createStore);
+	    var store = createStoreWithMiddleware(_index2.default, initialState);
+	    return store;
+	};
+
+	exports.default = initStore;
+
+/***/ },
+/* 126 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	function createThunkMiddleware(extraArgument) {
+	  return function (_ref) {
+	    var dispatch = _ref.dispatch;
+	    var getState = _ref.getState;
+	    return function (next) {
+	      return function (action) {
+	        if (typeof action === 'function') {
+	          return action(dispatch, getState, extraArgument);
+	        }
+
+	        return next(action);
+	      };
+	    };
+	  };
+	}
+
+	var thunk = createThunkMiddleware();
+	thunk.withExtraArgument = createThunkMiddleware;
+
+	exports['default'] = thunk;
+
+/***/ },
+/* 127 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9144,9 +9571,9 @@
 	  value: true
 	});
 
-	var _redux = __webpack_require__(67);
+	var _redux = __webpack_require__(74);
 
-	var _search = __webpack_require__(118);
+	var _search = __webpack_require__(128);
 
 	var _search2 = _interopRequireDefault(_search);
 
@@ -9159,7 +9586,7 @@
 	exports.default = rootReducer;
 
 /***/ },
-/* 118 */
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9168,37 +9595,32 @@
 	    value: true
 	});
 
-	var _redux = __webpack_require__(67);
+	var _redux = __webpack_require__(74);
 
-	var _util = __webpack_require__(99);
+	var _util = __webpack_require__(106);
 
-	var _news = __webpack_require__(119);
+	var _searchAction = __webpack_require__(105);
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 	exports.default = (0, _redux.combineReducers)({
-	    list: (0, _util.cr)([], _defineProperty({}, _news.SEARCH_CRA_LIST, function (state, _ref) {
-	        var list = _ref.list;
-	        return list;
+	    list: (0, _util.cr)([], _defineProperty({}, _searchAction.RECEIVE_CRA_LIST, function (state, _ref) {
+	        var data = _ref.data;
+	        return data.tngou;
+	    })),
+	    totalPage: (0, _util.cr)(0, _defineProperty({}, _searchAction.RECEIVE_CRA_LIST, function (state, _ref2) {
+	        var data = _ref2.data;
+	        return Math.ceil(data.total / _searchAction.PAGE_SIZE);
+	    })),
+	    page: (0, _util.cr)(1, _defineProperty({}, _searchAction.RECEIVE_CRA_LIST, function (state, _ref3) {
+	        var page = _ref3.page;
+	        return page;
+	    })),
+	    keyword: (0, _util.cr)('', _defineProperty({}, _searchAction.SET_KEYWORD, function (state, _ref4) {
+	        var value = _ref4.value;
+	        return value;
 	    }))
 	});
-
-/***/ },
-/* 119 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.pushList = exports.SEARCH_CRA_LIST = undefined;
-
-	var _util = __webpack_require__(99);
-
-	var SEARCH_CRA_LIST = exports.SEARCH_CRA_LIST = 'SEARCH_CRA_LIST';
-
-	var pushList = exports.pushList = (0, _util.cac)(SEARCH_CRA_LIST, 'list');
 
 /***/ }
 /******/ ]);

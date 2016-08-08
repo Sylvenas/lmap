@@ -11,7 +11,7 @@ let store = initStore();
 
 ReactDOM.render(
     <Provider store={store}>
-        <Router history={browserHistory}>
+        <Router history={hashHistory}>
             <Route path="/" component={Root}>
                 <IndexRedirect to="/CI" />
                 <Route path='/CI' component={CongestionIndex}/>
