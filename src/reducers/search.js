@@ -1,10 +1,18 @@
 import {combineReducers} from 'redux';
 import {cr} from '../utils/util';
-import {SEARCH_CRA_LIST} from '../actions/news';
+import {RECEIVE_CRA_LIST, SET_KEYWORD, PAGE_SIZE} from '../actions/searchAction';
 
 export default combineReducers({
     list: cr([], {
-        [SEARCH_CRA_LIST](state, {list}) { return list }
-    }
-    )
+        [RECEIVE_CRA_LIST](state, {data}) { return data.tngou }
+    }),
+    totalPage: cr(0, {
+        [RECEIVE_CRA_LIST](state, {data}) { return Math.ceil(data.total / PAGE_SIZE) }
+    }),
+    page: cr(1, {
+        [RECEIVE_CRA_LIST](state, {page}) { return page }
+    }),
+    keyword: cr('', {
+        [SET_KEYWORD](state, {value}) { return value }
+    })
 })

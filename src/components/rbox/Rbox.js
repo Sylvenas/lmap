@@ -5,6 +5,7 @@ import * as action from '../../actions/searchAction';
 import styles from './_rbox.css';
 import * as CI from '../../scripts/CongestionIndex';
 import SearchResults from './menu/SearchResults';
+import Pager from './menu/Pager';
 
 class Rbox extends React.Component {
     constructor() {
@@ -19,12 +20,13 @@ class Rbox extends React.Component {
         })
     }
     renderList() {
-        return this.props.searchResults.map(item => {
+        return this.props.list.map(item => {
             item.key = item.title
             return React.createElement(SearchResults, item);
         })
     }
     render() {
+        let {page, totalPage, dispatch} = this.props;
         let searchAvtive = (this.props.searchValue === "");
         return (
             <div id="rbox" className={styles.rbox}>
@@ -43,6 +45,7 @@ class Rbox extends React.Component {
                         </ul>
                         <div id='resultPanel' className={styles.resultPanel}>
                             {this.renderList() }
+                            <Pager page={page} totalPage={totalPage} onChangePage={i => this.props.fetchList(null, i) } />
                         </div>
                     </section>
                 </div>
@@ -55,9 +58,7 @@ class Rbox extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return {
-        searchResults: state.search.list
-    }
+    return Object.assign({}, state.search)
 }
 
 export default connect(mapStateToProps, action)(Rbox);

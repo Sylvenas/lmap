@@ -13,22 +13,11 @@ class Search extends React.Component {
         //this.state = { val: '' }
         this.update = this.update.bind(this);
     }
-
+    
     update(e) {
-        let keyword  = this.refs.searchVal.value;
-        //this.props.pushList(newVal);
+        let keyword = this.refs.searchVal.value;
+        this.props.fetchList(keyword);
         //browserHistory.push('/TG');
-
-        window.$.ajax({
-            url: 'http://www.tngou.net/api/search',
-            data: { keyword , name: 'topword' },
-            dataType: 'jsonp',
-            success: (data) => {
-                if (data.status){
-                    this.props.pushList(data.tngou)
-                }
-            }
-        })
     }
 
     render() {
