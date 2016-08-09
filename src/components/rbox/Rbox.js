@@ -20,22 +20,29 @@ class Rbox extends React.Component {
         })
     }
     renderList() {
-        // console.log(this.props.cra.cralist);
-        // console.log(this.props.search.list);
-        console.log("keyword:"+this.props.search.keyword);
-        return this.props.search.list.map(item => {
-            item.key = item.title
-            return React.createElement(SearchResults, item);
-        })
+        // console.log('cra: ' + this.props.cra.cralist);
+        // console.log('search: ' + this.props.search.list);
+        // console.log("keyword: " + this.props.search.keyword);
+        //console.log("searchActive: " + this.props.search.rboxKey);
+        if (this.props.search.rboxKey=='search') {
+            console.log('rbox1111: '+this.props.search.rboxKey)
+            return this.props.search.list.map(item => {
+                item.key = item.title
+                return React.createElement(SearchResults, item);
+            })
+        }
+        else{
+            console.log('rbox2222: '+this.props.search.rboxKey)
+            console.log('rbox2222: '+this.props.search.list)
+        }
     }
     crsBtnClick(layerName) {
-        //console.log(layerName);
-        this.props.pushCrossList(layerName)
+        this.props.fetchCrossList(layerName)
     }
     render() {
         let {page, totalPage, dispatch} = this.props;
         let searchAvtive = (this.props.searchValue === "");
-        
+
         //console.log('searchAvtive:' + searchAvtive);
         return (
             <div id="rbox" className={styles.rbox}>

@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import {cr} from '../utils/util';
-import {RECEIVE_CRA_LIST, SET_KEYWORD, PAGE_SIZE} from '../actions/searchAction';
+import {RECEIVE_CRA_LIST, SET_KEYWORD, PAGE_SIZE,SET_RBOX_KEY} from '../actions/searchAction';
 
 export default combineReducers({
     list: cr([], {
@@ -15,7 +15,7 @@ export default combineReducers({
     keyword: cr('', {
         [SET_KEYWORD](state, {value}) { return value }
     }),
-    searchActive: cr('', {
-        [SET_KEYWORD](state, {value}) { return value }
+    rboxKey: cr('', {
+        [SET_RBOX_KEY](state, {rboxkey}) { return rboxkey }
     })
 })

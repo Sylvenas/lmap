@@ -16,10 +16,9 @@ class Search extends React.Component {
     
     update(e) {
         let keyword = this.refs.searchVal.value;
-        this.props.fetchList(keyword);
+        this.props.fetchSearchList(keyword,'search');
         //browserHistory.push('/TG');
     }
-
     render() {
         return (
             <section id="search" className={styles.search}>
@@ -40,7 +39,9 @@ class Search extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return {}
+    return {
+        search: state.search
+    }
 }
 
 export default connect(mapStateToProps, action)(Search)
