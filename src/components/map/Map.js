@@ -27,6 +27,7 @@ class Map extends React.Component {
             id:'streetLayer',
             url: "http://services.arcgisonline.com/arcgis/rest/services/World_Topo_Map/MapServer"
         }).addTo(map);
+        
         window.map = map;
     }
 }

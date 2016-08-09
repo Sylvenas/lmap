@@ -23,7 +23,6 @@ class Traffic extends React.Component {
         }
     }
     render() {
-        console.log(this.state.active);
         return (
             <div>
                 <li id="trafficConditions" onClick={() => this.mountTrafficConditions() }>

@@ -20,20 +20,29 @@ class Rbox extends React.Component {
         })
     }
     renderList() {
-        return this.props.list.map(item => {
+        // console.log(this.props.cra.cralist);
+        // console.log(this.props.search.list);
+        console.log("keyword:"+this.props.search.keyword);
+        return this.props.search.list.map(item => {
             item.key = item.title
             return React.createElement(SearchResults, item);
         })
     }
+    crsBtnClick(layerName) {
+        //console.log(layerName);
+        this.props.pushCrossList(layerName)
+    }
     render() {
         let {page, totalPage, dispatch} = this.props;
         let searchAvtive = (this.props.searchValue === "");
+        
+        //console.log('searchAvtive:' + searchAvtive);
         return (
             <div id="rbox" className={styles.rbox}>
                 <div id="navBody" className={this.state.contraction ? styles.navBody_none : styles.navBody_display}>
                     <section id="rboxPanels" className={styles.rboxPanels}>
                         <ul id='nav' className={styles.nav}>
-                            <li id='cross' ref='cross' className={styles.craLi} onClick={() => CI.addGracLayer(this.refs.cross) }>
+                            <li id='cross' ref='cross' className={styles.craLi} onClick={() => this.crsBtnClick(this.refs.cross.id) }>
                                 <span className={styles.navTxt}>路口</span>
                             </li>
                             <li id='road' ref='road' className={styles.craLi} onClick={() => CI.addGracLayer(this.refs.road) }>
@@ -58,7 +67,10 @@ class Rbox extends React.Component {
 }
 
 function mapStateToProps(state) {
-    return Object.assign({}, state.search)
+    return {
+        search: state.search,
+        cra: state.cra
+    }
 }
 
 export default connect(mapStateToProps, action)(Rbox);

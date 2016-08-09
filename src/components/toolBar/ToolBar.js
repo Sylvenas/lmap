@@ -16,7 +16,7 @@ class ToolBar extends React.Component {
                             <TrafficConditions/>
                             <li id="satelliteMap">
                                 <div type="satellite">
-                                    <span className={styles.satellite}>卫星</span>
+                                    <span className={styles.satellite}>回放</span>
                                 </div>
                             </li>
                             <li id="subway">
@@ -26,7 +26,7 @@ class ToolBar extends React.Component {
                             </li>
                             <li id="distanceMeasure">
                                 <div type="ranging">
-                                    <span className={styles.ranging}>测距</span>
+                                    <span className={styles.ranging}>工具</span>
                                 </div>
                             </li>
                             <li id="fullScreen">

@@ -14,5 +14,8 @@ export default combineReducers({
     }),
     keyword: cr('', {
         [SET_KEYWORD](state, {value}) { return value }
+    }),
+    searchActive: cr('', {
+        [SET_KEYWORD](state, {value}) { return value }
     })
 })
