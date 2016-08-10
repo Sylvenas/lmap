@@ -26,14 +26,6 @@ const crossLayer = () => {
         id: 'crossLayer',
         url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Heritage_Trees_Portland/FeatureServer/0'
     });
-    // crossLayer.on('mouseover', (e) => {
-    //     //console.log(e.latlng);
-    //     let popup=L.popup()
-    //         .setLatLng(e.latlng)
-    //         .setContent("You clicked the map at " + e.latlng.toString())
-    //         .openOn(map);
-
-    // })
     map.addLayer(crossLayer);
 }
 const roadLayer = () => {
@@ -92,4 +84,28 @@ const roadLayer = () => {
     roadLayer.on('mouseover', function (e) {
         document.getElementById('info-pane').innerHTML = e.layer.feature.properties.BIKEMODE;
     });
+}
+
+
+export const addCrossGracLayer = () => {
+    map.eachLayer((layer) => {
+        if (layer.options.id != 'crossLayer' && layer.options.id != 'streetLayer')
+            map.removeLayer(layer);
+    });
+    let crossLayer = L.esri.featureLayer({
+        id: 'crossLayer',
+        url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Heritage_Trees_Portland/FeatureServer/0'
+    });
+    map.addLayer(crossLayer);
+    crossLayer.on('mouseover', (e) => {
+        let popup = L.popup(
+            {
+                offset: L.point(0, -20),
+                closeButton: false
+            })
+            .setLatLng(e.latlng)
+            .setContent("You clicked the map at " + e.latlng.toString())
+            .openOn(map);
+
+    })
 }

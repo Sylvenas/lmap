@@ -20,21 +20,36 @@ class Rbox extends React.Component {
         })
     }
     renderList() {
-        // console.log('cra: ' + this.props.cra.cralist);
-        // console.log('search: ' + this.props.search.list);
-        // console.log("keyword: " + this.props.search.keyword);
-        //console.log("searchActive: " + this.props.search.rboxKey);
-        if (this.props.search.rboxKey=='search') {
-            console.log('rbox1111: '+this.props.search.rboxKey)
-            return this.props.search.list.map(item => {
-                item.key = item.title
-                return React.createElement(SearchResults, item);
-            })
+        let rboxkey = this.props.search.rboxKey;
+        switch (rboxkey) {
+            case 'search':
+                return this.props.search.list.map(item => {
+                    item.key = item.title
+                    return React.createElement(SearchResults, item);
+                });
+            case 'cross':
+                CI.addCrossGracLayer();
+                return <h1>{this.props.search.rboxKey}</h1>
+            case 'road':
+                return <h1>{this.props.search.rboxKey}</h1>
+            case 'area':
+                return <h1>{this.props.search.rboxKey}</h1>
+            default:
+                break;
         }
-        else{
-            console.log('rbox2222: '+this.props.search.rboxKey)
-            console.log('rbox2222: '+this.props.search.list)
-        }
+
+        // if (this.props.search.rboxKey=='search') {
+        //     console.log('rbox1111:rboxKey: '+this.props.search.rboxKey)
+        //     return this.props.search.list.map(item => {
+        //         item.key = item.title
+        //         return React.createElement(SearchResults, item);
+        //     })
+        // }
+        // else{
+        //     console.log('rbox2222:rboxKey: '+this.props.search.rboxKey)
+        //     console.log('rbox2222:list: '+this.props.search.list)
+        //     return <h1>{this.props.search.rboxKey}</h1>
+        // }
     }
     crsBtnClick(layerName) {
         this.props.fetchCrossList(layerName)
@@ -52,7 +67,7 @@ class Rbox extends React.Component {
                             <li id='cross' ref='cross' className={styles.craLi} onClick={() => this.crsBtnClick(this.refs.cross.id) }>
                                 <span className={styles.navTxt}>路口</span>
                             </li>
-                            <li id='road' ref='road' className={styles.craLi} onClick={() => CI.addGracLayer(this.refs.road) }>
+                            <li id='road' ref='road' className={styles.craLi} onClick={() => this.crsBtnClick(this.refs.road.id) }>
                                 <span className={styles.navTxt}>路段</span>
                             </li>
                             <li id='area' ref='area' className={styles.craLi} onClick={() => CI.addGracLayer(this.refs.area) }>
