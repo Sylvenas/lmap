@@ -1,5 +1,6 @@
 import L from 'leaflet';
 import LE from 'esri-leaflet';
+import {statesData,GeoJsonPoints} from '../test/US';
 
 export function addGracLayer(layerName) {
     switch (layerName.id) {
@@ -88,24 +89,63 @@ const roadLayer = () => {
 
 
 export const addCrossGracLayer = () => {
-    map.eachLayer((layer) => {
-        if (layer.options.id != 'crossLayer' && layer.options.id != 'streetLayer')
-            map.removeLayer(layer);
-    });
-    let crossLayer = L.esri.featureLayer({
-        id: 'crossLayer',
-        url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Heritage_Trees_Portland/FeatureServer/0'
-    });
-    map.addLayer(crossLayer);
-    crossLayer.on('mouseover', (e) => {
-        let popup = L.popup(
-            {
-                offset: L.point(0, -20),
-                closeButton: false
-            })
-            .setLatLng(e.latlng)
-            .setContent("You clicked the map at " + e.latlng.toString())
-            .openOn(map);
 
-    })
+function getColor(d) {
+    return d > 5.5  ? '#BD3026' :
+           d > 4.5  ? '#E31A1C' :
+           d > 3.5  ? '#FC4E2A' :
+           d > 2.5  ? '#FD8D3f' :
+           d > 1.5  ? '#F2B24C' :
+           d > 0.5  ? '#34b000' :
+                      '#FFEDA0';
+}
+function style(feature) {
+    return {
+        fillColor: getColor(feature.properties.index),
+        radius: 8,
+        weight: 1,
+        opacity: 1,
+        fillOpacity: 0.8
+    };
+}
+function onEachFeature(feature, layer){
+    feature.properties.index=100;
+    //self.setInterval("clock(feature)",3000)
+    //console.log(feature);
+}
+function clock(feature){
+    feature.properties.index=100;
+}
+var geojsonlayer=L.geoJson(GeoJsonPoints,{
+    onEachFeature: onEachFeature,
+        pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, style(feature));
+    },
+}).addTo(map);
+
+function changeValue (Points){
+
+}(GeoJsonPoints)
+
+
+    // map.eachLayer((layer) => {
+    //     if (layer.options.id != 'crossLayer' && layer.options.id != 'streetLayer')
+    //         map.removeLayer(layer);
+    // });
+    // let crossLayer = L.esri.featureLayer({
+    //     id: 'crossLayer',
+    //     url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Heritage_Trees_Portland/FeatureServer/0'
+    // });
+    //map.addLayer(crossLayer);
+    // crossLayer.on('mouseover', (e) => {
+    //     let popup = L.popup(
+    //         {
+    //             offset: L.point(0, -20),
+    //             closeButton: false
+    //         })
+    //         .setLatLng(e.latlng)
+    //         .setContent("You clicked the map at " + e.latlng.toString())
+    //         .openOn(map);
+
+    // })
 }

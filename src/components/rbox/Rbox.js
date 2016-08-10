@@ -5,6 +5,7 @@ import * as action from '../../actions/searchAction';
 import styles from './_rbox.css';
 import * as CI from '../../scripts/CongestionIndex';
 import SearchResults from './menu/SearchResults';
+import CraResults from './menu/CraResults';
 import Pager from './menu/Pager';
 
 class Rbox extends React.Component {
@@ -29,7 +30,7 @@ class Rbox extends React.Component {
                 });
             case 'cross':
                 CI.addCrossGracLayer();
-                return <h1>{this.props.search.rboxKey}</h1>
+                return React.createElement(CraResults);
             case 'road':
                 return <h1>{this.props.search.rboxKey}</h1>
             case 'area':

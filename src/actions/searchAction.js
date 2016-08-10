@@ -32,7 +32,6 @@ export const fetchSearchList = (keyword,rboxkey, page = 1) => {
                     dispatch(receiveList(data, page))
                 }
                 else {
-                    console.log('keyword: '+keyword)
                     let Rdata = {};
                     Rdata.tngou = [{ title: '中国', description: '你好' }, { title: '奥运', description: '伟大的项目' }];
                     Rdata.total = 2;
@@ -42,6 +41,16 @@ export const fetchSearchList = (keyword,rboxkey, page = 1) => {
         })
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 // 路口路段区域事件
