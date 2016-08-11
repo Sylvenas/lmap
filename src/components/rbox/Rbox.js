@@ -20,7 +20,7 @@ class Rbox extends React.Component {
             contraction: !this.state.contraction
         })
     }
-    renderList() {
+    showResults() {
         let rboxkey = this.props.search.rboxKey;
         switch (rboxkey) {
             case 'search':
@@ -38,19 +38,6 @@ class Rbox extends React.Component {
             default:
                 break;
         }
-
-        // if (this.props.search.rboxKey=='search') {
-        //     console.log('rbox1111:rboxKey: '+this.props.search.rboxKey)
-        //     return this.props.search.list.map(item => {
-        //         item.key = item.title
-        //         return React.createElement(SearchResults, item);
-        //     })
-        // }
-        // else{
-        //     console.log('rbox2222:rboxKey: '+this.props.search.rboxKey)
-        //     console.log('rbox2222:list: '+this.props.search.list)
-        //     return <h1>{this.props.search.rboxKey}</h1>
-        // }
     }
     crsBtnClick(layerName) {
         this.props.fetchCrossList(layerName)
@@ -76,7 +63,7 @@ class Rbox extends React.Component {
                             </li>
                         </ul>
                         <div id='resultPanel' className={styles.resultPanel}>
-                            {this.renderList() }
+                            {this.showResults() }
                             <Pager page={page} totalPage={totalPage} onChangePage={i => this.props.fetchList(null, i) } />
                         </div>
                     </section>

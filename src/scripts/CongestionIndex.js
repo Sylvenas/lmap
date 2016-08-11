@@ -102,14 +102,14 @@ function getColor(d) {
 function style(feature) {
     return {
         fillColor: getColor(feature.properties.index),
-        radius: 8,
+        radius: 10,
         weight: 1,
         opacity: 1,
         fillOpacity: 0.8
     };
 }
 function onEachFeature(feature, layer){
-    feature.properties.index=100;
+    //feature.properties.index=100;
     //self.setInterval("clock(feature)",3000)
     //console.log(feature);
 }

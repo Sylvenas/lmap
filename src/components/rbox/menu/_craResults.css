@@ -1,0 +1,160 @@
+.traffic_tag {
+    font-family: 'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    float: left;
+    line-height: 30px;
+}
+/*结果面板上层统计展示*/
+.smooth_jam{
+    float: left;
+    font-size: 14px;
+}
+.separator {
+    position: absolute;
+    right: 42px;
+    top: 70px;
+    height: 30px;
+    width: 1px;
+    background: #e5e5e5;
+}
+.smooth_jam_num{
+    padding-right: 50px;
+    float: left;
+    font-size: 14px;
+    border-right: 1px #e5e5e5 solid;
+}
+.smooth_jam_num2{
+    padding-right: 22px;
+    float: left;
+    font-size: 14px;
+    border-right: 1px #e5e5e5 solid;
+}
+.traffic_level_li{
+    float: left;
+    width: 33px;
+    height: 6px;
+    margin: 11px 6px 0px;
+}
+.traffic_level_li_r{
+    float: right;
+    width: 33px;
+    height: 6px;
+    margin: 11px 6px 0px;
+}
+.traffic_level_1{
+    composes:traffic_level_li;
+    background: rgb(54,174,76);
+}
+.traffic_level_2{
+    composes:traffic_level_li;
+    background: rgb(106,183,45);
+}
+.traffic_level_3{
+    composes:traffic_level_li;
+    background: rgb(236,232,57);
+}
+.traffic_level_4{
+    composes:traffic_level_li;
+    background: rgb(242,150,24);
+}
+.traffic_level_5{
+    composes:traffic_level_li;
+    background: rgb(228,26,22);
+}
+/*结果面板下面表格展示全部*/
+.table{
+    box-sizing: border-box;
+    height: 100%;
+    position: absolute;
+    margin-top: 80px;
+    width:330px;
+}
+.smooth_jam_rank{
+    padding-right: 5px;
+    padding-left: 10px;
+    float: left;
+    font-size: 14px;
+    border-right: 1px #e5e5e5 solid;
+}
+.smooth_jam_num_name{
+    padding-right: 40px;
+    padding-left: 40px;
+    float: left;
+    font-size: 14px;
+    border-right: 1px #e5e5e5 solid;
+}
+.smooth_jam_num_index{
+    padding-right: 5px;
+    padding-left: 5px;
+    float: left;
+    font-size: 14px;
+    border-right: 1px #e5e5e5 solid;
+}
+.smooth_jam_num_hierarchy{
+    padding-right: 5px;
+    padding-left: 5px;
+    float: left;
+    font-size: 14px;
+    border-right: 1px #e5e5e5 solid;
+}
+.table_rows{
+    box-sizing: border-box;
+    height: 100%;
+    position: absolute;
+    margin-top: 50px;
+    width:330px;
+    overflow-y: scroll;
+}
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/  
+.table_rows::-webkit-scrollbar  
+{  
+    width: 6px;  
+    height: 30px;  
+    background-color: white;  
+}  
+  
+/*定义滚动条轨道 内阴影+圆角*/  
+.table_rows::-webkit-scrollbar-track  
+{  
+    border-radius: 10px;  
+    background-color:white;  
+}  
+  
+/*定义滑块 内阴影+圆角*/  
+.table_rows::-webkit-scrollbar-thumb  
+{  
+    border-radius: 10px;  
+    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);  */
+    background-color: #9c9c9c;  
+} 
+
+/*表格内的数据 */
+.row{
+    /*position: absolute;*/
+    border-top: 1px solid #eaeaea;
+    margin-top: 5px;
+}
+.rank{
+    /*position: relative;*/
+    padding-left: 10px;
+    /*float: left;
+    font-size: 14px;*/
+}
+.name{
+    /*position: relative;*/
+    padding-left: 28px;
+    /*float: left;
+    font-size: 14px;*/
+}
+.index{
+    /*position: relative;*/
+    padding-left: 32px;
+    /*float: left;
+    font-size: 14px;*/
+}
+.hierarchy{
+    /*position: relative;*/
+    padding-left: 30px;
+    /*float: left;
+    font-size: 14px;*/
+}

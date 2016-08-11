@@ -57,14 +57,14 @@ export var statesData = {"type":"FeatureCollection","features":[
 export var GeoJsonPoints = {
         "type": "FeatureCollection",
         "features": [
-            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [-122.6672, 45.5254] }, "properties": { "index": "1" } },
-            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [-122.6662, 45.5262] }, "properties": { "index": "2" } },
-            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [-122.6651, 45.5255] }, "properties": { "index": "3" } },
-            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [-122.6672, 45.5262] }, "properties": { "index": "4" } },
-            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [-122.6673, 45.5268] }, "properties": { "index": "2" } },
-            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [-122.6682, 45.5261] }, "properties": { "index": "3" } },
-            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [-122.6652, 45.5268] }, "properties": { "index": "1" } },
-            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [-122.6682, 45.5272] }, "properties": { "index": "2" } },
-            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [-122.6678, 45.5252] }, "properties": { "index": "5" } }
+            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [121.361, 28.325] }, "properties": { "index": "1" } },
+            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [121.372, 28.384] }, "properties": { "index": "2" } },
+            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [121.329, 28.396] }, "properties": { "index": "3" } },
+            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [121.380, 28.428] }, "properties": { "index": "4" } },
+            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [121.365, 28.419] }, "properties": { "index": "2" } },
+            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [121.342, 28.381] }, "properties": { "index": "3" } },
+            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [121.357, 28.444] }, "properties": { "index": "1" } },
+            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [121.368, 28.422] }, "properties": { "index": "2" } },
+            { "type": "Feature", "geometry": { "type": "Point", "coordinates": [121.393, 28.411] }, "properties": { "index": "5" } }
         ]
     };
