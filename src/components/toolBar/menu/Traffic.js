@@ -69,6 +69,7 @@ class TrafficConditions extends React.Component {
                             <li className={trafficStyles.traffic_level_2}></li>
                             <li className={trafficStyles.traffic_level_3}></li>
                             <li className={trafficStyles.traffic_level_4}></li>
+                            <li className={trafficStyles.traffic_level_5}></li>
                         </ul>
                         <span className={trafficStyles.smooth_jam}>拥堵</span>
                     </div>

@@ -51,25 +51,29 @@
 }
 .traffic_level_li{
     float: left;
-    width: 25px;
+    width: 22px;
     height: 6px;
     margin: 0px 1px
 }
 .traffic_level_1{
     composes:traffic_level_li;
-    background: rgb(52, 176, 0);
+    background: rgb(54,174,76);
 }
 .traffic_level_2{
     composes:traffic_level_li;
-    background: rgb(254, 203, 0);
+    background: rgb(106,183,45);
 }
 .traffic_level_3{
     composes:traffic_level_li;
-    background: rgb(223, 1, 0);
+    background: rgb(236,232,57);
 }
 .traffic_level_4{
     composes:traffic_level_li;
-    background: rgb(142, 14, 11);
+    background: rgb(242,150,24);
+}
+.traffic_level_5{
+    composes:traffic_level_li;
+    background: rgb(228,26,22);
 }
 /*panel Body*/
 .panel_body {

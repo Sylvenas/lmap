@@ -1,32 +1,29 @@
 .traffic_tag {
     font-family: 'Microsoft Yahei','Helvetica Neue',Helvetica,Arial,sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     float: left;
     line-height: 30px;
 }
 /*结果面板上层统计展示*/
 .smooth_jam{
     float: left;
-    font-size: 14px;
 }
 .separator {
     position: absolute;
-    right: 42px;
+    right: 38px;
     top: 70px;
     height: 30px;
     width: 1px;
     background: #e5e5e5;
 }
 .smooth_jam_num{
-    padding-right: 50px;
+    padding-right: 59px;
     float: left;
-    font-size: 14px;
     border-right: 1px #e5e5e5 solid;
 }
 .smooth_jam_num2{
-    padding-right: 22px;
+    padding-right: 35px;
     float: left;
-    font-size: 14px;
     border-right: 1px #e5e5e5 solid;
 }
 .traffic_level_li{
@@ -70,38 +67,34 @@
     width:330px;
 }
 .smooth_jam_rank{
-    padding-right: 5px;
-    padding-left: 10px;
+    padding-right: 6px;
+    padding-left: 7px;
     float: left;
-    font-size: 14px;
     border-right: 1px #e5e5e5 solid;
 }
 .smooth_jam_num_name{
-    padding-right: 40px;
-    padding-left: 40px;
+    padding-right: 50px;
+    padding-left: 50px;
     float: left;
-    font-size: 14px;
     border-right: 1px #e5e5e5 solid;
 }
 .smooth_jam_num_index{
-    padding-right: 5px;
-    padding-left: 5px;
+    padding-right: 7px;
+    padding-left: 7px;
     float: left;
-    font-size: 14px;
     border-right: 1px #e5e5e5 solid;
 }
 .smooth_jam_num_hierarchy{
-    padding-right: 5px;
-    padding-left: 5px;
+    padding-right: 8px;
+    padding-left: 8px;
     float: left;
-    font-size: 14px;
     border-right: 1px #e5e5e5 solid;
 }
 .table_rows{
     box-sizing: border-box;
     height: 100%;
     position: absolute;
-    margin-top: 50px;
+    margin-top: 30px;
     width:330px;
     overflow-y: scroll;
 }
@@ -124,37 +117,38 @@
 .table_rows::-webkit-scrollbar-thumb  
 {  
     border-radius: 10px;  
-    /*-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);  */
     background-color: #9c9c9c;  
 } 
 
 /*表格内的数据 */
 .row{
-    /*position: absolute;*/
     border-top: 1px solid #eaeaea;
-    margin-top: 5px;
+    margin-top: 10px;
+    float: left;
 }
 .rank{
-    /*position: relative;*/
-    padding-left: 10px;
-    /*float: left;
-    font-size: 14px;*/
+    float: left;
+    width: 25px;
+    height: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 .name{
-    /*position: relative;*/
-    padding-left: 28px;
-    /*float: left;
-    font-size: 14px;*/
+    float: left;
+    width: 128px;
+    height: 20px;
+    text-align:center;
 }
 .index{
-    /*position: relative;*/
-    padding-left: 32px;
-    /*float: left;
-    font-size: 14px;*/
+    float: left;
+    width: 60px;
+    height: 20px;
+    text-align:center;
 }
 .hierarchy{
-    /*position: relative;*/
-    padding-left: 30px;
-    /*float: left;
-    font-size: 14px;*/
+    color: chartreuse;
+    float: left;
+    width: 60px;
+    height: 20px;
+    text-align:center;
 }
