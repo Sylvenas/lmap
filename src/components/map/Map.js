@@ -20,7 +20,7 @@ class Map extends React.Component {
     componentDidMount() {
         var map = L.map("map", {
             center: [28.388, 121.36],
-            zoom: 14,
+            zoom: 12,
             zoomControl: false
         });
         L.esri.tiledMapLayer({

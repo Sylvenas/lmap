@@ -100,6 +100,16 @@
     transition: all .2s;
     border-bottom: 1px #e5e5e5 solid;
 }
+.craLi_active {
+    composes:navLi;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+    border-bottom: 1px #e5e5e5 solid;
+    background-color: #fff;
+    color: #1b8cfb;
+}
 .craLi:hover{
     background-color: #fff;
     color: #1b8cfb;

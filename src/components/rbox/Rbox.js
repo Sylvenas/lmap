@@ -12,7 +12,10 @@ class Rbox extends React.Component {
     constructor() {
         super();
         this.state = {
-            contraction: false
+            contraction: false,
+            cross: false,
+            road: false,
+            area: false
         }
     }
     contractionBtnClick() {
@@ -40,6 +43,31 @@ class Rbox extends React.Component {
         }
     }
     crsBtnClick(layerName) {
+        switch (layerName) {
+            case 'cross':
+                this.setState({
+                    cross: true,
+                    road: false,
+                    area: false
+                });
+                break;
+            case 'road':
+                this.setState({
+                    cross: false,
+                    road: true,
+                    area: false
+                });
+                break;
+            case 'area':
+                this.setState({
+                    cross: false,
+                    road: false,
+                    area: true
+                });
+                break;
+            default:
+                break;
+        }
         this.props.fetchCrossList(layerName)
     }
     render() {
@@ -52,13 +80,13 @@ class Rbox extends React.Component {
                 <div id="navBody" className={this.state.contraction ? styles.navBody_none : styles.navBody_display}>
                     <section id="rboxPanels" className={styles.rboxPanels}>
                         <ul id='nav' className={styles.nav}>
-                            <li id='cross' ref='cross' className={styles.craLi} onClick={() => this.crsBtnClick(this.refs.cross.id) }>
+                            <li id='cross' ref='cross' className={this.state.cross ? styles.craLi_active : styles.craLi} onClick={() => this.crsBtnClick(this.refs.cross.id) }>
                                 <span className={styles.navTxt}>路口</span>
                             </li>
-                            <li id='road' ref='road' className={styles.craLi} onClick={() => this.crsBtnClick(this.refs.road.id) }>
+                            <li id='road' ref='road' className={this.state.road ? styles.craLi_active : styles.craLi} onClick={() => this.crsBtnClick(this.refs.road.id) }>
                                 <span className={styles.navTxt}>路段</span>
                             </li>
-                            <li id='area' ref='area' className={styles.craLi} onClick={() => CI.addGracLayer(this.refs.area) }>
+                            <li id='area' ref='area' className={this.state.area ? styles.craLi_active : styles.craLi} onClick={() => this.crsBtnClick(this.refs.area.id) }>
                                 <span className={styles.navTxt}>区域</span>
                             </li>
                         </ul>
