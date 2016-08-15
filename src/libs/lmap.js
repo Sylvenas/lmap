@@ -19,9 +19,9 @@ export const icon =(options)=>{
 
                 'box-shadow: 0 0 6px 2px '+this.options.color,
 
-                'animation: pulsate ' + this.options.heartbeat + 's ease-out',
+                'animation: lmapIcon ' + this.options.heartbeat + 's ease-out',
                 'animation-iteration-count: infinite',
-                'animation-delay: '+ (.1) + 's',
+                'animation-delay: '+ (0) + 's',
             ];
             if (!this.options.animate){
                 after.push('animation: none');
@@ -39,7 +39,7 @@ export const icon =(options)=>{
             }
             document.getElementsByTagName('head')[0].appendChild(el);
             // apply css class
-            this.options.className = this.options.className+' leaflet-pulsing-icon '+uniqueClassName;
+            this.options.className = this.options.className+' leaflet-lmap-icon '+uniqueClassName;
             // initialize icon
             L.DivIcon.prototype.initialize.call(this, options);
         }
