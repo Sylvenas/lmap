@@ -10,23 +10,28 @@ class CraResults extends React.Component {
                         <span className={styles.traffic_level_3}></span>
                         <span className={styles.smooth_jam}>轻度拥堵: </span>
                         <span className={styles.smooth_jam_num2}>{this.props.lv3}</span>
+                        <span id="separator" className={styles.separator_LV3}></span>
                         <span className={styles.traffic_level_1}></span>
-                        <span className={styles.smooth_jam}>畅通: </span>
-                        <span className={styles.smooth_jam_num}>{this.props.lv1}</span>
+                        <span className={styles.smooth_jam1}>畅通: </span>
+                        <span className={styles.smooth_jam_num3}>{this.props.lv1}</span>
+                        <span id="separator" className={styles.separator_LV1}></span>
                     </div>
                     <div>
                         <span className={styles.traffic_level_4}></span>
                         <span className={styles.smooth_jam}>中度拥堵: </span>
                         <span className={styles.smooth_jam_num2}>{this.props.lv4}</span>
+                        <span id="separator" className={styles.separator_LV4}></span>
                         <span className={styles.traffic_level_2}></span>
-                        <span className={styles.smooth_jam}>基本畅通: </span>
-                        <span className={styles.smooth_jam_num2}>{this.props.lv2}</span>
+                        <span className={styles.smooth_jam2}>基本畅通: </span>
+                        <span className={styles.smooth_jam_num4}>{this.props.lv2}</span>
+                        <span id="separator" className={styles.separator_LV2}></span>
                     </div>
                     <div>
                         <span className={styles.traffic_level_5}></span>
                         <span className={styles.smooth_jam}>严重拥堵: </span>
                         <span className={styles.smooth_jam_num2}>{this.props.lv5}</span>
-                        <span id="separator" className={styles.separator}></span>
+                        <span id="separator" className={styles.separator_LV5}></span>
+                        <span id="separator" className={styles.separator_LV0}></span>
                     </div>
                 </div>
                 <div id='table' className={styles.table}>
@@ -113,7 +118,7 @@ class TableRow extends React.Component {
             <li id='row' className={styles.row}>
                 <ul>
                     <li className={styles.rank}>{this.props.item.rank}</li>
-                    <li className={styles.name}>{this.props.item.name}</li>
+                    <li className={styles.name} title={this.props.item.name}>{this.props.item.name}</li>
                     <li className={styles.index}>{this.props.item.index}</li>
                     <li style={hierarchyStyle}>{this.props.item.hierarchy}</li>
                 </ul>

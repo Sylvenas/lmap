@@ -71,7 +71,7 @@ export const fetchCrossList = (rboxkey) => {
             success: (data) => {
                 if (data.status) {
                     let Rdata = {};
-                    Rdata.tabelData = [{ rank: 0, name: '延陵中路-和平北路', index: 2.56, hierarchy: '严重拥堵' },
+                    Rdata.tabelData = [{ rank: 0, name: '延陵中路-和平北路(延陵中路-和平北路)', index: 2.56, hierarchy: '严重拥堵' },
                         { rank: 1, name: '延陵中路-桃园路', index: 2.56, hierarchy: '严重拥堵' },
                         { rank: 2, name: '延陵中路-丹青路', index: 2.56, hierarchy: '严重拥堵' },
                         { rank: 3, name: '桃园路-延陵中路', index: 2.56, hierarchy: '中度拥堵' },
@@ -111,10 +111,10 @@ export const fetchCrossList = (rboxkey) => {
                         { rank: 37, name: '友谊路-克山路', index: 2.56, hierarchy: '基本畅通' },
                         { rank: 38, name: '友谊路-克山路', index: 2.56, hierarchy: '基本畅通' }
                     ];
-                    Rdata.lv1 = 20;
+                    Rdata.lv1 = 12042141;
                     Rdata.lv2 = 21;
-                    Rdata.lv3 = 22;
-                    Rdata.lv4 = 23;
+                    Rdata.lv3 = 22312;
+                    Rdata.lv4 = 23213;
                     Rdata.lv5 = 24;
                     Rdata.geoDate = {
                         "type": "FeatureCollection",
