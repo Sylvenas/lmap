@@ -3,6 +3,7 @@ import styles from './_craResults.css';
 
 class CraResults extends React.Component {
     render() {
+        console.log(this.props.tabelData);
         return (
             <div className={styles.traffic_tag}>
                 <div>

@@ -12,26 +12,24 @@ export const icon =(options)=>{
         initialize: function (options) {
             L.setOptions(this,options);
             // css
-            var uniqueClassName = 'lpi-'+ new Date().getTime()+'-'+Math.round(Math.random()*100000);
+            let uniqueClassName = 'lpi-'+ new Date().getTime()+'-'+Math.round(Math.random()*100000);
 
-            var before = ['background-color: '+this.options.color];
-            var after = [
-
+            let before = ['background-color: '+this.options.color];
+            let after = [
                 'box-shadow: 0 0 6px 2px '+this.options.color,
-
                 'animation: lmapIcon ' + this.options.heartbeat + 's ease-out',
                 'animation-iteration-count: infinite',
-                'animation-delay: '+ (0) + 's',
+                'animation-delay: '+ 0 + 's',
             ];
             if (!this.options.animate){
                 after.push('animation: none');
             }
-            var css = [
+            let css = [
                 '.'+uniqueClassName+'{'+before.join(';')+';}',
                 '.'+uniqueClassName+':after{'+after.join(';')+';}',
             ].join('');
  
-            var el = document.createElement('style');
+            let el = document.createElement('style');
             if (el.styleSheet){
                 el.styleSheet.cssText = css;
             } else {

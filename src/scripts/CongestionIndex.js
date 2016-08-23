@@ -12,17 +12,17 @@ export const addCrossGracLayer = (geoDate) => {
         let index = feature.properties.index;
         switch (true) {
             case index < 2:
-                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#36AE4C' });
+                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#36AE4C',heartbeat:2 });
             case index < 4:
-                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#6AB72D' });
+                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#6AB72D',heartbeat:2 });
             case index < 6:
-                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#ECE839' });
+                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#ECE839',heartbeat:2 });
             case index < 8:
-                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#F29618' });
+                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#F29618',heartbeat:2 });
             case index < 10:
-                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#E41A16' });
+                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#E41A16',heartbeat:2 });
             default:
-                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#36AE4C' });
+                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#36AE4C',heartbeat:2 });
 
         }
     };

@@ -7,7 +7,7 @@ class Traffic extends React.Component {
     constructor() {
         super();
         this.state = {
-            active: true
+            active: false
         }
     }
     mountTrafficConditions() {
@@ -33,25 +33,37 @@ class Traffic extends React.Component {
             </div>
         )
     }
-    componentDidMount(){
-        ReactDOM.render(
-                <TrafficConditions/>, document.getElementById("presetBox")
-            )
+    componentDidMount() {
+        // ReactDOM.render(
+        //         <TrafficConditions/>, document.getElementById("presetBox")
+        //     )
     }
 }
 
 class TrafficConditions extends React.Component {
     constructor() {
         super();
-    }
-    current() {
-        ReactDOM.render(
-            <Current/>, document.getElementById('traffic_detailed')
-        )
+        this.state = {
+            forecast: true,
+            playback: false
+        }
     }
     forecast() {
+        this.setState({
+            forecast: true,
+            playback: false
+        });
         ReactDOM.render(
             <Forecast/>, document.getElementById('traffic_detailed')
+        )
+    }
+    playback() {
+        this.setState({
+            forecast: false,
+            playback: true
+        });
+        ReactDOM.render(
+            <Playback/>, document.getElementById('traffic_detailed')
         )
     }
     render() {
@@ -59,8 +71,8 @@ class TrafficConditions extends React.Component {
             <div className={trafficStyles.boxpanel}  id="detailedRoad">
                 <div className={trafficStyles.panel_header}>
                     <ul className={trafficStyles.panel_tab}>
-                        <li className={trafficStyles.panel_tab_li_active} id="traffic_current" type="current" onClick={() => this.current() }>实时</li>
-                        <li className={trafficStyles.panel_tab_li} id="traffic_forecast" type="forecast" onClick={() => this.forecast() }>预测</li>
+                        <li className={this.state.forecast ? trafficStyles.panel_tab_li_active : trafficStyles.panel_tab_li} id="traffic_current" type="current" onClick={() => this.forecast() }>预测</li>
+                        <li className={this.state.playback ? trafficStyles.panel_tab_li_active : trafficStyles.panel_tab_li} id="traffic_forecast" type="forecast" onClick={() => this.playback() }>回放</li>
                     </ul>
                     <div className={trafficStyles.traffic_tag}>
                         <span className={trafficStyles.smooth_jam}>畅通</span>
@@ -82,12 +94,12 @@ class TrafficConditions extends React.Component {
     }
     componentDidMount() {
         ReactDOM.render(
-            <Current/>, document.getElementById('traffic_detailed')
+            <Forecast/>, document.getElementById('traffic_detailed')
         );
     }
 }
 
-class Current extends React.Component {
+class Forecast extends React.Component {
     constructor() {
         super();
     }
@@ -104,7 +116,7 @@ class Current extends React.Component {
         g = g < 10 ? "0" + g : g;
         return (
             <div className={trafficStyles.panel_body}>
-                <span className={trafficStyles.time_lbl}>更新时间：</span>
+                <span className={trafficStyles.time_lbl}>预测时间：</span>
                 <span className={trafficStyles.date} id="dateNow">{c}/{d}/{e}</span>
                 <span className={trafficStyles.date} id="timeNow">{f}: {g}</span>
             </div>
@@ -112,14 +124,16 @@ class Current extends React.Component {
     }
 }
 
-class Forecast extends React.Component {
+class Playback extends React.Component {
     constructor() {
         super();
     }
     render() {
         return (
             <div className={trafficStyles.panel_body}>
-                <span className={trafficStyles.time_lbl}>预测时间：</span>
+                <span className={trafficStyles.time_lbl}>
+                <input type="button" id="btnPlay" value="play" onclick="markerPlayBack.start()" />
+                </span>
                 <span className={trafficStyles.date} id="dateNow">2015/12/2</span>
                 <span className={trafficStyles.date} id="timeNow">14: 20</span>
             </div>
