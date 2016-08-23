@@ -1,6 +1,6 @@
 import L from 'leaflet';
 import LE from 'esri-leaflet';
-import {statesData, GeoJsonPoints} from '../test/US';
+import {GeoJsonPoints, geo_playback} from '../test/US';
 import * as lmap from '../libs/lmap';
 
 export const addCrossGracLayer = (geoDate) => {
@@ -12,17 +12,17 @@ export const addCrossGracLayer = (geoDate) => {
         let index = feature.properties.index;
         switch (true) {
             case index < 2:
-                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#36AE4C',heartbeat:2 });
+                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#36AE4C', heartbeat: 2 });
             case index < 4:
-                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#6AB72D',heartbeat:2 });
+                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#6AB72D', heartbeat: 2 });
             case index < 6:
-                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#ECE839',heartbeat:2 });
+                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#ECE839', heartbeat: 2 });
             case index < 8:
-                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#F29618',heartbeat:2 });
+                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#F29618', heartbeat: 2 });
             case index < 10:
-                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#E41A16',heartbeat:2 });
+                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#E41A16', heartbeat: 2 });
             default:
-                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#36AE4C',heartbeat:2 });
+                return lmap.icon({ iconSize: [index * 2, index * 2], color: '#36AE4C', heartbeat: 2 });
 
         }
     };
@@ -44,16 +44,6 @@ export const addCrossGracLayer = (geoDate) => {
         onEachFeature: onEachFeature
     }).addTo(map);
 
-
-    // map.eachLayer((layer) => {
-    //     if (layer.options.id != 'crossLayer' && layer.options.id != 'streetLayer')
-    //         map.removeLayer(layer);
-    // });
-    // let crossLayer = L.esri.featureLayer({
-    //     id: 'crossLayer',
-    //     url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Heritage_Trees_Portland/FeatureServer/0'
-    // });
-    //map.addLayer(crossLayer);
     // crossLayer.on('mouseover', (e) => {
     //     let popup = L.popup(
     //         {
@@ -65,4 +55,12 @@ export const addCrossGracLayer = (geoDate) => {
     //         .openOn(map);
 
     // })
+}
+
+export const playback = (a) => {
+    let markerPlayBack = lmap.geoTime(geo_playback, {
+        map: map,
+        duration: 1000
+    });
+    return markerPlayBack;
 }

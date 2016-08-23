@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Slider } from 'antd';
 import styles from '../_toolBar.css';
-import trafficStyles from './_traffic.css'
+import trafficStyles from './_traffic.css';
+import * as CI from '../../../scripts/CongestionIndex';
 
 class Traffic extends React.Component {
     constructor() {
@@ -128,14 +130,23 @@ class Playback extends React.Component {
     constructor() {
         super();
     }
+    play() {
+        let markerPlayBack = CI.playback(111);
+        markerPlayBack.start();
+    }
+    handleChange(date) {
+        
+    }
     render() {
         return (
             <div className={trafficStyles.panel_body}>
                 <span className={trafficStyles.time_lbl}>
-                <input type="button" id="btnPlay" value="play" onclick="markerPlayBack.start()" />
+                    <input type="button" id="btnPlay" value="play" onClick={() => this.play() } />
                 </span>
                 <span className={trafficStyles.date} id="dateNow">2015/12/2</span>
-                <span className={trafficStyles.date} id="timeNow">14: 20</span>
+                <span className={trafficStyles.date} id="timeNow">
+                    <Slider defaultValue={30} onChange={value => this.handleChange(value) } />
+                </span>
             </div>
         )
     }
