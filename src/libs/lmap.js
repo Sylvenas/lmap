@@ -188,6 +188,7 @@ export const geoTime = (geoJSON, options) => {
         },
 
         _clearLayer: function () {
+            this._stopAnimation();
             this._map.removeLayer(this._featureGroup);
         }
     });

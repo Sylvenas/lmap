@@ -32,7 +32,7 @@ class Rbox extends React.Component {
                     return React.createElement(SearchResults, item);
                 });
             case 'cross':
-                 CI.addCrossGracLayer(this.props.cra.cralist.geoDate);
+                CI.addCrossGracLayer(this.props.cra.cralist.geoDate);
                 return <CraResults tabelData={this.props.cra.cralist.tabelData} lv1={this.props.cra.cralist.lv1} lv2={this.props.cra.cralist.lv2} lv3={this.props.cra.cralist.lv3} lv4={this.props.cra.cralist.lv4} lv5={this.props.cra.cralist.lv5}/>;
             case 'road':
                 return <h1>{this.props.search.rboxKey}</h1>
@@ -43,6 +43,7 @@ class Rbox extends React.Component {
         }
     }
     crsBtnClick(layerName) {
+        //lmsg.send('hi', { message: layerName });
         switch (layerName) {
             case 'cross':
                 this.setState({
@@ -101,6 +102,19 @@ class Rbox extends React.Component {
                 </div>
             </div>
         )
+    }
+    componentDidMount() {
+        let self = this;
+        lmsg.subscribe('hi', getMes);
+        function getMes(data) {
+            if (data.message == "cross") {
+                self.refs.cross.click();
+            } else if (data.message == "road") {
+                self.refs.road.click();
+            }else{
+                self.refs.area.click();
+            }
+        }
     }
 }
 

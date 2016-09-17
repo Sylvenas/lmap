@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+    <h1 id="QQ" style="color:red">get mess</h1>
+    <script src="../assets/libs/lmsg.min.js"></script>
+    <script>
+        var $ = function (sel) { return document.querySelector(sel); }
+        lmsg.subscribe('hi', getMes);
+        function getMes(data) {
+            $("#QQ").innerHTML = data.message;
+        }
+    </script>
+</body>
+</html>

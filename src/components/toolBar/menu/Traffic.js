@@ -1,6 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Slider } from 'antd';
+
+import Slider from 'material-ui/Slider';
+import DatePicker from 'material-ui/DatePicker';
+import AppBar from 'material-ui/AppBar';
+import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import RaisedButton from 'material-ui/RaisedButton';
+
+
 import styles from '../_toolBar.css';
 import trafficStyles from './_traffic.css';
 import * as CI from '../../../scripts/CongestionIndex';
@@ -134,10 +142,13 @@ class Playback extends React.Component {
         let markerPlayBack = CI.playback(111);
         markerPlayBack.start();
     }
-    handleChange(date) {
-        
+    getChildContext() {
+        return { muiTheme: getMuiTheme(baseTheme) };
     }
     render() {
+        const style = {
+            margin: 12,
+        };
         return (
             <div className={trafficStyles.panel_body}>
                 <span className={trafficStyles.time_lbl}>
@@ -145,11 +156,17 @@ class Playback extends React.Component {
                 </span>
                 <span className={trafficStyles.date} id="dateNow">2015/12/2</span>
                 <span className={trafficStyles.date} id="timeNow">
-                    <Slider defaultValue={30} onChange={value => this.handleChange(value) } />
+                    <Slider style={{ height: 100 }} axis="y" defaultValue={0.5} />
+                    <RaisedButton label="Default" style={style} />
+                    <DatePicker hintText="Portrait Inline Dialog" container="inline" />
                 </span>
             </div>
         )
     }
 }
+
+Playback.childContextTypes = {
+    muiTheme: React.PropTypes.object.isRequired,
+};
 
 export default Traffic
