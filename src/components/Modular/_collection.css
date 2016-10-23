@@ -1,0 +1,57 @@
+.modular{
+    z-index: 2000;
+    position: absolute;
+    right: 0px;
+    top: 200px;
+    opacity: .8;
+    box-shadow: -2px 2px 6px rgba(0,0,0,.3);
+    -webkit-user-select: none;
+    background-color:white;
+}
+.modularPanCtrl {
+    z-index: -10;
+    position: absolute;
+    cursor: pointer;
+    overflow: hidden;
+    text-align: center;
+    background: url(../../images/panctrl.png) center center no-repeat;
+    left: -83px;
+    top: 250px;
+    -webkit-transform:rotate(90deg); 
+}
+.ctrlShow{
+    composes:modularPanCtrl;
+    width: 150px;
+    height: 24px;
+}
+.ctrlNone{
+    composes:modularPanCtrl;
+    width: 148px;
+    height: 18px;
+}
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transform: translate(0,0);
+    padding: -1px 0px;
+    opacity: 1;
+}
+.faChevronL:before {
+    content: "\f077";
+}
+.faChevronR:before {
+    content: "\f078";
+}
+.panel {
+    height: 550px;
+    width: 345px;
+    transition:width 0.5s;
+}
+.panel_none {
+    height: 550px;
+    width: 0px;
+    transition:width 0.5s;
+}

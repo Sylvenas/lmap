@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import * as action from '../../actions/searchAction';
+import * as action from '../../actions/craAction';
 import styles from './_rbox.css';
 import * as CI from '../../scripts/CongestionIndex';
 import SearchResults from './menu/SearchResults';
@@ -24,7 +24,8 @@ class Rbox extends React.Component {
         })
     }
     showResults() {
-        let rboxkey = this.props.search.rboxKey;
+        let rboxkey = this.props.cra.rboxkey;
+        console.log(this.props.cra);
         switch (rboxkey) {
             case 'search':
                 return this.props.search.list.map(item => {
@@ -35,9 +36,9 @@ class Rbox extends React.Component {
                 CI.addCrossGracLayer(this.props.cra.cralist.geoDate);
                 return <CraResults tabelData={this.props.cra.cralist.tabelData} lv1={this.props.cra.cralist.lv1} lv2={this.props.cra.cralist.lv2} lv3={this.props.cra.cralist.lv3} lv4={this.props.cra.cralist.lv4} lv5={this.props.cra.cralist.lv5}/>;
             case 'road':
-                return <h1>{this.props.search.rboxKey}</h1>
+                return <h1>{this.props.cra.rboxkey}</h1>
             case 'area':
-                return <h1>{this.props.search.rboxKey}</h1>
+                return <h1>{this.props.cra.rboxkey}</h1>
             default:
                 break;
         }
@@ -74,8 +75,6 @@ class Rbox extends React.Component {
     render() {
         let {page, totalPage, dispatch} = this.props;
         let searchAvtive = (this.props.searchValue === "");
-
-        //console.log('searchAvtive:' + searchAvtive);
         return (
             <div id="rbox" className={styles.rbox}>
                 <div id="navBody" className={this.state.contraction ? styles.navBody_none : styles.navBody_display}>
