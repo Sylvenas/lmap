@@ -21,10 +21,3 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 )
-
-// ReactDOM.render(
-//     <Provider store={store}>
-//         <CongestionIndex/>
-//     </Provider>,
-//     document.getElementById('root')
-// )

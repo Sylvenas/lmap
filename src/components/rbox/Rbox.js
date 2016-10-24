@@ -92,7 +92,6 @@ class Rbox extends React.Component {
                         </ul>
                         <div id='resultPanel' className={styles.resultPanel}>
                             {this.showResults() }
-                            <Pager page={page} totalPage={totalPage} onChangePage={i => this.props.fetchList(null, i) } />
                         </div>
                     </section>
                 </div>
@@ -103,6 +102,7 @@ class Rbox extends React.Component {
         )
     }
     componentDidMount() {
+        // <Pager page={page} totalPage={totalPage} onChangePage={i => this.props.fetchList(null, i) } />
         let self = this;
         lmsg.subscribe('hi', getMes);
         function getMes(data) {
@@ -115,6 +115,11 @@ class Rbox extends React.Component {
             }
         }
     }
+}
+
+Rbox.defaultProps={
+    page:1,
+    totalPage:10
 }
 
 function mapStateToProps(state) {

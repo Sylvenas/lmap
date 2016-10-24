@@ -24,7 +24,7 @@ class Map extends React.Component {
             zoomControl: false
         });
 
-        L.esri.tiledMapLayer({
+        LE.tiledMapLayer({
             id: 'streetLayer',
             url: "http://cache1.arcgisonline.cn/arcgis/rest/services/ChinaOnlineStreetColor/MapServer"
         }).addTo(map);

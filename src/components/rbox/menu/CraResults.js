@@ -45,7 +45,7 @@ class CraResults extends React.Component {
                     </div>
                     <ul id='table_rows' className={styles.table_rows}>
                         {this.props.tabelData.map(item => {
-                            return <TableRow item={item}/>
+                            return <TableRow key={item} item={item}/>
                         }) }
                     </ul>
                 </div>

@@ -1,16 +1,17 @@
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var webpack = require('webpack');
+var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
+
+
 module.exports = {
 	entry: {
-		main: './src/main.js'
+		main: './src/main.js',
+		vendor: ['react', 'react-dom', 'react-router', 'leaflet', 'esri-leaflet']
 	},
 	output: {
 		path: './',
 		filename: 'assets/bundle.js'
-	},
-	externals: {
-		'react': 'React',
-		'react-dom': 'ReactDOM',
-		'leaflet':'L',
-		'esri-leaflet':'L.esri'
 	},
 	devServer: {
 		inline: true,
@@ -28,12 +29,21 @@ module.exports = {
 			},
 			{
 				test: /\.css$/,
-				loader: 'style-loader!css-loader?modules'
+				loader: ExtractTextPlugin.extract('style', 'css?modules')
 			},
 			{
 				test: /\.(png|jpg)$/,
 				loader: 'url-loader?limit=8192&name=images/[name].[ext]'
 			}
 		]
-	}
+	},
+	plugins: [
+		new ExtractTextPlugin('assets/style.css'),
+		new webpack.optimize.CommonsChunkPlugin('vendor', 'assets/vendor.js'),
+		new HtmlWebpackPlugin({
+			template: 'tmpl.html',
+			title: 'lmap',
+			filename: 'assets/lmap.html'
+		})
+	]
 }

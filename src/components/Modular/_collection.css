@@ -26,8 +26,8 @@
 }
 .ctrlNone{
     composes:modularPanCtrl;
-    width: 148px;
-    height: 18px;
+    width: 146px;
+    height: 20px;
 }
 .fa {
     display: inline-block;
@@ -54,4 +54,17 @@
     height: 550px;
     width: 0px;
     transition:width 0.5s;
+}
+.resultPanel{
+    margin-left: 25px;
+    padding: 10px 15px 30px;
+    box-sizing: border-box;
+    width: 100%;
+}
+.rboxPanels{
+    overflow: hidden;
+    background: #fff;
+    position: relative;
+    width: 100%;
+    height: 100%;
 }

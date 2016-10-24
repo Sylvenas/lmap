@@ -5,6 +5,7 @@ html, body, #map {
             padding: 0;
             background-color: slategrey;
             position: absolute;
+            overflow: hidden;
 }
 .leaflet-lmap-icon {
             border-radius: 100%;

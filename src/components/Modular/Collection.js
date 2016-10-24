@@ -15,10 +15,14 @@ class Collection extends React.Component {
     }
     render() {
         return (
-            <div className={styles.modular}>
+            <div id='modularCol' className={styles.modular}>
                 <div id="panel" className={this.state.panelDisplay ? styles.panel : styles.panel_none}>
-                    <h1>指数</h1>
-                    <h1>信号</h1>
+                    <section id="rboxPanels" className={styles.rboxPanels}>
+                        <div id='resultPanel' className={styles.resultPanel}>
+                            <h1>指数</h1>
+                            <h1>信号</h1>
+                        </div>
+                    </section>
                 </div>
                 <div id="contractionBtn" className={this.state.panelDisplay ? styles.ctrlShow : styles.ctrlNone} onClick={() => this.contractionBtnClick()}>
                     <i className={styles.fa + ' ' + (this.state.panelDisplay ? styles.faChevronL : styles.faChevronR)} id="contractionInsideBtnUp"></i>

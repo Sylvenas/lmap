@@ -1,14 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import Slider from 'material-ui/Slider';
-import DatePicker from 'material-ui/DatePicker';
-import AppBar from 'material-ui/AppBar';
-import baseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import RaisedButton from 'material-ui/RaisedButton';
-
-
 import styles from '../_toolBar.css';
 import trafficStyles from './_traffic.css';
 import * as CI from '../../../scripts/CongestionIndex';
@@ -156,9 +147,6 @@ class Playback extends React.Component {
                 </span>
                 <span className={trafficStyles.date} id="dateNow">2015/12/2</span>
                 <span className={trafficStyles.date} id="timeNow">
-                    <Slider style={{ height: 100 }} axis="y" defaultValue={0.5} />
-                    <RaisedButton label="Default" style={style} />
-                    <DatePicker hintText="Portrait Inline Dialog" container="inline" />
                 </span>
             </div>
         )
