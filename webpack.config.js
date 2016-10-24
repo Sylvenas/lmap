@@ -44,6 +44,14 @@ module.exports = {
 			template: 'tmpl.html',
 			title: 'lmap',
 			filename: 'assets/lmap.html'
+		}),
+		new uglifyJsPlugin({
+			output: {
+				comments: false
+			},
+			compress: {
+				warnings: false
+			}
 		})
 	]
 }
