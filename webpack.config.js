@@ -3,15 +3,15 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var webpack = require('webpack');
 var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
-
 module.exports = {
 	entry: {
 		main: './src/main.js',
 		vendor: ['react', 'react-dom', 'react-router', 'leaflet', 'esri-leaflet']
 	},
 	output: {
-		path: './',
-		filename: 'assets/bundle.js'
+		path: './assets',
+		filename: 'bundle.js',
+		chunkFilename: '[name].js'
 	},
 	devServer: {
 		inline: true,
@@ -38,20 +38,30 @@ module.exports = {
 		]
 	},
 	plugins: [
-		new ExtractTextPlugin('assets/style.css'),
-		new webpack.optimize.CommonsChunkPlugin('vendor', 'assets/vendor.js'),
-		new HtmlWebpackPlugin({
-			template: 'tmpl.html',
-			title: 'lmap',
-			filename: 'assets/lmap.html'
-		}),
-		new uglifyJsPlugin({
-			output: {
-				comments: false
-			},
-			compress: {
-				warnings: false
-			}
-		})
+		//独立打包样式
+		new ExtractTextPlugin('style.css'),
+		//打包公共类库
+		new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js')
+		////使用build版本的react
+		// new webpack.DefinePlugin({
+		// 	'process.env': {
+		// 		'NODE_ENV': JSON.stringify('production')
+		// 	}
+		// }),
+		// //打包html
+		// new HtmlWebpackPlugin({
+		// 	template: 'tmpl.html',
+		// 	title: 'lmap',
+		// 	filename: 'lmap.html'
+		// }),
+		// //压缩代码
+		// new uglifyJsPlugin({
+		// 	output: {
+		// 		comments: false
+		// 	},
+		// 	compress: {
+		// 		warnings: false
+		// 	}
+		// })
 	]
 }

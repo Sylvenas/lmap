@@ -5,6 +5,7 @@ class Collection extends React.Component {
     constructor() {
         super();
         this.state = {
+            trafficIndex: null,
             panelDisplay: false
         }
     }
@@ -13,14 +14,29 @@ class Collection extends React.Component {
             panelDisplay: !this.state.panelDisplay
         })
     }
+    showIndex() {
+        let self = this;
+        require.ensure([],
+            (require) => {
+                var Index = require('./TrafficIndex/TrafficIndex').default;
+                self.setState({
+                    trafficIndex: <Index />
+                });
+            },
+            'TrafficIndex')
+    }
     render() {
+        let Index = this.Index;
         return (
             <div id='modularCol' className={styles.modular}>
                 <div id="panel" className={this.state.panelDisplay ? styles.panel : styles.panel_none}>
                     <section id="rboxPanels" className={styles.rboxPanels}>
                         <div id='resultPanel' className={styles.resultPanel}>
-                            <h1>指数</h1>
+                            <h1 onClick={() => this.showIndex()}>指数</h1>
                             <h1>信号</h1>
+                        </div>
+                        <div className={styles.resultPanel}>
+                            {this.state.trafficIndex}
                         </div>
                     </section>
                 </div>
