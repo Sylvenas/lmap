@@ -4,7 +4,7 @@
   "description": "lmap",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --inline --content-base . --history-api-fallback"
+    "start": "webpack-dev-server --content-base . --history-api-fallback"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "html-webpack-plugin": "^2.24.0",
     "is-svg": "^2.0.1",
     "leaflet": "^1.0.0-rc.1",
+    "open-browser-webpack-plugin": "0.0.2",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
     "react-redux": "^4.4.5",

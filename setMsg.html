@@ -8,11 +8,16 @@
 <body>
     <input id="txt" type="text" />
     <h1 id="WW">set mess</h1>
+    <h1 id="un">un</h1>
     <script src="../assets/libs/lmsg.min.js"></script>
     <script>
         document.querySelector('#WW').addEventListener('click', onSendClicked);
         function onSendClicked() {
             lmsg.send('hi', { message: document.querySelector('#txt').value });
+        }
+        document.querySelector('#un').addEventListener('click', onunClicked);
+        function onunClicked() {
+            lmsg.unsubscribe('hi');
         }
     </script>
 </body>

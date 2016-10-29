@@ -25,7 +25,7 @@ class Rbox extends React.Component {
     }
     showResults() {
         let rboxkey = this.props.cra.rboxkey;
-        console.log(this.props.cra);
+        //console.log(this.props.cra);
         switch (rboxkey) {
             case 'search':
                 return this.props.search.list.map(item => {

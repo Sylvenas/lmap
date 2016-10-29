@@ -25,6 +25,17 @@ class Collection extends React.Component {
             },
             'TrafficIndex')
     }
+    showSignal() {
+        let self = this;
+        require.ensure([],
+            (require) => {
+                var Signal = require('./Signal/Signal').default;
+                self.setState({
+                    trafficIndex: <Signal />
+                });
+            },
+            'Signal')
+    }
     render() {
         let Index = this.Index;
         return (
@@ -33,7 +44,7 @@ class Collection extends React.Component {
                     <section id="rboxPanels" className={styles.rboxPanels}>
                         <div id='resultPanel' className={styles.resultPanel}>
                             <h1 onClick={() => this.showIndex()}>指数</h1>
-                            <h1>信号</h1>
+                            <h1 onClick={() => this.showSignal()}>信号</h1>
                         </div>
                         <div className={styles.resultPanel}>
                             {this.state.trafficIndex}

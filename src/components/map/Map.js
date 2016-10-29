@@ -6,33 +6,26 @@ class Map extends React.Component {
     constructor() {
         super();
     }
-    componentWillReceiveProps(nextProps) {
-        // var searchVal = this.props.searchVal;
-        // console.log(nextProps.searchVal);
-        // console.log(map)
-        // LE.featureLayer({
-        //     url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/Heritage_Trees_Portland/FeatureServer/0'
-        // }).addTo(map)
-    }
     render() {
         return (<div id="map"></div>)
     }
     componentDidMount() {
         var map = L.map("map", {
             center: [28.41, 121.355],
-            zoom: 13,
+            zoom: 5,
             zoomControl: false
         });
 
         LE.tiledMapLayer({
             id: 'streetLayer',
-            url: "http://cache1.arcgisonline.cn/arcgis/rest/services/ChinaOnlineStreetColor/MapServer"
+            url: "http://map.geoq.cn/ArcGIS/rest/services/ChinaOnlineStreetPurplishBlue/MapServer"
         }).addTo(map);
+
+        
 
         // var basemapLayer = new L.TileLayer('https://b.tiles.mapbox.com/v4/mapbox.run-bike-hike/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpbTgzcHQxMzAxMHp0eWx4bWQ1ZHN2NGcifQ.WVwjmljKYqKciEZIC3NfLA',{
         //     id: 'streetLayer'
         // }).addTo(map);
-
 
         L.control.scale().addTo(map);
         var zoomControl = L.control.zoom({
